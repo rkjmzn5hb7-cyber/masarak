@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق الشحنات الذكي</title>
+    <style>
+        :root {
+            --primary-orange: #f97316;
+            --light-orange: #ffedd5;
+            --accent-orange: #ea580c;
+            --white: #ffffff;
+            --text-dark: #1f2937;
+            --gray-bg: #fff7ed;
+        }
+
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: var(--gray-bg);
+            margin: 0;
+            padding: 20px;
+            direction: rtl;
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: var(--white);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(249, 115, 22, 0.15);
+            border: 2px solid var(--light-orange);
+        }
+
+        h2 {
+            color: var(--primary-orange);
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .step-box { display: none; }
+        .active { display: block; }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #374151;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            border: 2px solid #fed7aa;
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: #fffaf5;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-orange);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-orange);
+            color: var(--white);
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: var(--accent-orange);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .icon-btn {
+            background-color: var(--white);
+            color: var(--primary-orange);
+            border: 2px solid var(--primary-orange);
+            margin-top: 15px;
+        }
+        
+        .icon-btn:hover {
+            background-color: var(--light-orange);
+            color: var(--accent-orange);
+        }
+
+        .courier-card {
+            border: 2px solid #fed7aa;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            background: #fffaf5;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .courier-card:hover {
+            border-color: var(--primary-orange);
+            background: var(--light-orange);
+        }
+
+        .timeline {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        .timeline li {
+            padding: 12px 0;
+            border-right: 3px solid var(--primary-orange);
+            margin-right: 10px;
+            padding-right: 18px;
+            position: relative;
+        }
+
+        .badge {
+            background-color: var(--primary-orange);
+            color: var(--white);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🚚 تطبيق الشحنات الذكي</h2>
+
+    <!-- الخطوة 1 و 2: التسجيل وسؤال الذكاء الاصطناعي -->
+    <div id="step1" class="step-box active">
+        <div class="badge">الخطوة 1 & 2</div>
+        <div class="form-group">
+            <label>📍 مدينة الاستلام:</label>
+            <input type="text" id="pickupCity" value="الرياض">
+        </div>
+        <div class="form-group">
+            <label>🏁 مدينة التسليم:</label>
+            <input type="text" id="deliveryCity" value="جدة">
+        </div>
+        <div class="form-group">
+            <label>📦 بيانات الشحنة (الوصف والوزن):</label>
+            <input type="text" id="weight" value="صندوق متوسط - 5 كجم">
+        </div>
+        <div class="form-group">
+            <label>🤖 الذكاء الاصطناعي: متى تتوقع أن تكون شحنتك جاهزة؟</label>
+            <select id="readinessTime">
+                <option value="جاهزة الآن">جاهزة الآن</option>
+                <option value="خلال 12-18 ساعة">خلال 12 - 18 ساعة</option>
+                <option value="خلال 24-48 ساعة">خلال 24 - 48 ساعة</option>
+                <option value="خلال 3 أيام أو أكثر">خلال 3 أيام أو أكثر</option>
+            </select>
+        </div>
+        <button onclick="registerShipment()">التالي (جدولة الشحنة) ⬅</button>
+    </div>
+
+    <!-- الخطوة 3: الجدولة وعرض شركات الشحن -->
+    <div id="step2" class="step-box">
+        <div class="badge">الخطوة 3</div>
+        <h3>جدولة الشحنة وشركات الشحن المتاحة</h3>
+        <p id="shipmentInfoSummary" style="background: #fffaf5; padding: 12px; border-radius: 8px; border: 1px solid #fed7aa;"></p>
+        <div id="couriersList"></div>
+    </div>
+
+    <!-- الخطوة 4: تتبع الرحلة -->
+    <div id="step3" class="step-box">
+        <div class="badge">الخطوة 4</div>
+        <h3>تتبع رحلة الشحنة مباشر</h3>
+        <div id="trackingDetails" style="background: #fffaf5; padding: 15px; border-radius: 8px; border: 1px solid #fed7aa; margin-bottom: 15px;"></div>
+        <button class="icon-btn" onclick="resetApp()">🔄 شحنة جديدة</button>
+    </div>
+</div>
+
+<script>
+    let currentShipment = null;
+
+    function registerShipment() {
+        const pickupCity = document.getElementById('pickupCity').value;
+        const deliveryCity = document.getElementById('deliveryCity').value;
+        const weight = document.getElementById('weight').value;
+        const readinessTime = document.getElementById('readinessTime').value;
+
+        currentShipment = {
+            id: 'SHP-' + Math.floor(100000 + Math.random() * 900000),
+            pickupCity,
+            deliveryCity,
+            weight,
+            readinessTime
+        };
+
+        loadSchedule();
+    }
+
+    function loadSchedule() {
+        document.getElementById('shipmentInfoSummary').innerHTML = `
+            رقم الشحنة: <b>${currentShipment.id}</b><br>
+            المسار: من <b>${currentShipment.pickupCity}</b> إلى <b>${currentShipment.deliveryCity}</b><br>
+            جاهزية الشحنة: <span style="color: #ea580c; font-weight: bold;">${currentShipment.readinessTime}</span>
+        `;
+
+        // حساب وقت الوصول بناءً على الجاهزية
+        let durationText = "خلال يوم عمل واحد";
+        if (currentShipment.readinessTime.includes('12-18')) durationText = "خلال 24 ساعة من الجاهزية";
+        if (currentShipment.readinessTime.includes('24-48')) durationText = "خلال 48 ساعة من الجاهزية";
+        if (currentShipment.readinessTime.includes('3 أيام')) durationText = "خلال 4 إلى 5 أيام";
+
+        const couriers = [
+            { name: 'شركة السريع (FastEx)', cost: '45 ريال', duration: durationText, rating: '4.8' },
+            { name: 'درة اللوجستية', cost: '30 ريال', duration: durationText, rating: '4.5' },
+            { name: 'الناقل الاقتصادي', cost: '20 ريال', duration: '3 - 4 أيام عمل', rating: '4.2' }
+        ];
+
+        let couriersHtml = '<h4>اختر شركة الشحن المناسبة:</h4>';
+        couriers.forEach((c, index) => {
+            couriersHtml += `
+                <div class="courier-card" onclick="goToTracking('${c.name}', '${c.duration}')">
+                    <b>🏢 ${c.name}</b><br>
+                    💰 التكلفة: ${c.cost} | ⏱️ المدة: ${c.duration} | ⭐ التقييم: ${c.rating}
+                </div>
+            `;
+        });
+        document.getElementById('couriersList').innerHTML = couriersHtml;
+
+        document.getElementById('step1').classList.remove('active');
+        document.getElementById('step2').classList.add('active');
+    }
+
+    function goToTracking(courierName, deliveryDuration) {
+        document.getElementById('trackingDetails').innerHTML = `
+            رقم الشحنة: <b>${currentShipment.id}</b><br>
+            الناقل المختار: <b>${courierName}</b><br>
+            الحالة: <span style="color: #16a34a; font-weight: bold;">🟢 تم الاستلام وبدء الرحلة</span><br>
+            وقت الوصول المتوقع: <b>${deliveryDuration}</b>
+            <ul class="timeline">
+                <li><b>تم تأكيد حجز الشحنة</b> (الانطلاق من ${currentShipment.pickupCity})</li>
+                <li><b>دخلت مرحلة الفرز والمحطات الرئيسية</b> (جارٍ التجهيز)</li>
+                <li><b>في الطريق إلى مدينة الوجهة</b> (${currentShipment.deliveryCity})</li>
+                <li><b>التسليم للعميل</b> (قريباً)</li>
+            </ul>
+        `;
+
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('step3').classList.add('active');
+    }
+
+    function resetApp() {
+        document.getElementById('step3').classList.remove('active');
+        document.getElementById('step1').classList.add('active');
+    }
+</script>
+
+</body>
+</html>

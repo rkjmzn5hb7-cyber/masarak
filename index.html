@@ -3,44 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق الشحنات الذكي</title>
+    <title>منصة مسارك الذكية للشحن</title>
     <style>
         :root {
             --primary-orange: #f97316;
             --light-orange: #ffedd5;
+            --dark-orange: #c2410c;
             --accent-orange: #ea580c;
             --white: #ffffff;
-            --text-dark: #1f2937;
-            --gray-bg: #fff7ed;
+            --text-dark: #292524;
+            --bg-gradient: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
         }
 
         body {
             font-family: Tahoma, sans-serif;
-            background-color: var(--gray-bg);
+            background: var(--bg-gradient);
             margin: 0;
             padding: 20px;
             direction: rtl;
             color: var(--text-dark);
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 600px;
+            max-width: 650px;
             margin: auto;
             background: var(--white);
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(249, 115, 22, 0.15);
-            border: 2px solid var(--light-orange);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(249, 115, 22, 0.2);
+            border: 2px solid #fed7aa;
         }
 
         h2 {
-            color: var(--primary-orange);
+            color: var(--dark-orange);
             text-align: center;
+            margin-bottom: 5px;
+            font-size: 26px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #78716c;
+            font-size: 14px;
             margin-bottom: 25px;
         }
 
         .step-box { display: none; }
-        .active { display: block; }
+        .active { display: block; animation: fadeIn 0.4s ease-in-out; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         .form-group {
             margin-bottom: 20px;
@@ -50,68 +65,97 @@
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
-            color: #374151;
+            color: var(--dark-orange);
         }
 
-        input, select {
+        input, select, textarea {
             width: 100%;
             padding: 12px;
             box-sizing: border-box;
             border: 2px solid #fed7aa;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 14px;
             background-color: #fffaf5;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
         }
 
-        input:focus, select:focus {
+        input:focus, select:focus, textarea:focus {
             outline: none;
             border-color: var(--primary-orange);
+            background-color: var(--white);
+            box-shadow: 0 0 8px rgba(249, 115, 22, 0.2);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
 
         button {
             width: 100%;
-            padding: 14px;
-            background-color: var(--primary-orange);
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--accent-orange));
             color: var(--white);
             border: none;
             font-size: 16px;
             font-weight: bold;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
-            transition: background-color 0.3s, transform 0.1s;
+            box-shadow: 0 6px 15px rgba(249, 115, 22, 0.4);
+            transition: all 0.2s;
+            margin-top: 10px;
         }
 
         button:hover {
-            background-color: var(--accent-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(249, 115, 22, 0.6);
         }
 
-        button:active {
-            transform: scale(0.98);
-        }
-
-        .icon-btn {
-            background-color: var(--white);
+        .secondary-btn {
+            background: var(--white);
             color: var(--primary-orange);
             border: 2px solid var(--primary-orange);
-            margin-top: 15px;
+            box-shadow: none;
         }
-        
-        .icon-btn:hover {
-            background-color: var(--light-orange);
-            color: var(--accent-orange);
+
+        .secondary-btn:hover {
+            background: var(--light-orange);
+            color: var(--dark-orange);
+        }
+
+        .service-type-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .service-card {
+            border: 2px solid #fed7aa;
+            padding: 12px;
+            border-radius: 12px;
+            background: #fffaf5;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: bold;
+            font-size: 13px;
+            color: #444;
+        }
+
+        .service-card:hover, .service-card.selected {
+            border-color: var(--primary-orange);
+            background: var(--light-orange);
+            color: var(--dark-orange);
+            box-shadow: 0 4px 10px rgba(249,115,22,0.15);
         }
 
         .courier-card {
             border: 2px solid #fed7aa;
             padding: 15px;
             margin-bottom: 12px;
-            border-radius: 10px;
+            border-radius: 12px;
             background: #fffaf5;
             cursor: pointer;
             transition: all 0.2s;
@@ -120,12 +164,13 @@
         .courier-card:hover {
             border-color: var(--primary-orange);
             background: var(--light-orange);
+            transform: scale(1.01);
         }
 
         .timeline {
             list-style: none;
             padding: 0;
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
         .timeline li {
@@ -134,82 +179,146 @@
             margin-right: 10px;
             padding-right: 18px;
             position: relative;
+            font-size: 14px;
         }
 
         .badge {
-            background-color: var(--primary-orange);
-            color: var(--white);
-            padding: 4px 10px;
+            background-color: var(--light-orange);
+            color: var(--dark-orange);
+            padding: 6px 12px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 13px;
+            font-weight: bold;
             display: inline-block;
-            margin-bottom: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #fed7aa;
+        }
+
+        .summary-box {
+            background: #fffaf5;
+            padding: 15px;
+            border-radius: 12px;
+            border: 2px solid #fed7aa;
+            margin-bottom: 15px;
+            line-height: 1.8;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>🚚 تطبيق الشحنات الذكي</h2>
+    <h2>🚚 مسارك</h2>
+    <div class="subtitle">منصة الشحن والخدمات اللوجستية الذكية</div>
 
-    <!-- الخطوة 1 و 2: التسجيل وسؤال الذكاء الاصطناعي -->
+    <!-- الخطوة 1: تسجيل الشحنة والخدمة -->
     <div id="step1" class="step-box active">
-        <div class="badge">الخطوة 1 & 2</div>
+        <div class="badge">الخطوة 1: تفاصيل الشحنة والمسار</div>
+        
         <div class="form-group">
-            <label>📍 مدينة الاستلام:</label>
-            <input type="text" id="pickupCity" value="الرياض">
+            <label>🧭 اختر نمط الخدمة اللوجستية:</label>
+            <div class="service-type-grid">
+                <div class="service-card selected" onclick="selectServiceType(this, 'من الباب للباب')">🚪 من الباب للباب</div>
+                <div class="service-card" onclick="selectServiceType(this, 'من الباب للفرع')">🏢 من الباب للفرع</div>
+                <div class="service-card" onclick="selectServiceType(this, 'من الفرع للباب')">📦 من الفرع للباب</div>
+                <div class="service-card" onclick="selectServiceType(this, 'من الفرع للفرع')">🏬 من الفرع للفرع</div>
+            </div>
         </div>
+
+        <div class="grid-2">
+            <div class="form-group">
+                <label>📍 مدينة الاستلام:</label>
+                <select id="pickupCity">
+                    <option value="الرياض">الرياض</option>
+                    <option value="جدة">جدة</option>
+                    <option value="مكة المكرمة">مكة المكرمة</option>
+                    <option value="الدمام">الدمام</option>
+                    <option value="المدينة المنورة">المدينة المنورة</option>
+                    <option value="أبها">أبها</option>
+                    <option value="تبوك">تبوك</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>🏁 مدينة التسليم:</label>
+                <select id="deliveryCity">
+                    <option value="جدة">جدة</option>
+                    <option value="الرياض">الرياض</option>
+                    <option value="مكة المكرمة">مكة المكرمة</option>
+                    <option value="الدمام">الدمام</option>
+                    <option value="المدينة المنورة">المدينة المنورة</option>
+                    <option value="أبها">أبها</option>
+                    <option value="تبوك">تبوك</option>
+                </select>
+            </div>
+        </div>
+
         <div class="form-group">
-            <label>🏁 مدينة التسليم:</label>
-            <input type="text" id="deliveryCity" value="جدة">
+            <label>⚖️ وزن الشحنة وحجمها:</label>
+            <select id="weightOption">
+                <option value="ظرف مستندات (أقل من 1 كجم)">📄 ظرف مستندات (أقل من 1 كجم)</option>
+                <option value="صندوق صغير (1 - 5 كجم)">📦 صندوق صغير (1 - 5 كجم)</option>
+                <option value="صندوق متوسط (5 - 15 كجم)">📦 صندوق متوسط (5 - 15 كجم)</option>
+                <option value="شحنة ثقيلة (أكثر من 15 كجم)">🏋️‍♂️ شحنة ثقيلة (أكثر من 15 كجم)</option>
+            </select>
         </div>
+
         <div class="form-group">
-            <label>📦 بيانات الشحنة (الوصف والوزن):</label>
-            <input type="text" id="weight" value="صندوق متوسط - 5 كجم">
+            <label>✍️ وصف تفصيلي إضافي (كتابة حرة):</label>
+            <textarea id="freeDescription" rows="2" placeholder="اكتب أي ملاحظات أو تفاصيل عن محتوى الشحنة هنا..."></textarea>
         </div>
+
         <div class="form-group">
             <label>🤖 الذكاء الاصطناعي: متى تتوقع أن تكون شحنتك جاهزة؟</label>
             <select id="readinessTime">
-                <option value="جاهزة الآن">جاهزة الآن</option>
-                <option value="خلال 12-18 ساعة">خلال 12 - 18 ساعة</option>
-                <option value="خلال 24-48 ساعة">خلال 24 - 48 ساعة</option>
-                <option value="خلال 3 أيام أو أكثر">خلال 3 أيام أو أكثر</option>
+                <option value="جاهزة الآن">جاهزة الآن ⚡</option>
+                <option value="خلال 12-18 ساعة">خلال 12 - 18 ساعة ⏱️</option>
+                <option value="خلال 24-48 ساعة">خلال 24 - 48 ساعة 📅</option>
+                <option value="خلال 3 أيام أو أكثر">خلال 3 أيام أو أكثر 🗓️</option>
             </select>
         </div>
-        <button onclick="registerShipment()">التالي (جدولة الشحنة) ⬅</button>
+
+        <button onclick="registerShipment()">التالي: حساب الخيارات والجدولة ⬅</button>
     </div>
 
-    <!-- الخطوة 3: الجدولة وعرض شركات الشحن -->
+    <!-- الخطوة 2 و 3: الجدولة وعرض شركات الشحن -->
     <div id="step2" class="step-box">
-        <div class="badge">الخطوة 3</div>
-        <h3>جدولة الشحنة وشركات الشحن المتاحة</h3>
-        <p id="shipmentInfoSummary" style="background: #fffaf5; padding: 12px; border-radius: 8px; border: 1px solid #fed7aa;"></p>
+        <div class="badge">الخطوة 2 & 3: الجدولة والأسعار المقترحة</div>
+        <div class="summary-box" id="shipmentInfoSummary"></div>
         <div id="couriersList"></div>
+        <button class="secondary-btn" onclick="backToStep1()">🔙 تعديل بيانات الشحنة</button>
     </div>
 
     <!-- الخطوة 4: تتبع الرحلة -->
     <div id="step3" class="step-box">
-        <div class="badge">الخطوة 4</div>
-        <h3>تتبع رحلة الشحنة مباشر</h3>
-        <div id="trackingDetails" style="background: #fffaf5; padding: 15px; border-radius: 8px; border: 1px solid #fed7aa; margin-bottom: 15px;"></div>
-        <button class="icon-btn" onclick="resetApp()">🔄 شحنة جديدة</button>
+        <div class="badge">الخطوة 4: تتبع رحلة الشحنة المباشر 🛰️</div>
+        <div class="summary-box" id="trackingDetails"></div>
+        <button class="secondary-btn" onclick="resetApp()">🔄 إنشاء شحنة جديدة</button>
     </div>
 </div>
 
 <script>
     let currentShipment = null;
+    let selectedServiceType = 'من الباب للباب';
+
+    function selectServiceType(element, type) {
+        document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
+        element.classList.add('selected');
+        selectedServiceType = type;
+    }
 
     function registerShipment() {
         const pickupCity = document.getElementById('pickupCity').value;
         const deliveryCity = document.getElementById('deliveryCity').value;
-        const weight = document.getElementById('weight').value;
+        const weightOption = document.getElementById('weightOption').value;
+        const freeDescription = document.getElementById('freeDescription').value || 'لا توجد ملاحظات إضافية';
         const readinessTime = document.getElementById('readinessTime').value;
 
         currentShipment = {
-            id: 'SHP-' + Math.floor(100000 + Math.random() * 900000),
+            id: 'MSK-' + Math.floor(100000 + Math.random() * 900000),
+            serviceType: selectedServiceType,
             pickupCity,
             deliveryCity,
-            weight,
+            weightOption,
+            freeDescription,
             readinessTime
         };
 
@@ -219,28 +328,34 @@
     function loadSchedule() {
         document.getElementById('shipmentInfoSummary').innerHTML = `
             رقم الشحنة: <b>${currentShipment.id}</b><br>
+            طريقة الشحن: <span style="color: #c2410c; font-weight: bold;">${currentShipment.serviceType}</span><br>
             المسار: من <b>${currentShipment.pickupCity}</b> إلى <b>${currentShipment.deliveryCity}</b><br>
-            جاهزية الشحنة: <span style="color: #ea580c; font-weight: bold;">${currentShipment.readinessTime}</span>
+            الوصف: ${currentShipment.freeDescription}<br>
+            جاهزية الشحنة: <b>${currentShipment.readinessTime}</b>
         `;
 
-        // حساب وقت الوصول بناءً على الجاهزية
         let durationText = "خلال يوم عمل واحد";
         if (currentShipment.readinessTime.includes('12-18')) durationText = "خلال 24 ساعة من الجاهزية";
         if (currentShipment.readinessTime.includes('24-48')) durationText = "خلال 48 ساعة من الجاهزية";
         if (currentShipment.readinessTime.includes('3 أيام')) durationText = "خلال 4 إلى 5 أيام";
 
+        // تعديل الأسعار حسب نمط الخدمة
+        let priceMultiplier = 1;
+        if (currentShipment.serviceType === 'من الباب للباب') priceMultiplier = 1.4;
+        if (currentShipment.serviceType === 'من الفرع للفرع') priceMultiplier = 0.8;
+
         const couriers = [
-            { name: 'شركة السريع (FastEx)', cost: '45 ريال', duration: durationText, rating: '4.8' },
-            { name: 'درة اللوجستية', cost: '30 ريال', duration: durationText, rating: '4.5' },
-            { name: 'الناقل الاقتصادي', cost: '20 ريال', duration: '3 - 4 أيام عمل', rating: '4.2' }
+            { name: 'مسارك إكسبريس (S速)', cost: Math.round(45 * priceMultiplier) + ' ريال', duration: durationText, rating: '4.9 ⭐' },
+            { name: 'درة اللوجستية', cost: Math.round(35 * priceMultiplier) + ' ريال', duration: durationText, rating: '4.6 ⭐' },
+            { name: 'الناقل الاقتصادي', cost: Math.round(20 * priceMultiplier) + ' ريال', duration: '3 - 4 أيام عمل', rating: '4.3 ⭐' }
         ];
 
-        let couriersHtml = '<h4>اختر شركة الشحن المناسبة:</h4>';
-        couriers.forEach((c, index) => {
+        let couriersHtml = '<h4 style="color: #c2410c; margin-top: 0;">اختر شركة الشحن المناسبة:</h4>';
+        couriers.forEach(c => {
             couriersHtml += `
-                <div class="courier-card" onclick="goToTracking('${c.name}', '${c.duration}')">
+                <div class="courier-card" onclick="goToTracking('${c.name}', '${c.duration}', '${c.cost}')">
                     <b>🏢 ${c.name}</b><br>
-                    💰 التكلفة: ${c.cost} | ⏱️ المدة: ${c.duration} | ⭐ التقييم: ${c.rating}
+                    💰 التكلفة المقدرة: ${c.cost} | ⏱️ المدة: ${c.duration} | التقييم: ${c.rating}
                 </div>
             `;
         });
@@ -250,22 +365,28 @@
         document.getElementById('step2').classList.add('active');
     }
 
-    function goToTracking(courierName, deliveryDuration) {
+    function goToTracking(courierName, deliveryDuration, cost) {
         document.getElementById('trackingDetails').innerHTML = `
             رقم الشحنة: <b>${currentShipment.id}</b><br>
-            الناقل المختار: <b>${courierName}</b><br>
-            الحالة: <span style="color: #16a34a; font-weight: bold;">🟢 تم الاستلام وبدء الرحلة</span><br>
+            نمط الخدمة: <b>${currentShipment.serviceType}</b><br>
+            الناقل المختار: <b>${courierName}</b> (${cost})<br>
+            الحالة: <span style="color: #16a34a; font-weight: bold;">🟢 مؤكدة وتحت الإجراء</span><br>
             وقت الوصول المتوقع: <b>${deliveryDuration}</b>
             <ul class="timeline">
-                <li><b>تم تأكيد حجز الشحنة</b> (الانطلاق من ${currentShipment.pickupCity})</li>
-                <li><b>دخلت مرحلة الفرز والمحطات الرئيسية</b> (جارٍ التجهيز)</li>
-                <li><b>في الطريق إلى مدينة الوجهة</b> (${currentShipment.deliveryCity})</li>
-                <li><b>التسليم للعميل</b> (قريباً)</li>
+                <li><b>تم استلام وتأكيد طلب الشحنة</b> (${currentShipment.serviceType})</li>
+                <li><b>تم التجهيز في ${currentShipment.pickupCity}</b> وجاهزة للانطلاق</li>
+                <li><b>في الطريق عبر خطوط السير الرئيسية</b> إلى ${currentShipment.deliveryCity}</li>
+                <li><b>المحطة النهائية والتسليم</b> (قريباً)</li>
             </ul>
         `;
 
         document.getElementById('step2').classList.remove('active');
         document.getElementById('step3').classList.add('active');
+    }
+
+    function backToStep1() {
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('step1').classList.add('active');
     }
 
     function resetApp() {

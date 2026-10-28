@@ -14,13 +14,17 @@
             --text-dark: #292524;
         }
 
-        body {
+       body {
             font-family: Tahoma, sans-serif;
             background-color: var(--page-bg);
             margin: 0;
-            padding: 15px;
+            padding: 20px;
             direction: rtl;
             color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;             /* <--- هذا السطر */
+            align-items: center;       /* <--- وهذا السطر */
+            justify-content: center;   /* <--- وهذا السطر */
             box-sizing: border-box;
         }
 

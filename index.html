@@ -21,6 +21,7 @@
   --sec-bg: #f8fafc;
   --line: #d9e2ec;
   --mut: #5b6b7e;
+  --danger: #dc2626;
   --r: 16px;
 }
 
@@ -37,7 +38,7 @@ body {
 }
 
 body > * {
-  max-width: 820px;
+  max-width: 860px;
   margin-inline: auto;
 }
 
@@ -66,7 +67,7 @@ body > * {
   color: #fff;
   border-radius: var(--r);
   padding: 14px 20px;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
   box-shadow: 0 8px 24px rgba(11, 31, 58, 0.12);
 }
 .brand { display: flex; align-items: center; gap: 12px; }
@@ -121,11 +122,27 @@ button { font-family: inherit; cursor: pointer; }
   border: 1.5px solid var(--teal);
 }
 .btn.sec:hover { background: var(--tealbg); }
+.btn.dark {
+  background: var(--ink);
+  color: #fff;
+}
+.btn.dark:hover { background: var(--ink2); }
+.btn.sm {
+  width: auto;
+  padding: 8px 14px;
+  font-size: 13px;
+  border-radius: 10px;
+}
+.btn.danger {
+  background: #fee2e2;
+  color: var(--danger);
+  border: 1px solid #fca5a5;
+}
 
 .nav-btns {
   display: flex;
   gap: 12px;
-  margin-top: 24px;
+  margin-top: 26px;
   padding-top: 18px;
   border-top: 1px solid var(--line);
 }
@@ -163,20 +180,16 @@ button { font-family: inherit; cursor: pointer; }
 h2 { margin: 0 0 6px; font-size: 24px; color: var(--ink); }
 .sub { color: var(--mut); font-size: 13.5px; margin: 0; }
 
-/* شريط التقدم (5 خطوات) */
+/* شريط التقدم (5 خطوات مستقلة) */
 .prog {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 8px;
   margin-bottom: 28px;
 }
-@media (max-width: 640px) {
-  .prog {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .prog .ps:last-child {
-    grid-column: span 2;
-  }
+@media (max-width: 680px) {
+  .prog { grid-template-columns: repeat(2, 1fr); }
+  .prog .ps:last-child { grid-column: span 2; }
 }
 .ps {
   padding: 10px 8px;
@@ -202,7 +215,7 @@ h2 { margin: 0 0 6px; font-size: 24px; color: var(--ink); }
   border-color: var(--ink2);
 }
 
-/* الأقسام الداخلية المريحة */
+/* الأقسام الداخلية */
 .sec-box {
   background: var(--sec-bg);
   border: 1px solid var(--line);
@@ -212,14 +225,21 @@ h2 { margin: 0 0 6px; font-size: 24px; color: var(--ink); }
 }
 .sec-title {
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
   font-size: 15px;
   font-weight: 700;
   color: var(--ink);
-  margin: 0 0 14px;
+  margin: 0 0 16px;
   padding-bottom: 10px;
   border-bottom: 1px dashed var(--line);
+}
+.sec-title-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .save-badge {
@@ -229,9 +249,38 @@ h2 { margin: 0 0 6px; font-size: 24px; color: var(--ink); }
   font-size: 11.5px;
   color: var(--teal-d);
   background: var(--tealbg);
-  padding: 4px 10px;
+  padding: 4px 12px;
   border-radius: 99px;
   font-weight: 600;
+}
+
+/* بطاقة بوليصة ضمن الدفعة (في الخطوة 2) */
+.wb-item-card {
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 16px;
+  position: relative;
+  box-shadow: 0 3px 10px rgba(11, 31, 58, 0.03);
+}
+.wb-item-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.wb-num-badge {
+  background: var(--ink);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 99px;
 }
 
 /* لوحة المسار النشط تحت المدن */
@@ -240,7 +289,7 @@ h2 { margin: 0 0 6px; font-size: 24px; color: var(--ink); }
   color: #fff;
   border-radius: 18px;
   padding: 20px;
-  margin: 18px 0 22px;
+  margin: 18px 0 6px;
   box-shadow: 0 10px 26px rgba(11, 31, 58, 0.16);
 }
 .dh {
@@ -359,7 +408,7 @@ h2 { margin: 0 0 6px; font-size: 24px; color: var(--ink); }
 .nc { font-size: 12px; font-weight: 600; line-height: 1.3; }
 .nh { font-size: 11px; color: #9fc0dc; margin-top: 2px; }
 
-/* الحقول والشبكات */
+/* الحقول */
 .fg { margin-bottom: 16px; }
 .fg:last-child { margin-bottom: 0; }
 label, .lb {
@@ -385,7 +434,7 @@ input:focus, select:focus, textarea:focus {
   box-shadow: 0 0 0 3px rgba(14, 124, 134, 0.15);
 }
 
-.g2 { display: grid; gap: 18px; grid-template-columns: 1fr; }
+.g2 { display: grid; gap: 16px; grid-template-columns: 1fr; }
 @media (min-width: 600px) {
   .g2 { grid-template-columns: 1fr 1fr; }
 }
@@ -438,7 +487,7 @@ input:focus, select:focus, textarea:focus {
 .opt { display: grid; gap: 10px; margin-bottom: 16px; }
 .o3 { grid-template-columns: repeat(3, 1fr); }
 .o2 { grid-template-columns: 1fr 1fr; }
-@media (max-width: 480px) {
+@media (max-width: 500px) {
   .o3, .o2 { grid-template-columns: 1fr; }
 }
 
@@ -478,7 +527,7 @@ input:focus, select:focus, textarea:focus {
 .b2b.show { display: block; animation: in 0.25s; }
 
 .tp {
-  padding: 10px 8px;
+  padding: 12px 8px;
   border: 1.5px solid var(--line);
   border-radius: 10px;
   background: var(--sec-bg);
@@ -488,20 +537,7 @@ input:focus, select:focus, textarea:focus {
   transition: 0.2s;
 }
 .tp.sel { border-color: var(--teal); background: var(--tealbg); font-weight: 700; }
-.tp b { display: block; font-size: 15px; color: var(--teal-d); margin-top: 2px; }
-
-.sum {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  flex-wrap: wrap;
-  background: var(--sec-bg);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 10px 14px;
-  font-size: 13px;
-  margin-top: 10px;
-}
+.tp b { display: block; font-size: 15px; color: var(--teal-d); margin-top: 3px; }
 
 .hint {
   background: var(--tealbg);
@@ -561,20 +597,6 @@ input:focus, select:focus, textarea:focus {
   font-size: 13.5px;
 }
 
-.parties-summary {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin: 12px 0;
-  padding: 12px;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-}
-@media (max-width: 520px) {
-  .parties-summary { grid-template-columns: 1fr; }
-}
-
 .cc {
   border: 1.5px solid var(--line);
   border-radius: 16px;
@@ -621,6 +643,104 @@ input:focus, select:focus, textarea:focus {
   margin: 16px 0;
 }
 .ok { font-size: 13px; color: var(--teal-d); font-weight: 600; margin-top: 8px; }
+
+/* تصميم بوليصة الشحن الرسمية والباركود */
+.waybills-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 20px 0;
+}
+.waybill-ticket {
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 6px 18px rgba(11, 31, 58, 0.08);
+}
+.wb-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 14px;
+}
+.wb-brand {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.wb-route-banner {
+  background: var(--sec-bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+}
+.wb-parties-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+@media (max-width: 560px) {
+  .wb-parties-grid { grid-template-columns: 1fr; }
+}
+.wb-party-box {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  background: #fcfdfe;
+  font-size: 13px;
+}
+.wb-party-box h4 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: var(--teal-d);
+  border-bottom: 1px dashed var(--line);
+  padding-bottom: 4px;
+}
+.wb-notes-row {
+  background: var(--ambbg);
+  border: 1px solid #f5d08a;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12.5px;
+  margin-bottom: 14px;
+}
+.wb-barcode-box {
+  text-align: center;
+  padding: 12px;
+  background: #fff;
+  border: 1px dashed var(--ink2);
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+.wb-barcode-box svg {
+  max-width: 100%;
+  height: 58px;
+}
+.wb-barcode-code {
+  font-family: monospace;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--ink);
+  margin-top: 4px;
+}
 
 /* الخط الزمني */
 .tl {
@@ -718,29 +838,6 @@ input:focus, select:focus, textarea:focus {
   margin-bottom: 8px;
 }
 
-/* نافذة الدخول */
-.mb {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(11, 31, 58, 0.6);
-  backdrop-filter: blur(3px);
-  z-index: 99;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
-.mb.open { display: flex; animation: in 0.2s; }
-.modal {
-  background: #fff;
-  width: 100%;
-  max-width: 460px;
-  border-radius: 20px;
-  padding: 24px;
-}
-.modal h3 { margin: 0 0 6px; text-align: center; }
-.modal p { margin: 0 0 16px; text-align: center; font-size: 13px; color: var(--mut); }
-
 .err-msg {
   display: none;
   background: #fee2e2;
@@ -774,6 +871,8 @@ input:focus, select:focus, textarea:focus {
 <symbol id="route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h7a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h7"/></symbol>
 <symbol id="door" viewBox="0 0 24 24"><path d="M6 21V4h12v17M3 21h18M14 12v.01"/></symbol>
 <symbol id="phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+<symbol id="print" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></symbol>
+<symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
 </defs></svg>
 
 <!-- الشريط العلوي -->
@@ -790,34 +889,9 @@ input:focus, select:focus, textarea:focus {
       <svg class="i"><use href="#globe"/></svg><span id="langTxt"></span>
     </button>
     <span class="pill"><svg class="i" id="uIcon"><use href="#user"/></svg><span id="uPill"></span></span>
-    <button type="button" class="pill nbtn" onclick="openAuth()">
-      <svg class="i"><use href="#shield"/></svg><span data-i="login"></span>
+    <button type="button" id="logoutBtn" class="pill nbtn ghost" style="display:none" onclick="logoutAccount()">
+      <span data-i="logout"></span>
     </button>
-  </div>
-</div>
-
-<!-- نافذة تسجيل الدخول وحفظ الحساب -->
-<div id="authBd" class="mb" onclick="if(event.target===this)closeAuth()">
-  <div class="modal" role="dialog" aria-modal="true">
-    <h3 data-i="mTitle"></h3>
-    <p data-i="mSub"></p>
-    <div class="opt o3">
-      <div class="oc sel" id="at-guest" tabindex="0" onclick="authTab('guest')" data-i="guest"></div>
-      <div class="oc" id="at-individual" tabindex="0" onclick="authTab('individual')" data-i="indiv"></div>
-      <div class="oc" id="at-corporate" tabindex="0" onclick="authTab('corporate')" data-i="corp"></div>
-    </div>
-    <div class="fg">
-      <label id="aNameL" for="aName"></label>
-      <input id="aName" data-ph="aNamePh">
-    </div>
-    <div class="fg" id="aExtraG" style="display:none">
-      <label id="aExtraL" for="aExtra"></label>
-      <input id="aExtra" data-ph="aExtraPh">
-    </div>
-    <button type="button" class="btn" style="margin-top:12px" onclick="confirmAuth()">
-      <svg class="i"><use href="#check"/></svg><span data-i="mSave"></span>
-    </button>
-    <button type="button" class="btn sec" style="margin-top:8px" onclick="closeAuth()" data-i="mClose"></button>
   </div>
 </div>
 
@@ -837,61 +911,46 @@ input:focus, select:focus, textarea:focus {
     <div class="ps" id="prog5" data-i="p5"></div>
   </div>
 
-  <!-- ==================== الخطوة 1: الحساب وبيانات المرسل والمستلم ==================== -->
+  <!-- ==================== الخطوة 1: تسجيل الدخول وإعداد الحساب (مستقل عن الشحنة) ==================== -->
   <div id="step1" class="step on">
     <div class="step-head">
       <div class="badge" data-i="bd1"></div>
-      <span class="save-badge"><svg class="i"><use href="#check"/></svg><span data-i="autoSave"></span></span>
+      <span class="save-badge"><svg class="i"><use href="#shield"/></svg><span data-i="isolatedSave"></span></span>
     </div>
 
-    <!-- قسم نوع الحساب -->
     <div class="sec-box">
-      <div class="sec-title"><svg class="i"><use href="#shield"/></svg><span data-i="lClient"></span></div>
-      <div class="opt o3" style="margin-bottom:0">
+      <div class="sec-title">
+        <div class="sec-title-left"><svg class="i"><use href="#user"/></svg><span data-i="lClient"></span></div>
+      </div>
+
+      <div class="opt o3">
         <div class="oc" id="c-guest" tabindex="0" onclick="selectClient('guest')"><svg class="i"><use href="#bolt"/></svg><span data-i="guest"></span></div>
         <div class="oc sel" id="c-individual" tabindex="0" onclick="selectClient('individual')"><svg class="i"><use href="#user"/></svg><span data-i="indivPc"></span></div>
         <div class="oc" id="c-corporate" tabindex="0" onclick="selectClient('corporate')"><svg class="i"><use href="#bldg"/></svg><span data-i="corpPc"></span></div>
       </div>
 
+      <div class="g2" style="margin-top:14px">
+        <div class="fg">
+          <label for="acctPhone"><svg class="i"><use href="#phone"/></svg> <span data-i="lAcctPhone"></span></label>
+          <input type="tel" id="acctPhone" dir="ltr" placeholder="05XXXXXXXX" oninput="onAcctPhoneInput()">
+        </div>
+        <div class="fg">
+          <label for="acctName" id="lblAcctName" data-i="lAcctName"></label>
+          <input type="text" id="acctName" data-ph="phAcctName" oninput="saveAccountProfile()">
+        </div>
+      </div>
+
+      <div class="hint" data-i="acctHint"></div>
+
+      <!-- باقات وعقود المؤسسات وموزعي البوليصات -->
       <div id="b2b" class="b2b">
         <div class="lb" data-i="lTiers"></div>
-        <div class="opt o3">
-          <div class="tp sel" id="t50" onclick="setCount(50)"><span data-i="t50"></span><b data-i="t50p"></b></div>
-          <div class="tp" id="t100" onclick="setCount(100)"><span data-i="t100"></span><b data-i="t100p"></b></div>
-          <div class="tp" id="t250" onclick="setCount(250)"><span data-i="t250"></span><b data-i="t250p"></b></div>
+        <div class="opt o3" style="margin-bottom:8px">
+          <div class="tp sel" id="t50" onclick="setTier(50)"><span data-i="t50"></span><b data-i="t50p"></b></div>
+          <div class="tp" id="t100" onclick="setTier(100)"><span data-i="t100"></span><b data-i="t100p"></b></div>
+          <div class="tp" id="t250" onclick="setTier(250)"><span data-i="t250"></span><b data-i="t250p"></b></div>
         </div>
-        <label for="cnt" data-i="lCount"></label>
-        <input type="number" id="cnt" min="50" max="5000" value="50" oninput="recalcB2B();saveLocalData()">
-        <div class="sum" id="b2bSum"></div>
-      </div>
-    </div>
-
-    <!-- قسم بيانات المُسلّم (المرسل) والمستلم -->
-    <div class="g2">
-      <!-- بطاقة المُسلّم / الشاحن -->
-      <div class="sec-box" style="margin-bottom:0">
-        <div class="sec-title"><svg class="i"><use href="#user"/></svg><span data-i="senderSec"></span></div>
-        <div class="fg">
-          <label for="senderName" data-i="lSenderName"></label>
-          <input type="text" id="senderName" data-ph="phSenderName" oninput="saveLocalData()">
-        </div>
-        <div class="fg">
-          <label for="senderPhone"><svg class="i"><use href="#phone"/></svg> <span data-i="lSenderPhone"></span></label>
-          <input type="tel" id="senderPhone" dir="ltr" placeholder="05XXXXXXXX" oninput="saveLocalData()">
-        </div>
-      </div>
-
-      <!-- بطاقة المستلم -->
-      <div class="sec-box" style="margin-bottom:0">
-        <div class="sec-title"><svg class="i"><use href="#flag"/></svg><span data-i="receiverSec"></span></div>
-        <div class="fg">
-          <label for="receiverName" data-i="lReceiverName"></label>
-          <input type="text" id="receiverName" data-ph="phReceiverName" oninput="saveLocalData()">
-        </div>
-        <div class="fg">
-          <label for="receiverPhone"><svg class="i"><use href="#phone"/></svg> <span data-i="lReceiverPhone"></span></label>
-          <input type="tel" id="receiverPhone" dir="ltr" placeholder="05XXXXXXXX" oninput="saveLocalData()">
-        </div>
+        <div class="hint" style="margin-top:8px" data-i="corpResellerHint"></div>
       </div>
     </div>
 
@@ -904,25 +963,61 @@ input:focus, select:focus, textarea:focus {
     </div>
   </div>
 
-  <!-- ==================== الخطوة 2: تحديد المدن والمسار النشط تحتها مباشرة ==================== -->
+  <!-- ==================== الخطوة 2: بيانات البوليصات والأطراف (تتكيف حسب فرد أو مؤسسة) ==================== -->
   <div id="step2" class="step">
     <div class="step-head">
       <div class="badge" data-i="bd2"></div>
+      <span class="save-badge" id="step2ModeBadge"></span>
+    </div>
+
+    <div class="sec-box" style="margin-bottom:0">
+      <div class="sec-title">
+        <div class="sec-title-left"><svg class="i"><use href="#box"/></svg><span id="wbSecTitle"></span></div>
+        <button type="button" id="addWbBtn" class="btn sm" style="display:none" onclick="addWaybillItem()">
+          <svg class="i"><use href="#plus"/></svg><span data-i="addWaybill"></span>
+        </button>
+      </div>
+
+      <div class="hint" id="step2Hint" style="margin-top:0;margin-bottom:16px"></div>
+
+      <!-- حاوية بطاقات البوليصات (بوليصة واحدة للأفراد، أو عدة بوليصات للمؤسسات) -->
+      <div id="waybillFormsList"></div>
+    </div>
+
+    <div id="step2Err" class="err-msg"></div>
+
+    <div class="nav-btns">
+      <button type="button" class="btn sec" onclick="goStep(1)">
+        <span data-i="backTo1"></span>
+      </button>
+      <button type="button" class="btn" onclick="nextFromStep2()">
+        <span data-i="nextTo3"></span><svg class="i arr"><use href="#arrow"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== الخطوة 3: المدن والمسار النشط تحتها مباشرة ونمط الخدمة ==================== -->
+  <div id="step3" class="step">
+    <div class="step-head">
+      <div class="badge" data-i="bd3"></div>
     </div>
 
     <div class="sec-box">
-      <div class="sec-title"><svg class="i"><use href="#route"/></svg><span data-i="secRouteCities"></span></div>
+      <div class="sec-title">
+        <div class="sec-title-left"><svg class="i"><use href="#route"/></svg><span data-i="secRouteCities"></span></div>
+      </div>
+
       <div class="cities">
         <div class="fg">
           <label for="from"><svg class="i"><use href="#pin"/></svg> <span data-i="lFrom"></span></label>
-          <select id="from" onchange="onRoute();saveLocalData()"></select>
+          <select id="from" onchange="onRoute();saveAccountProfile()"></select>
         </div>
         <button type="button" class="swap" onclick="swapCities()" aria-label="Swap">
           <svg class="i"><use href="#swap"/></svg>
         </button>
         <div class="fg">
           <label for="to"><svg class="i"><use href="#flag"/></svg> <span data-i="lTo"></span></label>
-          <select id="to" onchange="onRoute();saveLocalData()"></select>
+          <select id="to" onchange="onRoute();saveAccountProfile()"></select>
         </div>
       </div>
 
@@ -943,7 +1038,9 @@ input:focus, select:focus, textarea:focus {
     </div>
 
     <div class="sec-box" style="margin-bottom:0">
-      <div class="sec-title"><svg class="i"><use href="#box"/></svg><span data-i="lSvc"></span></div>
+      <div class="sec-title">
+        <div class="sec-title-left"><svg class="i"><use href="#box"/></svg><span data-i="lSvc"></span></div>
+      </div>
       <div class="opt o2" style="margin-bottom:0">
         <div class="oc sel" id="s-hub" tabindex="0" onclick="selectSvc('hub')"><svg class="i"><use href="#pin"/></svg><span data-i="sHub"></span></div>
         <div class="oc" id="s-d2d" tabindex="0" onclick="selectSvc('d2d')"><svg class="i"><use href="#door"/></svg><span data-i="sD2d"></span></div>
@@ -954,58 +1051,30 @@ input:focus, select:focus, textarea:focus {
     </div>
 
     <div class="nav-btns">
-      <button type="button" class="btn sec" onclick="goStep(1)">
-        <span data-i="backTo1"></span>
-      </button>
-      <button type="button" class="btn" onclick="goStep(3)">
-        <span data-i="nextTo3"></span><svg class="i arr"><use href="#arrow"/></svg>
-      </button>
-    </div>
-  </div>
-
-  <!-- ==================== الخطوة 3: اختيار الفرع ومواصفات الطرد ==================== -->
-  <div id="step3" class="step">
-    <div class="step-head">
-      <div class="badge" data-i="bd3"></div>
-    </div>
-
-    <div class="sec-box">
-      <div class="sec-title"><svg class="i"><use href="#bldg"/></svg><span id="brLbl"></span></div>
-      <div id="branches"></div>
-    </div>
-
-    <div class="sec-box" style="margin-bottom:0">
-      <div class="sec-title"><svg class="i"><use href="#box"/></svg><span data-i="secParcelSpec"></span></div>
-      <div class="g2">
-        <div class="fg">
-          <label for="weight" data-i="lWeight"></label>
-          <select id="weight" onchange="saveLocalData()"></select>
-        </div>
-        <div class="fg">
-          <label for="ready" data-i="lReady"></label>
-          <select id="ready" onchange="saveLocalData()"></select>
-        </div>
-      </div>
-      <div class="fg" style="margin-top:16px">
-        <label for="notes" data-i="lNotes"></label>
-        <textarea id="notes" rows="2" data-ph="notesPh" oninput="saveLocalData()"></textarea>
-      </div>
-    </div>
-
-    <div class="nav-btns">
       <button type="button" class="btn sec" onclick="goStep(2)">
         <span data-i="backTo2"></span>
       </button>
-      <button type="button" class="btn" onclick="registerShipment()">
+      <button type="button" class="btn" onclick="goStep(4)">
         <span data-i="nextTo4"></span><svg class="i arr"><use href="#arrow"/></svg>
       </button>
     </div>
   </div>
 
-  <!-- ==================== الخطوة 4: رحلات الخطوط السريعة المجدولة ==================== -->
+  <!-- ==================== الخطوة 4: الفرع ورحلات الخطوط السريعة المجدولة ==================== -->
   <div id="step4" class="step">
     <div class="step-head">
       <div class="badge" data-i="bd4"></div>
+    </div>
+
+    <div class="sec-box">
+      <div class="sec-title">
+        <div class="sec-title-left"><svg class="i"><use href="#bldg"/></svg><span id="brLbl"></span></div>
+      </div>
+      <div id="branches"></div>
+      <div class="fg" style="margin-top:14px">
+        <label for="ready" data-i="lReady"></label>
+        <select id="ready" onchange="renderCouriersStep()"></select>
+      </div>
     </div>
 
     <div class="sumbox" id="shipSum"></div>
@@ -1018,19 +1087,32 @@ input:focus, select:focus, textarea:focus {
     </div>
   </div>
 
-  <!-- ==================== الخطوة 5: بوليصة الشحن والتتبع بالساعة ==================== -->
+  <!-- ==================== الخطوة 5: إصدار البوليصات والباركود وتحميل PDF ==================== -->
   <div id="step5" class="step">
     <div class="step-head">
       <div class="badge" data-i="bd5"></div>
+      <button type="button" class="btn sm dark" onclick="downloadWaybillsPDF(-1)">
+        <svg class="i"><use href="#print"/></svg><span data-i="printAllPdf"></span>
+      </button>
     </div>
 
     <div class="sumbox" id="trackBox"></div>
+
+    <!-- قائمة البوليصات الرسمية مع الباركود المستقل لكل بوليصة -->
+    <div id="issuedWaybillsContainer" class="waybills-grid"></div>
+
+    <div class="sec-box" style="margin-bottom:0">
+      <div class="sec-title">
+        <div class="sec-title-left"><svg class="i"><use href="#route"/></svg><span data-i="schedL"></span></div>
+      </div>
+      <ol class="tl" id="timelineList"></ol>
+    </div>
 
     <div class="nav-btns">
       <button type="button" class="btn sec" onclick="goStep(4)">
         <span data-i="backTo4"></span>
       </button>
-      <button type="button" class="btn" onclick="goStep(1)">
+      <button type="button" class="btn" onclick="startNewBatch()">
         <svg class="i"><use href="#box"/></svg><span data-i="reset"></span>
       </button>
     </div>
@@ -1062,62 +1144,90 @@ input:focus, select:focus, textarea:focus {
 
 <script>
 const $ = id => document.getElementById(id);
-const STORAGE_KEY = 'masarak_saved_state_v2';
+const ACTIVE_PHONE_KEY = 'masarak_active_phone_v3';
+const ACCT_PREFIX = 'masarak_acct_v3_';
+const REVIEWS_KEY = 'masarak_reviews_v3';
 
-let lang = 'ar', ship = null, svc = 'hub', ctype = 'individual', count = 1, bIdx = 0, cour = [], role = 'guest', stars = 5, uname = '', uextra = '';
+let lang = 'ar';
+let ctype = 'individual';
+let corpTier = 50;
+let acctPhone = '';
+let acctName = '';
+let svc = 'hub';
+let bIdx = 0;
+let stars = 5;
+let cour = [];
+let ship = null;
+
+// مصفوفة البوليصات في الدفعة الحالية
+let waybillsDraft = [];
+
 const isEn = () => lang === 'en';
 
-/* ---------- القاموس اللغوي الكامل ---------- */
+/* ---------- القاموس اللغوي الكامل (بدون أي أسماء شخصية) ---------- */
 const T = {
   ar: {
     brand: 'مسارك الذكية للشحن',
-    tag: 'رحلات الخطوط السريعة وإشغال الشاحنات عبر طرق المملكة',
-    login: 'حسابي / الدخول',
-    guest: 'ضيف',
+    tag: 'رحلات الخطوط السريعة وإصدار البوليصات عبر طرق المملكة',
+    logout: 'تسجيل خروج',
+    guest: 'ضيف سريع',
     indiv: 'أفراد',
     corp: 'مؤسسات',
-    indivPc: 'أفراد (بالطرد)',
-    corpPc: 'مؤسسات (50+ طرد)',
-    guestPill: 'ضيف',
+    indivPc: 'حساب أفراد (بوليصة مفردة)',
+    corpPc: 'حساب مؤسسات / موزع بوليصات',
+    guestPill: 'زائر (ضيف)',
     indivPill: 'حساب أفراد',
     corpPill: 'حساب مؤسسة',
     heading: 'منصة مسارك اللوجستية',
-    subtitle: 'خطوات واضحة لتسجيل شحنتك ومتابعة إشغال الشاحنات ومحطات التوقف بالساعة',
-    p1: '1. الحساب والأطراف',
-    p2: '2. المدن والمسار',
-    p3: '3. الفرع والطرد',
-    p4: '4. رحلات الشاحنات',
-    p5: '5. البوليصة والتتبع',
-    autoSave: 'بياناتك محفوظة تلقائياً',
+    subtitle: 'إصدار بوليصات الشحن الفردية والمتعددة بالباركود مع تتبع إشغال الشاحنات بالساعة',
+    p1: '1. الدخول والحساب',
+    p2: '2. البوليصات والأطراف',
+    p3: '3. المدن والمسار',
+    p4: '4. الفرع والشاحنات',
+    p5: '5. البوليصات PDF والباركود',
+    isolatedSave: 'حفظ مستقل لكل رقم جوال',
     live: 'تحديث مباشر للمسار',
     kKm: 'المسافة (كم)',
     kHr: 'زمن الرحلة (ساعة)',
     kSt: 'المحطات',
     active: 'المسار النشط',
-    bd1: 'الخطوة 1 من 5: فئة الحساب وبيانات المرسل والمستلم',
-    bd2: 'الخطوة 2 من 5: تحديد المدن والمسار والخدمة',
-    bd3: 'الخطوة 3 من 5: اختيار الفرع ومواصفات الطرد',
-    bd4: 'الخطوة 4 من 5: رحلات الخطوط السريعة المجدولة',
-    bd5: 'الخطوة 5 من 5: بوليصة الشحن والتتبع بالساعة',
-    lClient: 'فئة الحساب والتسعير',
-    lTiers: 'شرائح أسعار المؤسسات (الحد الأدنى 50 طرداً)',
-    t50: '50 - 99 طرداً',
-    t50p: '29 ريال/طرد',
-    t100: '100 - 249 طرداً',
-    t100p: '26 ريال/طرد',
-    t250: '250+ طرد',
-    t250p: '22 ريال/طرد',
-    lCount: 'عدد الطرود في الدفعة (الحد الأدنى 50)',
-    senderSec: 'بيانات المُسلِّم (المرسل)',
-    receiverSec: 'بيانات المستلم',
+    bd1: 'الخطوة 1 من 5: تسجيل الدخول وتحديد فئة الحساب',
+    bd2: 'الخطوة 2 من 5: بيانات المرسل والمستلم وإعداد البوليصات',
+    bd3: 'الخطوة 3 من 5: اختيار المدن والمسار النشط ونمط الخدمة',
+    bd4: 'الخطوة 4 من 5: اختيار الفرع ورحلات الخطوط السريعة',
+    bd5: 'الخطوة 5 من 5: البوليصات الجاهزة والباركود وتحميل PDF',
+    lClient: 'اختر نوع الحساب لتخصيص نظام إصدار البوليصات',
+    lAcctPhone: 'رقم جوال صاحب الحساب (لحفظ واسترجاع حسابك الخاص)',
+    lAcctName: 'اسم صاحب الحساب أو اسم المؤسسة / المتجر',
+    phAcctName: 'مثال: مؤسسة آفاق اللوجستية / متجر النخبة',
+    acctHint: '<b>ملاحظة الخصوصية:</b> يُحفظ حسابك على جهازك مرتبطاً برقم جوالك فقط، وينتقل اسمك كاسم افتراضي قابل للتعديل في خطوة الشحن.',
+    lTiers: 'باقات تسعير المؤسسات وموزعي البوليصات:',
+    t50: 'باقة 50 - 99 بوليصة',
+    t50p: '29 ريال / بوليصة',
+    t100: 'باقة 100 - 249 بوليصة',
+    t100p: '26 ريال / بوليصة',
+    t250: 'باقة 250+ بوليصة',
+    t250p: '22 ريال / بوليصة',
+    corpResellerHint: '<b>نظام المؤسسات وموزعي البوليصات:</b> تمنحك الباقة سعر الطرد المخفض، وفي الخطوة التالية يمكنك إصدار وطباعة <b>عدة بوليصات لأشخاص ومستلمين مختلفين</b> في نفس الدفعة.',
+    errStep1: 'يرجى إدخال رقم جوال صحيح واسم صاحب الحساب للمتابعة.',
+    wbSecSingle: 'بيانات بوليصة الشحن (المُسلِّم والمستلم)',
+    wbSecMulti: 'قائمة البوليصات المراد إصدارها في هذه الدفعة',
+    addWaybill: 'إضافة بوليصة جديدة للدفعة',
+    removeWb: 'حذف البوليصة',
+    wbCardTitle: 'بوليصة رقم #{n}',
+    step2HintIndiv: 'تم وضع بيانات حسابك كاسم افتراضي للمُسلِّم (الشاحن)، ويمكنك تعديلها بحرية إذا كنت تشحن نيابة عن شخص آخر.',
+    step2HintCorp: 'بصفتك حساب مؤسسة / موزع بوليصات، يمكنك تعديل اسم المُسلِّم والمستلم لكل بوليصة بشكل مستقل، أو الضغط على <b>+ إضافة بوليصة جديدة</b> لإصدار عدة بوليصات بأسماء وباركودات مختلفة.',
     lSenderName: 'اسم المُسلِّم (الشاحن)',
-    phSenderName: 'مثال: علي أحمد / متجر الجنوب',
+    phSenderName: 'أدخل اسم المُسلِّم',
     lSenderPhone: 'رقم جوال المُسلِّم',
     lReceiverName: 'اسم المستلم',
-    phReceiverName: 'مثال: محمد العتيبي',
+    phReceiverName: 'أدخل اسم المستلم',
     lReceiverPhone: 'رقم جوال المستلم',
-    errParties: 'يرجى إدخال اسم ورقم جوال المُسلِّم (المرسل) والمستلم للمتابعة.',
-    secRouteCities: 'اختر مدينة الانطلاق ومدينة الوجهة لمعاينة المسار النشط',
+    lWeight: 'وزن الطرد وحجمه',
+    lNotes: 'ملاحظات الطرفين (تظهر في البوليصة PDF)',
+    notesPh: 'اسم الحي، رقم المبنى، أو تعليمات التسليم والاستلام...',
+    errStep2: 'يرجى استكمال اسم ورقم جوال المُسلِّم والمستلم في جميع البوليصات المضافة.',
+    secRouteCities: 'اختر مدينة الانطلاق ومدينة الوجهة لمعاينة المسار النشط تحتها مباشرة',
     lFrom: 'مدينة الانطلاق',
     lTo: 'مدينة الوجهة',
     lSvc: 'نمط الخدمة اللوجستية',
@@ -1140,11 +1250,7 @@ const T = {
     loading: 'قيد التحميل',
     occ: 'معدل إشغال الشاحنة: {p}% (متبقي {r} طرداً للانطلاق)',
     bMeta: 'تنطلق الشاحنة عند اكتمال 100 طرد أو خلال {h} ساعات كحد أقصى',
-    secParcelSpec: 'مواصفات الطرد وموعد التسليم',
-    lWeight: 'وزن الطرد وحجمه',
-    lReady: 'موعد تسليم الطرد',
-    lNotes: 'ملاحظات أو عنوان تفصيلي (اختياري)',
-    notesPh: 'اسم الحي أو أي تعليمات خاصة بالشحنة',
+    lReady: 'موعد تسليم الطرود للفرع',
     w0: 'ظرف مستندات (أقل من 1 كجم)',
     w1: 'صندوق صغير (1 - 5 كجم)',
     w2: 'صندوق متوسط (5 - 15 كجم)',
@@ -1153,56 +1259,40 @@ const T = {
     r1: 'خلال ساعتين قبل إغلاق التحميل',
     r2: 'خلال 5 ساعات',
     r3: 'غداً',
-    nextTo2: 'التالي: اختيار المدن والمسار',
-    backTo1: 'السابق: بيانات الحساب والأطراف',
-    nextTo3: 'التالي: اختيار الفرع والطرد',
-    backTo2: 'السابق: المدن والمسار',
-    nextTo4: 'التالي: عرض رحلات الشاحنات',
-    backTo3: 'السابق: الفرع ومواصفات الطرد',
-    backTo4: 'الرجوع إلى جدول الشاحنات',
-    reset: 'تسجيل شحنة جديدة',
+    nextTo2: 'التالي: بيانات البوليصات والأطراف',
+    backTo1: 'السابق: الدخول والحساب',
+    nextTo3: 'التالي: اختيار المدن والمسار',
+    backTo2: 'السابق: البوليصات والأطراف',
+    nextTo4: 'التالي: الفرع ورحلات الشاحنات',
+    backTo3: 'السابق: المدن والمسار',
+    backTo4: 'السابق: جدول الشاحنات',
+    reset: 'إصدار دفعة بوليصات جديدة',
+    printAllPdf: 'تحميل جميع البوليصات PDF',
+    printOnePdf: 'تحميل البوليصة PDF',
     rvH: 'تقييمات العملاء',
     rvS: 'قيّم دقة مواعيد الانطلاق ومراكز التوزيع الفرعية',
     rvRate: 'قيّم تجربتك (من 1 إلى 5)',
     rvName: 'الاسم أو اسم المتجر',
     rvText: 'ملاحظتك',
-    rvNamePh: 'مثال: متجر أطياف',
+    rvNamePh: 'مثال: متجر الأفق',
     rvTextPh: 'اكتب ملاحظتك هنا',
     rvBtn: 'إضافة التقييم',
     rvCount: '{n} تقييم',
-    mTitle: 'إعدادات الحساب المحفوظ',
-    mSub: 'تُحفظ بيانات حسابك تلقائياً في المتصفح لسرعة الشحن مستقبلاً',
-    mSave: 'حفظ بيانات الحساب',
-    mClose: 'إغلاق',
-    aNameG: 'الاسم (اختياري)',
-    aNameI: 'الاسم الثلاثي',
-    aNameC: 'اسم المؤسسة أو المتجر',
-    aExtraI: 'رقم الجوال للحساب',
-    aExtraC: 'رقم السجل التجاري',
-    aNamePh: 'مثال: علي حمدي',
-    aExtraPh: '05XXXXXXXX',
-    dfltCorp: 'مؤسسة',
-    dfltInd: 'عميل أفراد',
-    unit: 'سعر الطرد',
-    total: 'الإجمالي لـ {n} طرداً',
-    saved: 'وفّرت',
-    minNote: '(الحد الأدنى 50)',
     sar: 'ريال',
     h: 'س',
     hrs: 'ساعة',
     km: 'كم',
-    shipId: 'رقم الشحنة',
-    qty: 'الكمية',
-    parc: 'طرداً',
+    batchCount: 'عدد البوليصات المصدرة',
+    wbUnit: 'بوليصة',
     origin: 'نقطة الانطلاق',
     occB: 'الإشغال',
     after: 'بعد الحجز',
     hwL: 'الطريق السريع',
     stopsL: 'المحطات',
     roadT: 'زمن الطريق',
-    senderLbl: 'المُسلِّم (المرسل)',
-    receiverLbl: 'المستلم',
-    chooseC: 'اختر الناقل لعرض بوليصة الشحن وجدول المحطات بالساعة:',
+    senderLbl: 'بيانات المُسلِّم (المرسل)',
+    receiverLbl: 'بيانات المستلم',
+    chooseC: 'اختر شركة الشحن لاعتماد وإصدار البوليصات والباركود:',
     cost: 'التكلفة',
     totalT: 'الزمن الكلي',
     road: 'طريق',
@@ -1212,15 +1302,13 @@ const T = {
     full: 'اكتمل الإشغال 100%: انطلاق فوري',
     dep: 'إشغال {p}%: انطلاق خلال {h} ساعات',
     truckOcc: 'إشغال الشاحنة',
-    carrier: 'الناقل',
-    appr: 'التكلفة المعتمدة',
+    carrier: 'الناقل المعتمد',
+    appr: 'إجمالي التكلفة المعتمدة',
     depL: 'انطلاق الشاحنة',
     cum: 'التراكمي',
     hour0: 'الساعة 0 (الانطلاق)',
     stopAt: 'توقف في',
     schedL: 'الجدول الزمني التراكمي لمحطات الطريق بالساعة',
-    n_start: 'انطلاق الشاحنة على الخط السريع',
-    n_local: 'نقطة التجميع والانطلاق',
     n_stop: 'توقف مجدول (15 دقيقة) لتفريغ وتحميل طرود المحافظة',
     n_endD: 'تسليم مباشر للمستلم عند الباب',
     n_endH: 'تفريغ في المركز الفرعي بحي المستلم دون المرور بالمستودع المركزي',
@@ -1234,6 +1322,7 @@ const T = {
     hOkD: 'سيسلّم المندوب الطرد عند باب المستلم بعد {h} ساعة من انطلاق الشاحنة.',
     hOkH: 'يُفرَّغ الطرد في المركز المختار داخل {c} بعد {h} ساعة.',
     hConf: 'تم اعتماد وجهة التسليم: ',
+    noNotes: 'لا توجد ملاحظات إضافية',
     g_jz: 'منطقة جازان (طريق الساحل 5)',
     g_mk: 'مكة المكرمة والساحل الغربي',
     g_as: 'عسير والباحة ونجران',
@@ -1241,57 +1330,70 @@ const T = {
     g_ea: 'المنطقة الشرقية',
     g_nm: 'المدينة المنورة وتبوك والشمال',
     nameDef: 'عميل مسارك',
-    cmtDef: 'معرفة إشغال الشاحنة وموعد انطلاقها وفّرت علينا أياماً من الانتظار.'
+    cmtDef: 'إصدار البوليصات بالباركود ومعرفة موعد انطلاق الشاحنة وفر علينا الكثير من الوقت.'
   },
   en: {
     brand: 'Masarak Smart Logistics',
-    tag: 'Scheduled express trips and truck occupancy across Saudi highways',
-    login: 'My Account / Sign in',
-    guest: 'Guest',
+    tag: 'Scheduled express trips and waybill issuance across Saudi highways',
+    logout: 'Sign Out',
+    guest: 'Quick Guest',
     indiv: 'Individual',
     corp: 'Corporate',
-    indivPc: 'Individual (per parcel)',
-    corpPc: 'Corporate (50+ parcels)',
+    indivPc: 'Individual (Single Waybill)',
+    corpPc: 'Corporate / Waybill Reseller',
     guestPill: 'Guest',
-    indivPill: 'Individual account',
-    corpPill: 'Corporate account',
+    indivPill: 'Individual',
+    corpPill: 'Corporate',
     heading: 'Masarak Logistics Platform',
-    subtitle: 'Clear step-by-step booking with live truck occupancy and hourly highway stops',
-    p1: '1. Account & Parties',
-    p2: '2. Cities & Route',
-    p3: '3. Branch & Parcel',
-    p4: '4. Express Trips',
-    p5: '5. Waybill & Tracking',
-    autoSave: 'Auto-saved in browser',
+    subtitle: 'Issue single or multi-party waybills with custom barcodes and hourly highway tracking',
+    p1: '1. Account Login',
+    p2: '2. Waybills & Parties',
+    p3: '3. Cities & Route',
+    p4: '4. Branch & Trips',
+    p5: '5. PDF Waybills & Barcode',
+    isolatedSave: 'Saved per mobile number',
     live: 'Live Route Feed',
     kKm: 'Distance (km)',
     kHr: 'Trip time (hrs)',
     kSt: 'Stops',
     active: 'Active route',
-    bd1: 'Step 1 of 5: Account Tier, Sender & Receiver Info',
-    bd2: 'Step 2 of 5: Origin, Destination & Active Route',
-    bd3: 'Step 3 of 5: Origin Branch & Parcel Details',
-    bd4: 'Step 4 of 5: Scheduled Express Trips',
-    bd5: 'Step 5 of 5: Shipment Waybill & Hourly Tracking',
-    lClient: 'Account type and pricing',
-    lTiers: 'Corporate pricing tiers (minimum 50 parcels)',
-    t50: '50 - 99 parcels',
-    t50p: '29 SAR/parcel',
-    t100: '100 - 249 parcels',
-    t100p: '26 SAR/parcel',
-    t250: '250+ parcels',
-    t250p: '22 SAR/parcel',
-    lCount: 'Parcels in this batch (minimum 50)',
-    senderSec: 'Sender (Handover) Info',
-    receiverSec: 'Receiver Info',
+    bd1: 'Step 1 of 5: Account Login & Tier Selection',
+    bd2: 'Step 2 of 5: Sender & Receiver Waybill Details',
+    bd3: 'Step 3 of 5: Origin, Destination & Active Route',
+    bd4: 'Step 4 of 5: Origin Branch & Scheduled Express Trips',
+    bd5: 'Step 5 of 5: Official Waybills, Barcodes & PDF Export',
+    lClient: 'Select Account Type to configure waybill issuance',
+    lAcctPhone: 'Account Holder Mobile Number (isolates your saved profile)',
+    lAcctName: 'Account Holder or Company / Store Name',
+    phAcctName: 'e.g. Afaq Logistics / Elite Store',
+    acctHint: '<b>Privacy Notice:</b> Your profile is saved locally per mobile number. Your name is used as an editable default sender in the next step.',
+    lTiers: 'Corporate & Waybill Reseller Pricing Tiers:',
+    t50: '50 - 99 Waybills Tier',
+    t50p: '29 SAR / waybill',
+    t100: '100 - 249 Waybills Tier',
+    t100p: '26 SAR / waybill',
+    t250: '250+ Waybills Tier',
+    t250p: '22 SAR / waybill',
+    corpResellerHint: '<b>Corporate & Reseller Mode:</b> Grants you discounted B2B unit rates. In Step 2, you can issue and print <b>multiple separate waybills for different senders and receivers</b> at once.',
+    errStep1: 'Please enter a valid mobile number and account name to continue.',
+    wbSecSingle: 'Shipment Waybill Details (Sender & Receiver)',
+    wbSecMulti: 'Batch Waybills List (Multi-Party Issuance)',
+    addWaybill: 'Add Another Waybill',
+    removeWb: 'Remove',
+    wbCardTitle: 'Waybill #{n}',
+    step2HintIndiv: 'Your account info is pre-filled as the default Sender, and you can change it freely if shipping on someone else’s behalf.',
+    step2HintCorp: 'As a Corporate / Reseller account, you can customize the Sender and Receiver for each waybill, or click <b>+ Add Another Waybill</b> to print multiple distinct waybills.',
     lSenderName: 'Sender Name',
-    phSenderName: 'e.g. Ali Ahmad / South Store',
+    phSenderName: 'Enter sender name',
     lSenderPhone: 'Sender Mobile Number',
     lReceiverName: 'Receiver Name',
-    phReceiverName: 'e.g. Mohammed Al Otaibi',
+    phReceiverName: 'Enter receiver name',
     lReceiverPhone: 'Receiver Mobile Number',
-    errParties: 'Please enter both Sender and Receiver names and mobile numbers to continue.',
-    secRouteCities: 'Select Origin and Destination to preview the Active Highway Route',
+    lWeight: 'Parcel Weight & Size',
+    lNotes: 'Sender & Receiver Notes (Printed on PDF Waybill)',
+    notesPh: 'District, building no., or special delivery instructions...',
+    errStep2: 'Please fill in Sender and Receiver names and mobile numbers for all waybills.',
+    secRouteCities: 'Select Origin and Destination to preview the Active Route below',
     lFrom: 'Origin city',
     lTo: 'Destination city',
     lSvc: 'Logistics service mode',
@@ -1299,7 +1401,7 @@ const T = {
     sD2d: 'Door to door',
     sD2b: 'Door to destination branch',
     sB2b: 'Branch to branch',
-    hint_hub: '<b>Micro-Hubs:</b> drop your parcel at the selected collection hub. On arrival it is unloaded at a micro-hub inside the recipient’s neighborhood, bypassing the central warehouse.',
+    hint_hub: '<b>Micro-Hubs:</b> drop your parcel at the selected collection hub. On arrival it unloads at a micro-hub inside the recipient’s neighborhood.',
     hint_d2d: '<b>Door to door:</b> a courier collects from your location and delivers to the recipient’s door when the truck arrives.',
     hint_d2b: '<b>Door to destination branch:</b> a courier collects from your location and the recipient picks up from the nearest destination branch.',
     hint_b2b: '<b>Branch to branch:</b> hand the parcel over at the origin branch; the recipient collects it from the destination branch.',
@@ -1314,11 +1416,7 @@ const T = {
     loading: 'Loading',
     occ: 'Truck occupancy: {p}% ({r} parcels left to dispatch)',
     bMeta: 'Departs at 100 parcels or within {h} hours at most',
-    secParcelSpec: 'Parcel Specifications & Handover Time',
-    lWeight: 'Parcel weight and size',
-    lReady: 'Handover time',
-    lNotes: 'Notes or detailed address (optional)',
-    notesPh: 'Neighborhood name or special instructions',
+    lReady: 'Handover time to branch',
     w0: 'Document envelope (under 1 kg)',
     w1: 'Small box (1 - 5 kg)',
     w2: 'Medium box (5 - 15 kg)',
@@ -1327,56 +1425,40 @@ const T = {
     r1: 'Within 2 hours, before loading closes',
     r2: 'Within 5 hours',
     r3: 'Tomorrow',
-    nextTo2: 'Next: Cities & Route',
-    backTo1: 'Back: Account & Parties',
-    nextTo3: 'Next: Branch & Parcel',
-    backTo2: 'Back: Cities & Route',
-    nextTo4: 'Next: View Express Trips',
-    backTo3: 'Back: Branch & Parcel',
-    backTo4: 'Back to Express Trips',
-    reset: 'Book New Shipment',
+    nextTo2: 'Next: Waybills & Parties',
+    backTo1: 'Back: Account Login',
+    nextTo3: 'Next: Cities & Route',
+    backTo2: 'Back: Waybills & Parties',
+    nextTo4: 'Next: Branch & Express Trips',
+    backTo3: 'Back: Cities & Route',
+    backTo4: 'Back: Express Trips',
+    reset: 'Issue New Waybill Batch',
+    printAllPdf: 'Download All Waybills PDF',
+    printOnePdf: 'Download Waybill PDF',
     rvH: 'Customer reviews',
     rvS: 'Rate departure accuracy and micro-hubs',
     rvRate: 'Rate your experience (1 to 5)',
     rvName: 'Name or store name',
     rvText: 'Your feedback',
-    rvNamePh: 'e.g. Atyaf Store',
+    rvNamePh: 'e.g. Horizon Store',
     rvTextPh: 'Write your feedback here',
     rvBtn: 'Submit review',
     rvCount: '{n} reviews',
-    mTitle: 'Saved Account Settings',
-    mSub: 'Your login and account details are saved in your browser automatically',
-    mSave: 'Save Account Info',
-    mClose: 'Close',
-    aNameG: 'Name (optional)',
-    aNameI: 'Full name',
-    aNameC: 'Company or store name',
-    aExtraI: 'Account Mobile Number',
-    aExtraC: 'Commercial registration no.',
-    aNamePh: 'e.g. Ali Hamdi',
-    aExtraPh: '05XXXXXXXX',
-    dfltCorp: 'Company',
-    dfltInd: 'Individual customer',
-    unit: 'Unit price',
-    total: 'Total for {n} parcels',
-    saved: 'You saved',
-    minNote: '(minimum 50)',
     sar: 'SAR',
     h: 'h',
     hrs: 'hrs',
     km: 'km',
-    shipId: 'Shipment ID',
-    qty: 'Quantity',
-    parc: 'parcel(s)',
+    batchCount: 'Issued Waybills',
+    wbUnit: 'waybill(s)',
     origin: 'Origin',
     occB: 'Occupancy',
     after: 'after booking',
     hwL: 'Highway',
     stopsL: 'Stops',
     roadT: 'Road time',
-    senderLbl: 'Sender',
-    receiverLbl: 'Receiver',
-    chooseC: 'Select a carrier to view the waybill and hourly stops schedule:',
+    senderLbl: 'Sender Details',
+    receiverLbl: 'Receiver Details',
+    chooseC: 'Select a carrier to issue official waybills & barcodes:',
     cost: 'Cost',
     totalT: 'Total time',
     road: 'road',
@@ -1386,15 +1468,13 @@ const T = {
     full: 'Occupancy 100%: departs immediately',
     dep: 'Occupancy {p}%: departs within {h} hours',
     truckOcc: 'Truck occupancy',
-    carrier: 'Carrier',
-    appr: 'Approved cost',
+    carrier: 'Approved Carrier',
+    appr: 'Total Approved Cost',
     depL: 'Truck departure',
     cum: 'Cumulative',
     hour0: 'Hour 0 (Departure)',
     stopAt: 'Stop at',
     schedL: 'Cumulative hourly schedule of highway stops',
-    n_start: 'Truck departs onto the expressway',
-    n_local: 'Collection and departure point',
     n_stop: 'Scheduled 15-minute stop to unload and load governorate parcels',
     n_endD: 'Direct delivery to the recipient’s door',
     n_endH: 'Unloaded at the recipient’s neighborhood micro-hub, bypassing the central warehouse',
@@ -1408,6 +1488,7 @@ const T = {
     hOkD: 'The courier delivers to the recipient’s door {h} hours after truck departure.',
     hOkH: 'The parcel unloads at the selected hub in {c} after {h} hours.',
     hConf: 'Delivery point confirmed: ',
+    noNotes: 'No additional notes',
     g_jz: 'Jazan Region (Coastal Highway 5)',
     g_mk: 'Makkah and the Western Coast',
     g_as: 'Asir, Al Bahah and Najran',
@@ -1415,7 +1496,7 @@ const T = {
     g_ea: 'Eastern Province',
     g_nm: 'Madinah, Tabuk and the North',
     nameDef: 'Masarak customer',
-    cmtDef: 'Knowing truck occupancy and departure time saved us days of waiting.'
+    cmtDef: 'Issuing waybills with custom barcodes and knowing truck occupancy saved us days.'
   }
 };
 
@@ -1425,8 +1506,9 @@ const t = (k, v) => {
   return s;
 };
 const num = n => Number(n).toLocaleString(isEn() ? 'en-US' : 'ar-SA-u-nu-latn');
+const ic = (n, c = '') => `<svg class="i ${c}"><use href="#${n}"/></svg>`;
 
-/* ---------- بيانات المدن والطرق ---------- */
+/* ---------- بيانات المدن والطرق السريعة ---------- */
 const CITIES = [
   ['جازان','Jazan','jz',16.889,42.551],['صبيا','Sabya','jz',17.149,42.625],['أبو عريش','Abu Arish','jz',16.968,42.832],['صامطة','Samtah','jz',16.597,42.944],['بيش','Baish','jz',17.372,42.536],['الدرب','Ad Darb','jz',17.723,42.253],
   ['جدة','Jeddah','mk',21.543,39.172],['مكة المكرمة','Makkah','mk',21.422,39.826],['الطائف','Taif','mk',21.270,40.415],['القنفذة','Al Qunfudhah','mk',19.126,41.078],['الليث','Al Lith','mk',20.150,40.268],['رابغ','Rabigh','mk',22.798,39.034],
@@ -1456,62 +1538,240 @@ const WEST_ORD = ['جدة','مكة المكرمة','الطائف','الدواد�
 const NORTH_ORD = ['الرياض','المجمعة','بريدة','حائل','سكاكا (الجوف)','عرعر','القريات'];
 
 const REVIEWS = [
-  { n: { ar: 'متجر البن الخولاني (مؤسسة)', en: 'Al Khawlani Coffee Store (Corporate)' }, f: 'جازان', to: 'جدة', s: 5, c: { ar: 'اخترنا الفرع بإشغال 95% وباقة 100 طرد (26 ريالاً للطرد)، وانطلقت الشاحنة خلال 3 ساعات ووصلت جدة في 12 ساعة بالضبط.', en: 'We picked the 95% occupancy branch with the 100-parcel tier (26 SAR each). The truck left within 3 hours and reached Jeddah in exactly 12.' } },
-  { n: { ar: 'عبدالرحمن الزهراني (أفراد)', en: 'Abdulrahman Al Zahrani (Individual)' }, f: 'جازان', to: 'القنفذة', s: 5, c: { ar: 'عرفت موعد مرور الشاحنة بالقنفذة بالساعة، واستلمت طردي من المركز الفرعي في 5 ساعات بدلاً من 4 أيام.', en: 'I knew the hour the truck reaches Al Qunfudhah and collected my parcel from the micro-hub in 5 hours instead of 4 days.' } }
+  { n: { ar: 'متجر البن الخولاني (مؤسسة)', en: 'Al Khawlani Coffee Store (Corporate)' }, f: 'جازان', to: 'جدة', s: 5, c: { ar: 'أصدرنا 6 بوليصات لعملاء مختلفين في دفعة واحدة بسعر باقة المؤسسات، وكل بوليصة بباركود مستقل ووصلت جدة في 12 ساعة.', en: 'We issued 6 separate waybills for different clients in one batch using our corporate tier, each with its own barcode.' } },
+  { n: { ar: 'عبدالرحمن الزهراني (أفراد)', en: 'Abdulrahman Al Zahrani (Individual)' }, f: 'جازان', to: 'القنفذة', s: 5, c: { ar: 'عرفت موعد مرور الشاحنة بالقنفذة بالساعة، وحملت بوليصة الشحن PDF بضغطة زر.', en: 'I knew the exact hour the truck reaches Al Qunfudhah and downloaded my PDF waybill instantly.' } }
 ];
 let userReviews = [];
 
-/* ---------- الحفظ والاسترجاع من المتصفح (localStorage) ---------- */
-function saveLocalData() {
+/* ---------- حفظ مستقل لكل رقم جوال (Per-Phone Isolated Storage) ---------- */
+function onAcctPhoneInput() {
+  const rawPhone = $('acctPhone').value.trim();
+  acctPhone = rawPhone;
+  if (rawPhone.length >= 9) {
+    try {
+      const saved = localStorage.getItem(ACCT_PREFIX + rawPhone);
+      if (saved) {
+        const d = JSON.parse(saved);
+        if (d.acctName) {
+          acctName = d.acctName;
+          $('acctName').value = d.acctName;
+        }
+        if (d.ctype) selectClient(d.ctype, false);
+        if (d.corpTier) setTier(d.corpTier, false);
+        if (d.from && $('from')) $('from').value = d.from;
+        if (d.to && $('to')) $('to').value = d.to;
+      }
+    } catch (e) {}
+  }
+  saveAccountProfile();
+}
+
+function saveAccountProfile() {
+  acctPhone = $('acctPhone')?.value.trim() || '';
+  acctName = $('acctName')?.value.trim() || '';
+  updatePill();
+  if (!acctPhone || acctPhone.length < 4) return;
   try {
-    const data = {
+    localStorage.setItem(ACTIVE_PHONE_KEY, acctPhone);
+    const profile = {
+      acctPhone,
+      acctName,
       ctype,
-      role,
-      uname,
-      uextra,
-      count: parseInt($('cnt')?.value, 10) || 50,
-      senderName: $('senderName')?.value || '',
-      senderPhone: $('senderPhone')?.value || '',
-      receiverName: $('receiverName')?.value || '',
-      receiverPhone: $('receiverPhone')?.value || '',
+      corpTier,
       from: $('from')?.value || 'جازان',
       to: $('to')?.value || 'جدة',
-      svc,
-      bIdx,
-      weight: $('weight')?.value || '1',
-      ready: $('ready')?.value || '0',
-      notes: $('notes')?.value || '',
-      userReviews
+      svc
     };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    localStorage.setItem(ACCT_PREFIX + acctPhone, JSON.stringify(profile));
   } catch (e) {}
 }
 
-function loadLocalData() {
+function loadInitialSession() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const revSaved = localStorage.getItem(REVIEWS_KEY);
+    if (revSaved) userReviews = JSON.parse(revSaved);
+
+    const lastPhone = localStorage.getItem(ACTIVE_PHONE_KEY);
+    if (!lastPhone) return;
+    const raw = localStorage.getItem(ACCT_PREFIX + lastPhone);
     if (!raw) return;
     const d = JSON.parse(raw);
+    acctPhone = d.acctPhone || '';
+    acctName = d.acctName || '';
+    if ($('acctPhone')) $('acctPhone').value = acctPhone;
+    if ($('acctName')) $('acctName').value = acctName;
     if (d.ctype) ctype = d.ctype;
-    if (d.role) role = d.role;
-    if (typeof d.uname === 'string') uname = d.uname;
-    if (typeof d.uextra === 'string') uextra = d.uextra;
-    if (d.count && $('cnt')) $('cnt').value = d.count;
-    if (d.senderName && $('senderName')) $('senderName').value = d.senderName;
-    if (d.senderPhone && $('senderPhone')) $('senderPhone').value = d.senderPhone;
-    if (d.receiverName && $('receiverName')) $('receiverName').value = d.receiverName;
-    if (d.receiverPhone && $('receiverPhone')) $('receiverPhone').value = d.receiverPhone;
+    if (d.corpTier) corpTier = d.corpTier;
     if (d.from && $('from')) $('from').value = d.from;
     if (d.to && $('to')) $('to').value = d.to;
     if (d.svc) svc = d.svc;
-    if (typeof d.bIdx === 'number') bIdx = d.bIdx;
-    if (d.weight && $('weight')) $('weight').value = d.weight;
-    if (d.ready && $('ready')) $('ready').value = d.ready;
-    if (d.notes && $('notes')) $('notes').value = d.notes;
-    if (Array.isArray(d.userReviews)) userReviews = d.userReviews;
-    if ($('aName')) $('aName').value = uname;
-    if ($('aExtra')) $('aExtra').value = uextra;
   } catch (e) {}
+}
+
+function logoutAccount() {
+  try { localStorage.removeItem(ACTIVE_PHONE_KEY); } catch (e) {}
+  acctPhone = '';
+  acctName = '';
+  $('acctPhone').value = '';
+  $('acctName').value = '';
+  waybillsDraft = [];
+  selectClient('individual', false);
+  updatePill();
+  goStep(1);
+}
+
+/* ---------- إدارة البوليصات في الدفعة (الخطوة 2) ---------- */
+function initWaybillsDraft() {
+  // الاسم الافتراضي للمُسلِّم هو صاحب الحساب ويمكن تغييره بحرية
+  const defaultSenderName = acctName || '';
+  const defaultSenderPhone = acctPhone || '';
+
+  if (waybillsDraft.length === 0) {
+    waybillsDraft.push({
+      senderName: defaultSenderName,
+      senderPhone: defaultSenderPhone,
+      receiverName: '',
+      receiverPhone: '',
+      weight: '1',
+      notes: ''
+    });
+  } else {
+    // تحديث البوليصة الأولى بالاسم الافتراضي إن كانت فارغة
+    if (!waybillsDraft[0].senderName) waybillsDraft[0].senderName = defaultSenderName;
+    if (!waybillsDraft[0].senderPhone) waybillsDraft[0].senderPhone = defaultSenderPhone;
+  }
+
+  // إذا كان الحساب فرداً أو ضيفاً، يقتصر على بوليصة واحدة
+  if (ctype !== 'corporate' && waybillsDraft.length > 1) {
+    waybillsDraft = [waybillsDraft[0]];
+  }
+  renderWaybillForms();
+}
+
+function syncWaybillInputsFromDOM() {
+  waybillsDraft.forEach((wb, idx) => {
+    const sn = $('wb_sn_' + idx);
+    const sp = $('wb_sp_' + idx);
+    const rn = $('wb_rn_' + idx);
+    const rp = $('wb_rp_' + idx);
+    const wt = $('wb_wt_' + idx);
+    const nt = $('wb_nt_' + idx);
+    if (sn) wb.senderName = sn.value;
+    if (sp) wb.senderPhone = sp.value;
+    if (rn) wb.receiverName = rn.value;
+    if (rp) wb.receiverPhone = rp.value;
+    if (wt) wb.weight = wt.value;
+    if (nt) wb.notes = nt.value;
+  });
+}
+
+function addWaybillItem() {
+  syncWaybillInputsFromDOM();
+  waybillsDraft.push({
+    senderName: acctName || '',
+    senderPhone: acctPhone || '',
+    receiverName: '',
+    receiverPhone: '',
+    weight: '1',
+    notes: ''
+  });
+  renderWaybillForms();
+}
+
+function removeWaybillItem(idx) {
+  syncWaybillInputsFromDOM();
+  if (waybillsDraft.length <= 1) return;
+  waybillsDraft.splice(idx, 1);
+  renderWaybillForms();
+}
+
+function renderWaybillForms() {
+  const isCorp = ctype === 'corporate';
+  $('wbSecTitle').textContent = isCorp ? t('wbSecMulti') : t('wbSecSingle');
+  $('addWbBtn').style.display = isCorp ? 'inline-flex' : 'none';
+  $('step2Hint').innerHTML = isCorp ? t('step2HintCorp') : t('step2HintIndiv');
+  $('step2ModeBadge').textContent = isCorp
+    ? `${t('corpPill')} (${unitB2B(corpTier)} ${t('sar')}/${t('wbUnit')})`
+    : t('indivPill');
+
+  const container = $('waybillFormsList');
+  container.innerHTML = waybillsDraft.map((wb, i) => {
+    const wOpts = [0, 1, 2, 3].map(w => `<option value="${w}" ${String(wb.weight) === String(w) ? 'selected' : ''}>${t('w' + w)}</option>`).join('');
+    const delBtn = (isCorp && waybillsDraft.length > 1)
+      ? `<button type="button" class="btn sm danger" onclick="removeWaybillItem(${i})">${t('removeWb')}</button>`
+      : '';
+    return `
+      <div class="wb-item-card">
+        <div class="wb-item-head">
+          <span class="wb-num-badge">${t('wbCardTitle', { n: i + 1 })}</span>
+          ${delBtn}
+        </div>
+        <div class="g2">
+          <div class="fg">
+            <label for="wb_sn_${i}">${ic('user')} ${t('lSenderName')}</label>
+            <input type="text" id="wb_sn_${i}" value="${escapeAttr(wb.senderName)}" placeholder="${t('phSenderName')}">
+          </div>
+          <div class="fg">
+            <label for="wb_sp_${i}">${ic('phone')} ${t('lSenderPhone')}</label>
+            <input type="tel" id="wb_sp_${i}" dir="ltr" value="${escapeAttr(wb.senderPhone)}" placeholder="05XXXXXXXX">
+          </div>
+        </div>
+        <div class="g2" style="margin-top:8px">
+          <div class="fg">
+            <label for="wb_rn_${i}">${ic('flag')} ${t('lReceiverName')}</label>
+            <input type="text" id="wb_rn_${i}" value="${escapeAttr(wb.receiverName)}" placeholder="${t('phReceiverName')}">
+          </div>
+          <div class="fg">
+            <label for="wb_rp_${i}">${ic('phone')} ${t('lReceiverPhone')}</label>
+            <input type="tel" id="wb_rp_${i}" dir="ltr" value="${escapeAttr(wb.receiverPhone)}" placeholder="05XXXXXXXX">
+          </div>
+        </div>
+        <div class="g2" style="margin-top:8px">
+          <div class="fg">
+            <label for="wb_wt_${i}">${ic('box')} ${t('lWeight')}</label>
+            <select id="wb_wt_${i}">${wOpts}</select>
+          </div>
+          <div class="fg">
+            <label for="wb_nt_${i}">${t('lNotes')}</label>
+            <input type="text" id="wb_nt_${i}" value="${escapeAttr(wb.notes)}" placeholder="${t('notesPh')}">
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function escapeAttr(str) {
+  return String(str || '').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/* ---------- توليد باركود SVG مخصص وفريد لكل بوليصة ---------- */
+function generateBarcodeSVG(codeStr) {
+  let bars = [];
+  // نمط بداية الباركود
+  bars.push(2, 1, 1, 2, 3, 1);
+  for (let i = 0; i < codeStr.length; i++) {
+    const ch = codeStr.charCodeAt(i);
+    const b1 = (ch % 3) + 1;
+    const s1 = ((ch >> 2) % 2) + 1;
+    const b2 = ((ch >> 3) % 3) + 1;
+    const s2 = ((ch >> 5) % 2) + 1;
+    bars.push(b1, s1, b2, s2);
+  }
+  // نمط نهاية الباركود
+  bars.push(3, 1, 1, 2, 1, 2);
+
+  let x = 8;
+  let rects = '';
+  for (let i = 0; i < bars.length; i++) {
+    const w = bars[i] * 1.9;
+    if (i % 2 === 0) {
+      rects += `<rect x="${x.toFixed(1)}" y="4" width="${w.toFixed(1)}" height="48" fill="#0b1f3a"/>`;
+    }
+    x += w;
+  }
+  const totalW = Math.ceil(x + 8);
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${totalW} 56" width="100%" height="56">${rects}</svg>`;
 }
 
 /* ---------- حساب المسافات والمحطات ---------- */
@@ -1576,7 +1836,6 @@ function buildRoute(f, t2) {
   return { hw, hrs: cum, km: Math.max(35, km), legs };
 }
 const chainTxt = legs => legs.map(l => city(l.c)).join(isEn() ? ' → ' : ' ← ');
-const ic = (n, c = '') => `<svg class="i ${c}"><use href="#${n}"/></svg>`;
 
 /* ---------- القوائم المنسدلة ---------- */
 function buildSelects() {
@@ -1585,18 +1844,16 @@ function buildSelects() {
     el.innerHTML = GROUPS.map(g => `<optgroup label="${t('g_' + g)}">` + CITIES.filter(c => c[2] === g).map(c => `<option value="${c[0]}">${isEn() ? c[1] : c[0]}</option>`).join('') + '</optgroup>').join('');
     el.value = cur;
   });
-  [['weight', 'w'], ['ready', 'r']].forEach(([id, p]) => {
-    const el = $(id), cur = el.value || (id === 'weight' ? '1' : '0');
-    el.innerHTML = [0, 1, 2, 3].map(i => `<option value="${i}">${t(p + i)}</option>`).join('');
-    el.value = cur;
-  });
+  const rEl = $('ready'), rCur = rEl.value || '0';
+  rEl.innerHTML = [0, 1, 2, 3].map(i => `<option value="${i}">${t('r' + i)}</option>`).join('');
+  rEl.value = rCur;
 }
 function swapCities() {
   const a = $('from'), b = $('to'), v = a.value;
   a.value = b.value;
   b.value = v;
   onRoute();
-  saveLocalData();
+  saveAccountProfile();
 }
 
 /* ---------- تحديث المسار النشط والفروع ---------- */
@@ -1625,7 +1882,7 @@ function renderBranches() {
 function selectBranch(i) {
   bIdx = i;
   renderBranches();
-  saveLocalData();
+  if ($('step4').classList.contains('on')) renderCouriersStep();
 }
 
 /* ---------- خيارات الحساب والخدمة ---------- */
@@ -1633,24 +1890,21 @@ function selectSvc(k) {
   svc = k;
   ['hub', 'd2d', 'd2b', 'b2b'].forEach(x => $('s-' + x).classList.toggle('sel', x === k));
   updateSvcText();
-  saveLocalData();
+  saveAccountProfile();
 }
 function updateSvcText() {
   $('hint').innerHTML = t('hint_' + svc);
   $('brLbl').textContent = t('brLbl_' + svc);
 }
-function selectClient(k) {
+function selectClient(k, doSave = true) {
   ctype = k;
-  role = k;
   ['guest', 'individual', 'corporate'].forEach(x => $('c-' + x).classList.toggle('sel', x === k));
   $('b2b').classList.toggle('show', k === 'corporate');
-  if (k === 'corporate') recalcB2B();
-  else count = 1;
   updatePill();
-  saveLocalData();
+  if (doSave) saveAccountProfile();
 }
 function updatePill() {
-  const n = uname || $('senderName')?.value.trim() || '';
+  const n = acctName || '';
   const m = {
     guest: ['bolt', t('guestPill') + (n ? ': ' + n : '')],
     individual: ['user', t('indivPill') + (n ? ': ' + n : '')],
@@ -1658,59 +1912,24 @@ function updatePill() {
   }[ctype];
   $('uPill').textContent = m[1];
   $('uIcon').innerHTML = `<use href="#${m[0]}"/>`;
+  $('logoutBtn').style.display = (acctPhone || acctName) ? 'inline-flex' : 'none';
 }
-const unitB2B = n => n >= 250 ? 22 : n >= 100 ? 26 : 29;
-function setCount(v) {
-  $('cnt').value = v;
-  recalcB2B();
-  saveLocalData();
-}
-function recalcB2B() {
-  const raw = parseInt($('cnt').value, 10) || 50, n = Math.max(50, raw);
-  count = n;
-  const u = unitB2B(n), tot = n * u, save = n * 38 - tot;
-  ['50', '100', '250'].forEach(x => $('t' + x).classList.remove('sel'));
-  $('t' + (n >= 250 ? '250' : n >= 100 ? '100' : '50')).classList.add('sel');
-  $('b2bSum').innerHTML = `<span>${t('unit')}: <b>${u} ${t('sar')}</b> ${raw < 50 ? t('minNote') : ''}</span><span>${t('total', { n: num(n) })}: <b>${num(tot)} ${t('sar')}</b></span><span style="color:var(--teal-d);font-weight:700">${t('saved')} ${num(save)} ${t('sar')}</span>`;
-}
-
-/* ---------- نافذة تسجيل الدخول ---------- */
-function openAuth() {
-  $('authBd').classList.add('open');
-  authTab(ctype);
-}
-function closeAuth() {
-  $('authBd').classList.remove('open');
-}
-function authTab(r) {
-  role = r;
-  ['guest', 'individual', 'corporate'].forEach(x => $('at-' + x).classList.toggle('sel', x === r));
-  $('aNameL').textContent = t(r === 'guest' ? 'aNameG' : r === 'individual' ? 'aNameI' : 'aNameC');
-  $('aExtraG').style.display = r === 'guest' ? 'none' : 'block';
-  $('aExtraL').textContent = t(r === 'corporate' ? 'aExtraC' : 'aExtraI');
-}
-function confirmAuth() {
-  const v = $('aName').value.trim();
-  uextra = $('aExtra').value.trim();
-  uname = v || (role === 'corporate' ? t('dfltCorp') : role === 'individual' ? t('dfltInd') : '');
-  if (v && !$('senderName').value.trim()) {
-    $('senderName').value = v;
-  }
-  if (uextra && role === 'individual' && !$('senderPhone').value.trim()) {
-    $('senderPhone').value = uextra;
-  }
-  selectClient(role);
-  closeAuth();
+const unitB2B = tier => tier >= 250 ? 22 : tier >= 100 ? 26 : 29;
+function setTier(val, doSave = true) {
+  corpTier = val;
+  ['50', '100', '250'].forEach(x => $('t' + x).classList.toggle('sel', Number(x) === val));
+  if (doSave) saveAccountProfile();
 }
 
 /* ---------- تبديل اللغة ---------- */
 function applyText() {
-  document.querySelectorAll('[data-i]').forEach(e => e.textContent = t(e.dataset.i));
+  document.querySelectorAll('[data-i]').forEach(e => e.innerHTML = t(e.dataset.i));
   document.querySelectorAll('[data-ph]').forEach(e => e.placeholder = t(e.dataset.ph));
   $('langTxt').textContent = isEn() ? 'العربية' : 'English';
   document.title = isEn() ? 'Masarak Smart Logistics' : 'مسارك الذكية للشحن | Masarak';
 }
 function toggleLanguage() {
+  syncWaybillInputsFromDOM();
   lang = isEn() ? 'ar' : 'en';
   const r = $('htmlRoot');
   r.lang = lang;
@@ -1719,101 +1938,109 @@ function toggleLanguage() {
   buildSelects();
   updateSvcText();
   updatePill();
-  authTab(role);
-  recalcB2B();
   onRoute();
+  renderWaybillForms();
   renderReviews();
-  if ($('step4').classList.contains('on') && ship) loadSchedule();
+  if ($('step4').classList.contains('on')) renderCouriersStep();
   if ($('step5').classList.contains('on') && ship) goTrack(ship.cIdx);
 }
 
 /* ---------- التنقل بين الخطوات الـ 5 ---------- */
 function goStep(n) {
+  if ($('step2').classList.contains('on')) syncWaybillInputsFromDOM();
   [1, 2, 3, 4, 5].forEach(i => {
     $('step' + i).classList.toggle('on', i === n);
     $('prog' + i).classList.toggle('cur', i === n);
     $('prog' + i).classList.toggle('done', i < n);
   });
+  if (n === 2) initWaybillsDraft();
+  if (n === 4) renderCouriersStep();
   updatePill();
-  saveLocalData();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function nextFromStep1() {
-  const sName = $('senderName').value.trim();
-  const sPhone = $('senderPhone').value.trim();
-  const rName = $('receiverName').value.trim();
-  const rPhone = $('receiverPhone').value.trim();
+  acctPhone = $('acctPhone').value.trim();
+  acctName = $('acctName').value.trim();
   const errEl = $('step1Err');
-
-  if (!sName || !sPhone || !rName || !rPhone) {
-    errEl.textContent = t('errParties');
+  if (ctype !== 'guest' && (!acctPhone || !acctName)) {
+    errEl.textContent = t('errStep1');
     errEl.classList.add('show');
     return;
   }
   errEl.classList.remove('show');
-  if (!uname) uname = sName;
+  saveAccountProfile();
   goStep(2);
 }
 
-function registerShipment() {
+function nextFromStep2() {
+  syncWaybillInputsFromDOM();
+  const errEl = $('step2Err');
+  const invalid = waybillsDraft.some(wb => !wb.senderName.trim() || !wb.senderPhone.trim() || !wb.receiverName.trim() || !wb.receiverPhone.trim());
+  if (invalid) {
+    errEl.textContent = t('errStep2');
+    errEl.classList.add('show');
+    return;
+  }
+  errEl.classList.remove('show');
+  goStep(3);
+}
+
+function renderCouriersStep() {
   const f = $('from').value, to = $('to').value;
-  count = ctype === 'corporate' ? Math.max(50, parseInt($('cnt').value, 10) || 50) : 1;
-  if (ctype === 'corporate') $('cnt').value = count;
+  const wbCount = waybillsDraft.length;
+  const route = buildRoute(f, to);
   ship = {
-    id: 'MSK-' + Math.floor(100000 + Math.random() * 900000),
     ctype,
-    count,
+    corpTier,
+    wbCount,
     svc,
     from: f,
     to,
     bi: bIdx,
-    w: +$('weight').value,
     r: +$('ready').value,
-    notes: $('notes').value.trim(),
-    senderName: $('senderName').value.trim() || t('nameDef'),
-    senderPhone: $('senderPhone').value.trim() || '-',
-    receiverName: $('receiverName').value.trim() || '-',
-    receiverPhone: $('receiverPhone').value.trim() || '-',
-    route: buildRoute(f, to),
+    waybills: JSON.parse(JSON.stringify(waybillsDraft)),
+    route,
     cIdx: 0
   };
-  loadSchedule();
-  goStep(4);
-}
 
-function loadSchedule() {
-  const s = ship, b = BR[s.bi], hw = HW[s.route.hw], ch = chainTxt(s.route.legs), after = Math.min(100, b.load + s.count);
-  const wait = after >= 100 ? 0.5 : b.eta, bn = `${t('b' + s.bi)} (${city(s.from)})`;
+  const s = ship, b = BR[s.bi], hw = HW[s.route.hw], ch = chainTxt(s.route.legs);
+  const after = Math.min(100, b.load + s.wbCount);
+  const wait = after >= 100 ? 0.5 : b.eta;
+  const bn = `${t('b' + s.bi)} (${city(s.from)})`;
 
   $('shipSum').innerHTML = `
-    ${t('shipId')}: <b>${s.id}</b> | ${t('qty')}: <b>${num(s.count)} ${t('parc')}</b>
-    <div class="parties-summary">
-      <div>${ic('user')} <b>${t('senderLbl')}:</b> ${s.senderName} (<span dir="ltr">${s.senderPhone}</span>)</div>
-      <div>${ic('flag')} <b>${t('receiverLbl')}:</b> ${s.receiverName} (<span dir="ltr">${s.receiverPhone}</span>)</div>
-    </div>
-    ${t('origin')}: <b style="color:var(--teal-d)">${bn}</b> (${t('occB')}: <b>${b.load}%</b> → <b>${after}%</b> ${t('after')})<br>
+    ${t('batchCount')}: <b>${num(s.wbCount)} ${t('wbUnit')}</b> | ${t('origin')}: <b style="color:var(--teal-d)">${bn}</b> (${t('occB')}: <b>${b.load}%</b> → <b>${after}%</b> ${t('after')})<br>
     ${t('hwL')}: <b>${hw.code[lang]}</b> — ${hw.name[lang]}<br>
     ${t('stopsL')} (${num(s.route.km)} ${t('km')}): <b>${ch}</b> | ${t('roadT')}: <b>${num(s.route.hrs)} ${t('hrs')}</b>
   `;
 
   const mult = s.svc === 'd2d' ? 1.25 : s.svc === 'b2b' ? 0.85 : s.svc === 'hub' ? 0.95 : 1;
-  const add = Math.min(12, Math.floor(s.route.km / 250) * 3), bu = unitB2B(s.count);
+  const add = Math.min(12, Math.floor(s.route.km / 250) * 3);
+  const bu = unitB2B(s.corpTier);
+
   const base = [
     { n: { ar: 'مسارك إكسبريس (سمسا: الخط السريع المباشر)', en: 'Masarak Express (SMSA Direct Line)' }, ip: 35, cp: bu, sf: 1.0, rt: '4.9' },
     { n: { ar: 'درة اللوجستية (أرامكس: خط المحافظات)', en: 'Durrah Logistics (Aramex Regional Line)' }, ip: 31, cp: Math.max(20, bu - 2), sf: 1.15, rt: '4.7' },
     { n: { ar: 'الناقل الوطني الموحد (سبل)', en: 'National Unified Carrier (SPL)' }, ip: 24, cp: Math.max(18, bu - 4), sf: 1.3, rt: '4.6' }
   ];
+
   cour = base.map(c => {
-    const corp = s.ctype === 'corporate', unit = corp ? c.cp : Math.round((c.ip + add) * mult), tot = unit * s.count;
-    const rh = Math.max(1.5, Math.round(s.route.hrs * c.sf * 2) / 2), te = Math.round((rh + wait) * 2) / 2;
+    const corp = s.ctype === 'corporate';
+    const unit = corp ? c.cp : Math.round((c.ip + add) * mult);
+    const tot = unit * s.wbCount;
+    const rh = Math.max(1.5, Math.round(s.route.hrs * c.sf * 2) / 2);
+    const te = Math.round((rh + wait) * 2) / 2;
     return {
       n: c.n, unit, tot, corp, sf: c.sf, rt: c.rt, rh, wait, te, after,
       dep: after >= 100 ? t('full') : t('dep', { p: after, h: b.eta })
     };
   });
+
   $('couriers').innerHTML = `<div class="lb" style="margin-bottom:10px">${t('chooseC')}</div>` + cour.map((c, i) => {
-    const cost = c.corp ? `${c.unit} ${t('sar')}/${isEn() ? 'parcel' : 'طرد'} (${num(c.tot)} ${t('sar')})` : `${c.unit} ${t('sar')}`;
+    const cost = s.wbCount > 1
+      ? `${c.unit} ${t('sar')}/${t('wbUnit')} (${t('total2')}: ${num(c.tot)} ${t('sar')})`
+      : `${c.unit} ${t('sar')}`;
     const wt = c.wait === 0.5 ? t('immed') : `${num(c.wait)} ${t('h')} ${t('wait')}`;
     return `<div class="cc" tabindex="0" onclick="goTrack(${i})" onkeydown="if(event.key==='Enter')goTrack(${i})">
       <div class="ch"><b>${ic('truck')} ${c.n[lang]}</b><span class="dep">${c.dep}</span></div>
@@ -1827,6 +2054,16 @@ function loadSchedule() {
 function goTrack(ci) {
   ship.cIdx = ci;
   const s = ship, c = cour[ci], legs = s.route.legs, hw = HW[s.route.hw], bn = `${t('b' + s.bi)} (${city(s.from)})`;
+
+  // توليد رقم بوليصة وباركود فريد لكل شحنة في الدفعة
+  const baseStamp = Date.now().toString().slice(-5);
+  s.waybills.forEach((wb, idx) => {
+    if (!wb.waybillId) {
+      const randPart = Math.floor(100 + Math.random() * 899);
+      wb.waybillId = `MSK-${baseStamp}${randPart}-${idx + 1}`;
+    }
+  });
+
   let run = 0;
   const items = legs.map((l, i) => {
     if (i === 0) return `<li class="start"><span class="th">${t('hour0')}</span><b>${city(l.c)}</b><small>${bn} — ${c.dep}</small></li>`;
@@ -1836,17 +2073,13 @@ function goTrack(ci) {
     if (i === legs.length - 1) return `<li class="end"><span class="th">${tag}</span><b>${city(l.c)}</b><small>${s.svc === 'd2d' ? t('n_endD') : t('n_endH')}</small></li>`;
     return `<li><span class="th">${tag}</span><b>${t('stopAt')} ${city(l.c)}</b><small>${t('n_stop')}</small></li>`;
   }).join('');
+
   const d = city(s.to), d2 = s.svc === 'd2d';
   const opts = d2 ? [t('hD0'), t('hD1')] : [t('hN') + ' (' + d + ')', t('hM') + ' (' + d + ')', t('hS') + ' (' + d + ')'];
-  const cost = c.corp ? `${c.unit} ${t('sar')}/${isEn() ? 'parcel' : 'طرد'} (${num(c.tot)} ${t('sar')})` : `${c.unit} ${t('sar')}`;
+  const cost = `${num(c.tot)} ${t('sar')} (${num(s.wbCount)} × ${c.unit} ${t('sar')})`;
 
   $('trackBox').innerHTML = `
-    ${t('shipId')}: <b>${s.id}</b> | ${t('carrier')}: <b>${c.n[lang]}</b><br>
-    ${t('appr')}: <b style="color:var(--teal-d)">${cost}</b>
-    <div class="parties-summary">
-      <div>${ic('user')} <b>${t('senderLbl')}:</b> ${s.senderName} (<span dir="ltr">${s.senderPhone}</span>)</div>
-      <div>${ic('flag')} <b>${t('receiverLbl')}:</b> ${s.receiverName} (<span dir="ltr">${s.receiverPhone}</span>)</div>
-    </div>
+    ${t('carrier')}: <b>${c.n[lang]}</b> | ${t('appr')}: <b style="color:var(--teal-d)">${cost}</b><br>
     ${t('hwL')}: <b>${hw.code[lang]}</b> — ${hw.name[lang]}<br>
     ${t('depL')}: <b style="color:var(--amber)">${bn} — ${c.dep}</b>
     <div class="hub">
@@ -1854,14 +2087,152 @@ function goTrack(ci) {
       <select id="hubSel" onchange="hubNote()">${opts.map((o, i) => `<option value="${i}">${o}</option>`).join('')}</select>
       <div class="ok" id="hubMsg">${ic('check')} ${d2 ? t('hOkD', { h: num(run) }) : t('hOkH', { c: d, h: num(run) })}</div>
     </div>
-    <div class="lb" style="margin-top:16px">${ic('route')} ${t('schedL')}</div>
-    <ol class="tl">${items}</ol>
   `;
+
+  // رسم بطاقات البوليصات مع الباركود المخصص لكل بوليصة
+  const routeChain = chainTxt(legs);
+  $('issuedWaybillsContainer').innerHTML = s.waybills.map((wb, idx) => {
+    const svgBarcode = generateBarcodeSVG(wb.waybillId + '-' + wb.receiverPhone);
+    const notesTxt = wb.notes.trim() || t('noNotes');
+    return `
+      <div class="waybill-ticket" id="wb_ticket_${idx}">
+        <div class="wb-top">
+          <div class="wb-brand">${ic('route')} ${t('brand')} — ${t('wbCardTitle', { n: idx + 1 })}</div>
+          <button type="button" class="btn sm sec" onclick="downloadWaybillsPDF(${idx})">
+            ${ic('print')} <span>${t('printOnePdf')}</span>
+          </button>
+        </div>
+        <div class="wb-route-banner">
+          <span><b>${city(s.from)}</b> ${isEn() ? '→' : '←'} <b>${city(s.to)}</b> (${hw.code[lang]})</span>
+          <span><b>${c.n[lang]}</b> | ${c.unit} ${t('sar')}</span>
+        </div>
+        <div class="wb-parties-grid">
+          <div class="wb-party-box">
+            <h4>${ic('user')} ${t('senderLbl')}</h4>
+            <div><b>${escapeAttr(wb.senderName)}</b></div>
+            <div dir="ltr">${escapeAttr(wb.senderPhone)}</div>
+            <div style="color:var(--mut);font-size:12px">${bn}</div>
+          </div>
+          <div class="wb-party-box">
+            <h4>${ic('flag')} ${t('receiverLbl')}</h4>
+            <div><b>${escapeAttr(wb.receiverName)}</b></div>
+            <div dir="ltr">${escapeAttr(wb.receiverPhone)}</div>
+            <div style="color:var(--mut);font-size:12px">${city(s.to)} (${num(run)} ${t('hrs')})</div>
+          </div>
+        </div>
+        <div class="wb-notes-row">
+          <b>${t('lWeight')}:</b> ${t('w' + wb.weight)} &nbsp;|&nbsp; <b>${t('lNotes')}:</b> ${escapeAttr(notesTxt)}
+        </div>
+        <div class="wb-barcode-box">
+          ${svgBarcode}
+          <div class="wb-barcode-code">${wb.waybillId}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  $('timelineList').innerHTML = items;
   goStep(5);
 }
+
 function hubNote() {
   const sel = $('hubSel');
   $('hubMsg').innerHTML = ic('check') + ' ' + t('hConf') + sel.options[sel.selectedIndex].text;
+}
+
+/* ---------- تحميل وطباعة البوليصات PDF بنافذة مخصصة نظيفة ---------- */
+function downloadWaybillsPDF(targetIdx) {
+  if (!ship) return;
+  const s = ship, c = cour[s.cIdx], hw = HW[s.route.hw], bn = `${t('b' + s.bi)} (${city(s.from)})`;
+  const hubSel = $('hubSel');
+  const destHubTxt = hubSel ? hubSel.options[hubSel.selectedIndex].text : city(s.to);
+  const list = targetIdx === -1 ? s.waybills : [s.waybills[targetIdx]];
+  const dir = isEn() ? 'ltr' : 'rtl';
+
+  const pagesHtml = list.map((wb, i) => {
+    const svgBarcode = generateBarcodeSVG(wb.waybillId + '-' + wb.receiverPhone);
+    const notesTxt = wb.notes.trim() || t('noNotes');
+    return `
+      <div class="pdf-page">
+        <div class="pdf-head">
+          <div>
+            <h1>${t('brand')}</h1>
+            <small>${hw.code[lang]} — ${hw.name[lang]}</small>
+          </div>
+          <div class="pdf-id">${wb.waybillId}</div>
+        </div>
+        <div class="pdf-strip">
+          <div><b>${t('origin')}:</b> ${bn}</div>
+          <div><b>${t('lTo')}:</b> ${city(s.to)}</div>
+          <div><b>${t('carrier')}:</b> ${c.n[lang]}</div>
+          <div><b>${t('cost')}:</b> ${c.unit} ${t('sar')}</div>
+        </div>
+        <div class="pdf-grid">
+          <div class="pdf-box">
+            <h3>${t('senderLbl')}</h3>
+            <p><b>${escapeAttr(wb.senderName)}</b></p>
+            <p dir="ltr">${escapeAttr(wb.senderPhone)}</p>
+            <p>${city(s.from)}</p>
+          </div>
+          <div class="pdf-box">
+            <h3>${t('receiverLbl')}</h3>
+            <p><b>${escapeAttr(wb.receiverName)}</b></p>
+            <p dir="ltr">${escapeAttr(wb.receiverPhone)}</p>
+            <p>${destHubTxt}</p>
+          </div>
+        </div>
+        <div class="pdf-notes">
+          <p><b>${t('lWeight')}:</b> ${t('w' + wb.weight)}</p>
+          <p><b>${t('lNotes')}:</b> ${escapeAttr(notesTxt)}</p>
+        </div>
+        <div class="pdf-barcode">
+          ${svgBarcode}
+          <div class="pdf-code">${wb.waybillId}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  const win = window.open('', '_blank', 'width=840,height=900');
+  if (!win) {
+    window.print();
+    return;
+  }
+  win.document.write(`<!DOCTYPE html><html lang="${lang}" dir="${dir}"><head><meta charset="UTF-8">
+    <title>Waybills PDF - ${s.waybills[0].waybillId}</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+      *{box-sizing:border-box}
+      body{font-family:'IBM Plex Sans Arabic',Tahoma,sans-serif;margin:0;padding:20px;background:#fff;color:#0b1f3a}
+      .pdf-page{border:2.5px solid #0b1f3a;border-radius:14px;padding:22px;margin-bottom:24px;page-break-inside:avoid}
+      .pdf-head{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #0b1f3a;padding-bottom:12px;margin-bottom:14px}
+      .pdf-head h1{margin:0;font-size:20px}
+      .pdf-id{font-family:monospace;font-size:16px;font-weight:700;background:#0b1f3a;color:#fff;padding:6px 12px;border-radius:8px}
+      .pdf-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;background:#f0f4f8;padding:12px;border-radius:10px;margin-bottom:14px;font-size:13px}
+      .pdf-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+      .pdf-box{border:1.5px solid #cbd5e1;border-radius:10px;padding:12px}
+      .pdf-box h3{margin:0 0 8px;font-size:14px;color:#0e7c86;border-bottom:1px dashed #cbd5e1;padding-bottom:4px}
+      .pdf-box p{margin:4px 0;font-size:13.5px}
+      .pdf-notes{background:#fdf3e1;border:1px solid #d98a1f;border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:13px}
+      .pdf-notes p{margin:4px 0}
+      .pdf-barcode{text-align:center;border:1.5px dashed #0b1f3a;border-radius:10px;padding:14px}
+      .pdf-code{font-family:monospace;font-size:15px;font-weight:700;letter-spacing:3px;margin-top:6px}
+      @media print{body{padding:0}.no-print{display:none}}
+    </style></head><body>
+    <div class="no-print" style="text-align:center;margin-bottom:16px">
+      <button onclick="window.print()" style="padding:10px 24px;background:#0e7c86;color:#fff;border:0;border-radius:8px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer">
+        ${isEn() ? 'Save as PDF / Print' : 'حفظ كملف PDF / طباعة'}
+      </button>
+    </div>
+    ${pagesHtml}
+    <script>window.onload=function(){setTimeout(function(){window.print()},350)}<\/script>
+  </body></html>`);
+  win.document.close();
+}
+
+function startNewBatch() {
+  waybillsDraft = [];
+  goStep(2);
 }
 
 /* ---------- التقييمات ---------- */
@@ -1874,17 +2245,17 @@ function renderReviews() {
   $('avg').textContent = '4.9 / 5.0 (' + t('rvCount', { n: num(126 + all.length) }) + ')';
   $('reviews').innerHTML = all.map(r => {
     const nm = typeof r.n === 'string' ? r.n : r.n[lang], cm = typeof r.c === 'string' ? r.c : r.c[lang];
-    return `<div class="rc"><div class="rt"><span>${nm}</span><span class="s">${Array.from({ length: r.s }, () => ic('star', 'fill')).join('')}</span></div>
-      <div class="rr">${city(r.f)} ${isEn() ? '→' : '←'} ${city(r.to)} (${HW[hwOf(r.f, r.to)].code[lang]})</div><div>${cm}</div></div>`;
+    return `<div class="rc"><div class="rt"><span>${escapeAttr(nm)}</span><span class="s">${Array.from({ length: r.s }, () => ic('star', 'fill')).join('')}</span></div>
+      <div class="rr">${city(r.f)} ${isEn() ? '→' : '←'} ${city(r.to)} (${HW[hwOf(r.f, r.to)].code[lang]})</div><div>${escapeAttr(cm)}</div></div>`;
   }).join('');
 }
 function submitReview() {
-  const n = $('rvName').value.trim() || uname || $('senderName').value.trim() || t('nameDef');
+  const n = $('rvName').value.trim() || acctName || t('nameDef');
   const c = $('rvText').value.trim() || t('cmtDef');
   userReviews.unshift({ n, c, s: stars, f: $('from').value, to: $('to').value });
   $('rvName').value = '';
   $('rvText').value = '';
-  saveLocalData();
+  try { localStorage.setItem(REVIEWS_KEY, JSON.stringify(userReviews)); } catch (e) {}
   renderReviews();
 }
 
@@ -1892,12 +2263,11 @@ function submitReview() {
 window.addEventListener('DOMContentLoaded', () => {
   applyText();
   buildSelects();
-  loadLocalData();
-  selectClient(ctype);
+  loadInitialSession();
+  selectClient(ctype, false);
+  setTier(corpTier, false);
   selectSvc(svc);
-  authTab(role);
   drawStars();
-  recalcB2B();
   onRoute();
   renderReviews();
 });

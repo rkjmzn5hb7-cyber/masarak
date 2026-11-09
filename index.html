@@ -1,2234 +1,550 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" id="htmlRoot">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>منصة مسارك الذكية للشحن | Masarak Smart Logistics</title>
-    <style>
-        :root {
-            --primary-blue: #0284c7;
-            --primary-hover: #0369a1;
-            --royal-blue: #2563eb;
-            --dark-navy: #0f172a;
-            --navy-accent: #1e3a8a;
-            --container-bg: #ffffff;
-            --page-bg: #e0f2fe;
-            --soft-blue-bg: #f0f9ff;
-            --ice-blue: #e0f2fe;
-            --border-blue: #bae6fd;
-            --border-strong: #38bdf8;
-            --white: #ffffff;
-            --text-dark: #0f172a;
-            --text-muted: #475569;
-            --cyan-accent: #0ea5e9;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
-            background: radial-gradient(circle at top right, #dbeafe 0%, #f0f9ff 45%, #e0f2fe 100%);
-            margin: 0;
-            padding: 16px;
-            color: var(--text-dark);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-        }
-
-        /* شريط المنصة العلوي */
-        .top-navbar {
-            width: 100%;
-            max-width: 760px;
-            background: rgba(255, 255, 255, 0.94);
-            backdrop-filter: blur(12px);
-            border: 1.5px solid var(--border-blue);
-            border-radius: 18px;
-            padding: 12px 18px;
-            margin-bottom: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 8px 24px rgba(2, 132, 199, 0.09);
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .brand-wrap {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .brand-logo {
-            width: 44px;
-            height: 44px;
-            border-radius: 13px;
-            background: linear-gradient(135deg, var(--primary-blue), var(--navy-accent));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 21px;
-            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.32);
-            animation: floatIcon 3s ease-in-out infinite;
-        }
-
-        @keyframes floatIcon {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-3px); }
-        }
-
-        .brand-title {
-            margin: 0;
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--navy-accent);
-            line-height: 1.2;
-        }
-
-        .brand-tagline {
-            font-size: 11.5px;
-            color: var(--primary-blue);
-            font-weight: bold;
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .user-pill {
-            background: var(--soft-blue-bg);
-            border: 1px solid var(--border-blue);
-            color: var(--navy-accent);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .nav-btn {
-            width: auto;
-            margin: 0;
-            padding: 7px 13px;
-            font-size: 12px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, var(--primary-blue), var(--royal-blue));
-            color: var(--white);
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            box-shadow: 0 3px 10px rgba(37, 99, 235, 0.2);
-            transition: all 0.2s ease;
-        }
-
-        .nav-btn.lang-btn {
-            background: var(--white);
-            color: var(--navy-accent);
-            border: 1.5px solid var(--border-strong);
-            box-shadow: none;
-        }
-
-        .nav-btn.lang-btn:hover {
-            background: var(--soft-blue-bg);
-        }
-
-        /* نافذة تسجيل الدخول */
-        .modal-backdrop {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.58);
-            backdrop-filter: blur(4px);
-            z-index: 999;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-        }
-
-        .modal-backdrop.open {
-            display: flex;
-            animation: fadeIn 0.25s ease-out;
-        }
-
-        .auth-modal {
-            background: var(--white);
-            width: 100%;
-            max-width: 460px;
-            border-radius: 20px;
-            padding: 22px;
-            border: 2px solid var(--border-blue);
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
-        }
-
-        .auth-tabs {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-
-        .auth-tab {
-            padding: 10px 6px;
-            border-radius: 10px;
-            border: 2px solid var(--border-blue);
-            background: var(--soft-blue-bg);
-            color: var(--navy-accent);
-            font-size: 12px;
-            font-weight: bold;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .auth-tab.active-tab {
-            background: var(--primary-blue);
-            color: var(--white);
-            border-color: var(--primary-blue);
-        }
-
-        /* الحاوية الرئيسية */
-        .container {
-            width: 100%;
-            max-width: 760px;
-            margin: 0 auto 24px auto;
-            background: var(--container-bg);
-            padding: 24px;
-            border-radius: 24px;
-            box-shadow: 0 14px 36px rgba(2, 132, 199, 0.12);
-            border: 2px solid var(--border-blue);
-            position: relative;
-            overflow: hidden;
-        }
-
-        h2 {
-            color: var(--navy-accent);
-            text-align: center;
-            margin-top: 0;
-            margin-bottom: 4px;
-            font-size: 24px;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 13px;
-            margin-bottom: 18px;
-            font-weight: bold;
-        }
-
-        .progress-bar {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 18px;
-        }
-
-        .progress-step {
-            flex: 1;
-            text-align: center;
-            padding: 10px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: bold;
-            background: var(--soft-blue-bg);
-            color: var(--navy-accent);
-            border: 1px solid var(--border-blue);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .progress-step.current {
-            background: linear-gradient(135deg, var(--primary-blue), var(--royal-blue));
-            color: var(--white);
-            border-color: var(--primary-blue);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 14px rgba(2, 132, 199, 0.28);
-        }
-
-        .step-box { display: none; }
-        .active { display: block; animation: slideUpFade 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* جرافيك المسار التفاعلي باسم الطريق الرسمي */
-        .live-route-banner {
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 55%, #0284c7 100%);
-            color: var(--white);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 18px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 8px 22px rgba(15, 23, 42, 0.2);
-        }
-
-        .live-route-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-            margin-bottom: 6px;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .highway-sub-bar {
-            font-size: 11.5px;
-            color: #bae6fd;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-
-        .highway-code-pill {
-            background: rgba(255, 255, 255, 0.16);
-            border: 1px solid rgba(186, 230, 253, 0.5);
-            color: #ffffff;
-            padding: 2px 8px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 11px;
-        }
-
-        .live-time-badge {
-            background: rgba(56, 189, 248, 0.22);
-            border: 1px solid #38bdf8;
-            color: #e0f2fe;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .route-nodes-track {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            position: relative;
-            margin-top: 12px;
-            padding: 0 4px;
-            gap: 4px;
-        }
-
-        .route-line-bg {
-            position: absolute;
-            top: 15px;
-            right: 22px;
-            left: 22px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.22);
-            border-radius: 4px;
-            z-index: 1;
-        }
-
-        .route-line-animated {
-            position: absolute;
-            top: 15px;
-            right: 22px;
-            left: 22px;
-            height: 4px;
-            background: linear-gradient(90deg, #38bdf8, #93c5fd, #ffffff, #38bdf8);
-            background-size: 200% 100%;
-            animation: flowStream 2.4s linear infinite;
-            border-radius: 4px;
-            z-index: 2;
-        }
-
-        @keyframes flowStream {
-            0% { background-position: 100% 0; }
-            100% { background-position: -100% 0; }
-        }
-
-        .route-node {
-            position: relative;
-            z-index: 3;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            flex: 1;
-            min-width: 58px;
-        }
-
-        .node-dot {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: #0284c7;
-            border: 2.5px solid #e0f2fe;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.65);
-            margin-bottom: 5px;
-        }
-
-        .node-city {
-            font-size: 11px;
-            font-weight: bold;
-            color: #ffffff;
-            line-height: 1.25;
-        }
-
-        .node-hour {
-            font-size: 10px;
-            color: #7dd3fc;
-            margin-top: 2px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-            color: var(--navy-accent);
-            font-size: 13.5px;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 11px 12px;
-            border: 2px solid var(--border-blue);
-            border-radius: 11px;
-            font-size: 13.5px;
-            background-color: var(--white);
-            color: var(--text-dark);
-            font-family: inherit;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.16);
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 14px;
-        }
-
-        @media (min-width: 520px) {
-            .grid-2 {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, var(--primary-blue), var(--royal-blue));
-            color: var(--white);
-            border: none;
-            font-size: 15px;
-            font-weight: bold;
-            border-radius: 12px;
-            cursor: pointer;
-            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.25);
-            margin-top: 10px;
-            font-family: inherit;
-            transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
-        }
-
-        button:hover {
-            filter: brightness(1.06);
-            transform: translateY(-1px);
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
-        .secondary-btn {
-            background: var(--white);
-            color: var(--primary-blue);
-            border: 2px solid var(--primary-blue);
-            box-shadow: none;
-        }
-
-        .secondary-btn:hover {
-            background: var(--soft-blue-bg);
-        }
-
-        .client-type-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 14px;
-        }
-
-        .client-card {
-            border: 2px solid var(--border-blue);
-            padding: 11px 8px;
-            border-radius: 12px;
-            background: var(--soft-blue-bg);
-            text-align: center;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 12.5px;
-            color: var(--navy-accent);
-            transition: all 0.2s ease;
-        }
-
-        .client-card.selected {
-            border-color: var(--primary-blue);
-            background: linear-gradient(135deg, var(--primary-blue), var(--royal-blue));
-            color: var(--white);
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.24);
-        }
-
-        .b2b-box {
-            display: none;
-            background: var(--soft-blue-bg);
-            border: 2px solid var(--primary-blue);
-            border-radius: 14px;
-            padding: 14px;
-            margin-bottom: 16px;
-        }
-
-        .b2b-box.show {
-            display: block;
-            animation: slideUpFade 0.25s ease-out;
-        }
-
-        .tier-pills {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .tier-pill {
-            background: var(--white);
-            border: 2px solid var(--border-blue);
-            border-radius: 10px;
-            padding: 9px 6px;
-            text-align: center;
-            cursor: pointer;
-            font-size: 12px;
-            color: var(--navy-accent);
-            transition: all 0.2s ease;
-        }
-
-        .tier-pill.active-tier {
-            border-color: var(--primary-blue);
-            background: #dbeafe;
-            font-weight: bold;
-            transform: translateY(-1px);
-        }
-
-        .tier-price {
-            display: block;
-            font-size: 15px;
-            font-weight: bold;
-            color: var(--primary-blue);
-            margin-top: 3px;
-        }
-
-        .b2b-calc-summary {
-            background: var(--white);
-            border: 1px solid var(--border-blue);
-            border-radius: 10px;
-            padding: 10px 12px;
-            font-size: 12.5px;
-            color: var(--navy-accent);
-            margin-top: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .service-type-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-
-        .service-card {
-            border: 2px solid var(--border-blue);
-            padding: 11px 8px;
-            border-radius: 11px;
-            background: var(--soft-blue-bg);
-            text-align: center;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 12.5px;
-            color: var(--navy-accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            transition: all 0.2s ease;
-        }
-
-        .service-card.selected {
-            border-color: var(--primary-blue);
-            background: var(--primary-blue);
-            color: var(--white);
-            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.2);
-        }
-
-        .service-logic-hint {
-            background: var(--soft-blue-bg);
-            border-inline-start: 4px solid var(--primary-blue);
-            padding: 9px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            color: var(--navy-accent);
-            margin-bottom: 14px;
-        }
-
-        .branches-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .branch-card {
-            border: 2px solid var(--border-blue);
-            border-radius: 12px;
-            padding: 12px;
-            background: var(--white);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .branch-card:hover {
-            border-color: var(--border-strong);
-        }
-
-        .branch-card.selected {
-            border-color: var(--primary-blue);
-            background: var(--soft-blue-bg);
-            box-shadow: 0 5px 14px rgba(2, 132, 199, 0.14);
-        }
-
-        .branch-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-            font-weight: bold;
-            color: var(--navy-accent);
-            margin-bottom: 6px;
-            flex-wrap: wrap;
-            gap: 4px;
-        }
-
-        .branch-badge-fast {
-            background: #dbeafe;
-            color: var(--navy-accent);
-            border: 1px solid #60a5fa;
-            padding: 3px 9px;
-            border-radius: 14px;
-            font-size: 11px;
-            animation: pulseBlue 2s infinite;
-        }
-
-        @keyframes pulseBlue {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.35); }
-            50% { box-shadow: 0 0 0 6px rgba(37, 99, 235, 0); }
-        }
-
-        .branch-badge-wait {
-            background: var(--soft-blue-bg);
-            color: var(--primary-blue);
-            border: 1px solid var(--border-blue);
-            padding: 3px 9px;
-            border-radius: 14px;
-            font-size: 11px;
-        }
-
-        .branch-meta {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-
-        .capacity-bar-wrap {
-            margin-top: 5px;
-            background: #e2e8f0;
-            border-radius: 6px;
-            height: 8px;
-            overflow: hidden;
-        }
-
-        .capacity-bar-fill {
-            background: linear-gradient(90deg, #38bdf8, var(--primary-blue));
-            height: 100%;
-            border-radius: 6px;
-            transition: width 0.4s ease;
-        }
-
-        .capacity-bar-fill.fast {
-            background: linear-gradient(90deg, var(--primary-blue), var(--navy-accent));
-        }
-
-        .courier-card {
-            border: 2px solid var(--border-blue);
-            padding: 15px;
-            margin-bottom: 12px;
-            border-radius: 14px;
-            background: var(--white);
-            cursor: pointer;
-            font-size: 13px;
-            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-        }
-
-        .courier-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--primary-blue);
-            box-shadow: 0 8px 18px rgba(2, 132, 199, 0.16);
-        }
-
-        .courier-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .departure-pill {
-            background: var(--soft-blue-bg);
-            color: var(--primary-blue);
-            border: 1px solid var(--border-blue);
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 11.5px;
-            font-weight: bold;
-        }
-
-        .route-preview {
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px dashed var(--border-blue);
-            font-size: 12px;
-            color: var(--navy-accent);
-        }
-
-        .timeline {
-            list-style: none;
-            padding: 0;
-            margin-top: 14px;
-        }
-
-        .timeline li {
-            padding: 11px 14px;
-            border-inline-start: 3.5px solid var(--primary-blue);
-            margin-inline-start: 10px;
-            position: relative;
-            font-size: 13px;
-            background: var(--soft-blue-bg);
-            margin-bottom: 8px;
-            border-radius: 10px;
-        }
-
-        .step-hour-tag {
-            display: inline-block;
-            background: var(--navy-accent);
-            color: var(--white);
-            font-size: 11px;
-            padding: 2px 8px;
-            border-radius: 12px;
-            margin-inline-end: 6px;
-            font-weight: bold;
-        }
-
-        .badge {
-            background-color: var(--soft-blue-bg);
-            color: var(--navy-accent);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 12px;
-            border: 1px solid var(--border-blue);
-        }
-
-        .summary-box {
-            background: var(--soft-blue-bg);
-            padding: 15px;
-            border-radius: 14px;
-            border: 2px solid var(--border-blue);
-            margin-bottom: 14px;
-            line-height: 1.75;
-            font-size: 13px;
-        }
-
-        .hub-selector {
-            margin-top: 12px;
-            padding: 12px;
-            background: var(--white);
-            border-radius: 12px;
-            border: 1px solid var(--border-blue);
-        }
-
-        /* قسم تقييمات وملاحظات العملاء */
-        .reviews-section {
-            width: 100%;
-            max-width: 760px;
-            background: var(--white);
-            border: 2px solid var(--border-blue);
-            border-radius: 22px;
-            padding: 22px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 28px rgba(2, 132, 199, 0.09);
-        }
-
-        .reviews-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 14px;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .avg-rating-pill {
-            background: linear-gradient(135deg, var(--navy-accent), var(--primary-blue));
-            color: var(--white);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: bold;
-        }
-
-        .star-picker {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 10px;
-        }
-
-        .star-btn {
-            width: 38px;
-            height: 38px;
-            padding: 0;
-            margin: 0;
-            border-radius: 10px;
-            border: 1.5px solid var(--border-blue);
-            background: var(--soft-blue-bg);
-            color: #94a3b8;
-            font-size: 19px;
-            cursor: pointer;
-            box-shadow: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .star-btn.active-star {
-            background: var(--primary-blue);
-            color: var(--white);
-            border-color: var(--navy-accent);
-        }
-
-        .reviews-list {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-            margin-top: 14px;
-        }
-
-        @media (min-width: 560px) {
-            .reviews-list {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .review-card {
-            background: var(--soft-blue-bg);
-            border: 1.5px solid var(--border-blue);
-            border-radius: 12px;
-            padding: 12px;
-            font-size: 12.5px;
-        }
-
-        .review-card-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: var(--navy-accent);
-        }
-
-        .review-route-tag {
-            display: inline-block;
-            font-size: 11px;
-            color: var(--primary-blue);
-            background: var(--white);
-            border: 1px solid var(--border-blue);
-            padding: 2px 7px;
-            border-radius: 10px;
-            margin-bottom: 6px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مسارك الذكية للشحن | Masarak Smart Logistics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0b1f3a;--ink2:#16355c;--teal:#0e7c86;--teal-d:#0a5f67;--tealbg:#e6f4f5;--amber:#d98a1f;--ambbg:#fdf3e1;--bg:#f2f5f9;--card:#fff;--line:#d9e1ea;--mut:#5b6b7e;--r:14px}
+*{box-sizing:border-box}
+body{margin:0;padding:16px;background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans Arabic','Segoe UI',Tahoma,system-ui,sans-serif;line-height:1.6;font-size:14px}
+body>*{max-width:780px;margin-inline:auto}
+.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-3px}
+.i.fill{fill:currentColor;stroke:none}
+[dir=rtl] .arr{transform:scaleX(-1)}
+.nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;background:var(--ink);color:#fff;border-radius:var(--r);padding:12px 16px;margin-bottom:14px}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:40px;height:40px;border-radius:11px;background:var(--teal);display:grid;place-items:center}
+.logo .i{width:22px;height:22px}
+.bt{font-weight:700;font-size:17px;line-height:1.2}.bs{font-size:11.5px;color:#a9c4de}
+.acts{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:99px;font-size:12px;font-weight:600;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#fff}
+button{font-family:inherit;cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border:0;border-radius:12px;background:var(--teal);color:#fff;font-size:15px;font-weight:600;margin-top:10px;transition:background .15s,transform .15s}
+.btn:hover{background:var(--teal-d)}.btn:active{transform:scale(.98)}
+.btn.sec{background:#fff;color:var(--teal);border:1.5px solid var(--teal)}.btn.sec:hover{background:var(--tealbg)}
+.nbtn{width:auto;margin:0;padding:6px 12px;font-size:12px;border-radius:99px;background:var(--teal)}
+.nbtn.ghost{background:transparent;border:1px solid rgba(255,255,255,.35)}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:18px;box-shadow:0 6px 22px rgba(11,31,58,.06)}
+h2{margin:0 0 2px;font-size:23px}.sub{color:var(--mut);font-size:13px;margin-bottom:16px}
+.prog{display:flex;gap:8px;margin-bottom:16px}
+.ps{flex:1;padding:9px 6px;text-align:center;font-size:12px;font-weight:600;border-radius:10px;background:var(--bg);color:var(--mut);border-bottom:3px solid var(--line);transition:.25s}
+.ps.cur{background:var(--tealbg);color:var(--teal-d);border-color:var(--teal)}.ps.done{color:var(--ink);border-color:var(--ink2)}
+.dash{background:var(--ink);color:#fff;border-radius:16px;padding:16px;margin-bottom:18px}
+.dh{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.dt{font-weight:700;font-size:14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.live{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#7fe0c3}
+.live:before{content:"";width:8px;height:8px;border-radius:50%;background:#2fd4a0;animation:pl 1.8s infinite}
+@keyframes pl{50%{opacity:.3}}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.kpi{background:rgba(255,255,255,.07);border-radius:10px;padding:8px 10px}
+.kpi b{display:block;font-size:17px}.kpi span{font-size:11px;color:#a9c4de}
+.hw{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px;color:#c4d8ea}
+.hwc{background:var(--amber);color:#1b1200;font-weight:700;padding:2px 9px;border-radius:7px;font-size:11.5px}
+.nodes{display:flex;justify-content:space-between;position:relative;margin-top:16px;gap:4px}
+.nodes:before,.nodes:after{content:"";position:absolute;top:13px;inset-inline:22px;height:3px;border-radius:3px;background:rgba(255,255,255,.18)}
+.nodes:after{background:linear-gradient(90deg,transparent,#2fd4a0,transparent);background-size:40% 100%;background-repeat:no-repeat;animation:fl 2.6s linear infinite}
+@keyframes fl{from{background-position:-40% 0}to{background-position:140% 0}}
+.node{flex:1;min-width:54px;text-align:center;position:relative;z-index:2}
+.dot{width:28px;height:28px;margin:0 auto 5px;border-radius:50%;background:var(--ink2);border:2px solid #2fd4a0;display:grid;place-items:center}
+.dot .i{width:14px;height:14px}.node.end .dot{background:#2fd4a0;color:var(--ink)}
+.nc{font-size:11.5px;font-weight:600;line-height:1.25}.nh{font-size:10.5px;color:#9fc0dc}
+.fg{margin-bottom:14px}
+label,.lb{display:block;margin-bottom:6px;font-weight:600;font-size:13px;color:var(--ink2)}
+input,select,textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font:inherit;background:#fff;color:var(--ink);transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(14,124,134,.15)}
+.g2{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:560px){.g2{grid-template-columns:1fr 1fr}.rev{grid-template-columns:1fr 1fr}}
+.cities{display:grid;gap:10px;grid-template-columns:1fr;align-items:end}
+@media(min-width:560px){.cities{grid-template-columns:1fr auto 1fr}}
+.swap{width:42px;height:42px;margin:0 auto 14px;border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--teal);display:grid;place-items:center;transition:transform .35s,background .2s}
+.swap:hover{background:var(--tealbg);transform:rotate(180deg)}
+.step{display:none}.step.on{display:block;animation:in .3s ease-out}
+@keyframes in{from{opacity:0;transform:translateY(8px)}}
+.badge{display:inline-block;background:var(--tealbg);color:var(--teal-d);border-radius:99px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:12px}
+.opt{display:grid;gap:8px;margin-bottom:14px}.o3{grid-template-columns:repeat(3,1fr)}.o2{grid-template-columns:1fr 1fr}
+.oc{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;padding:11px 8px;border:1.5px solid var(--line);border-radius:12px;background:#fff;font-size:12.5px;font-weight:600;color:var(--ink2);cursor:pointer;transition:all .2s}
+.oc:hover{border-color:var(--teal)}
+.oc.sel{border-color:var(--teal);background:var(--tealbg);color:var(--teal-d);box-shadow:inset 0 0 0 1px var(--teal)}
+.b2b{display:none;background:var(--bg);border:1.5px solid var(--teal);border-radius:14px;padding:14px;margin-bottom:14px}.b2b.show{display:block;animation:in .25s}
+.tp{padding:9px 6px;border:1.5px solid var(--line);border-radius:10px;background:#fff;text-align:center;font-size:12px;cursor:pointer;transition:.2s}
+.tp.sel{border-color:var(--teal);background:var(--tealbg);font-weight:700}
+.tp b{display:block;font-size:15px;color:var(--teal-d)}
+.sum{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:12.5px;margin-top:8px}
+.hint{background:var(--tealbg);border-inline-start:4px solid var(--teal);border-radius:8px;padding:9px 12px;font-size:12.5px;margin-bottom:14px}
+.br{border:1.5px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;cursor:pointer;background:#fff;transition:all .2s}
+.br:hover{border-color:var(--teal);transform:translateY(-1px)}
+.br.sel{border-color:var(--teal);background:var(--tealbg);box-shadow:0 4px 14px rgba(14,124,134,.14)}
+.bt2{display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap;font-weight:700;font-size:13.5px}
+.tag{font-size:11px;font-weight:700;padding:2px 9px;border-radius:99px;background:var(--bg);color:var(--mut)}
+.tag.fast{background:var(--ambbg);color:#8a5200}
+.meta{font-size:12px;color:var(--mut);margin:4px 0 6px}
+.bar{height:8px;border-radius:6px;background:#e3e9f0;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:6px;background:var(--teal);transition:width .4s}.bar i.f{background:var(--amber)}
+.sumbox{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px;line-height:1.9;font-size:13px}
+.cc{border:1.5px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;cursor:pointer;background:#fff;transition:all .18s}
+.cc:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:0 8px 18px rgba(14,124,134,.14)}
+.ch{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.dep{background:var(--ambbg);color:#8a5200;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:99px}
+.rp{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:12px;color:var(--mut)}
+.hub{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin:12px 0}
+.ok{font-size:12.5px;color:var(--teal-d);font-weight:600;margin-top:6px}
+.tl{list-style:none;margin:14px 0 0;padding:0;border-inline-start:3px solid var(--line);margin-inline-start:8px}
+.tl li{position:relative;padding:4px 18px 16px}
+.tl li:before{content:"";position:absolute;inset-inline-start:-9.5px;top:8px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--teal)}
+.tl li.end:before{background:var(--teal)}.tl li.start:before{border-color:var(--ink)}
+.th{display:inline-block;background:var(--ink);color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:99px;margin-bottom:3px}
+.tl small{display:block;color:var(--mut);font-size:12px}
+.rv{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.avg{background:var(--ink);color:#fff;border-radius:99px;padding:5px 14px;font-size:13px;font-weight:700;display:inline-flex;gap:6px;align-items:center}
+.stars{display:flex;gap:6px;margin-bottom:10px}
+.sb{width:38px;height:38px;margin:0;padding:0;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:#b6c1ce;display:grid;place-items:center}
+.sb.on{background:var(--amber);border-color:var(--amber);color:#fff}
+.rl{display:grid;gap:10px;grid-template-columns:1fr;margin-top:14px}
+@media(min-width:560px){.rl{grid-template-columns:1fr 1fr}}
+.rc{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:12.5px}
+.rt{display:flex;justify-content:space-between;font-weight:700;margin-bottom:4px;color:var(--ink2)}.rt .s{color:var(--amber);display:flex}
+.rr{display:inline-block;font-size:11px;color:var(--teal-d);background:#fff;border:1px solid var(--line);border-radius:99px;padding:1px 8px;margin-bottom:6px}
+.mb{display:none;position:fixed;inset:0;background:rgba(11,31,58,.6);backdrop-filter:blur(3px);z-index:99;align-items:center;justify-content:center;padding:16px}.mb.open{display:flex;animation:in .2s}
+.modal{background:#fff;width:100%;max-width:450px;border-radius:18px;padding:22px}
+.modal h3{margin:0 0 4px;text-align:center}.modal p{margin:0 0 14px;text-align:center;font-size:12.5px;color:var(--mut)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+<symbol id="flag" viewBox="0 0 24 24"><path d="M5 21V4m0 0h11l-2 4 2 4H5"/></symbol>
+<symbol id="truck" viewBox="0 0 24 24"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7.5" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></symbol>
+<symbol id="swap" viewBox="0 0 24 24"><path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4m4 4H7"/></symbol>
+<symbol id="arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+<symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></symbol>
+<symbol id="bldg" viewBox="0 0 24 24"><path d="M4 21V5l8-2v18M12 9h8v12M7 9h2m-2 4h2m-2 4h2m6-4h2m-2 4h2"/></symbol>
+<symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+<symbol id="star" viewBox="0 0 24 24"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
+<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="box" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9zM4 7.5 12 12l8-4.5M12 12v9"/></symbol>
+<symbol id="shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+<symbol id="bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
+<symbol id="check" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+<symbol id="route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h7a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h7"/></symbol>
+<symbol id="door" viewBox="0 0 24 24"><path d="M6 21V4h12v17M3 21h18M14 12v.01"/></symbol>
+</defs></svg>
 
-<div class="top-navbar">
-    <div class="brand-wrap">
-        <div class="brand-logo">🔷</div>
-        <div>
-            <div id="uiBrandTitle" class="brand-title">منصة مسارك الذكية</div>
-            <div id="uiBrandTagline" class="brand-tagline">جدولة رحلات الشحن وحمولة الفروع عبر طرق المملكة</div>
-        </div>
-    </div>
-    <div class="nav-actions">
-        <button type="button" id="langToggleBtn" class="nav-btn lang-btn" onclick="toggleLanguage()">🌐 English</button>
-        <div id="activeUserPill" class="user-pill">🔹 ضيف سريع</div>
-        <button type="button" id="authTriggerBtn" class="nav-btn" onclick="openAuthModal()">🛡️ تسجيل دخول / الحساب</button>
-    </div>
+<div class="nav">
+  <div class="brand"><div class="logo"><svg class="i"><use href="#route"/></svg></div>
+    <div><div class="bt" data-i="brand"></div><div class="bs" data-i="tag"></div></div></div>
+  <div class="acts">
+    <button type="button" id="langBtn" class="pill nbtn ghost" onclick="toggleLanguage()"><svg class="i"><use href="#globe"/></svg><span id="langTxt"></span></button>
+    <span class="pill"><svg class="i" id="uIcon"><use href="#user"/></svg><span id="uPill"></span></span>
+    <button type="button" class="pill nbtn" onclick="openAuth()"><svg class="i"><use href="#shield"/></svg><span data-i="login"></span></button>
+  </div>
 </div>
 
-<div id="authModalBackdrop" class="modal-backdrop">
-    <div class="auth-modal">
-        <h3 id="modalTitle" style="margin-top:0; margin-bottom:6px; color:var(--navy-accent); text-align:center;">🛡️ الدخول إلى منصة مسارك</h3>
-        <p id="modalSub" style="font-size:12px; color:var(--text-muted); text-align:center; margin-top:0; margin-bottom:14px;">
-            اختر نوع الحساب لتخصيص شرائح الأسعار وجدول الفروع
-        </p>
-
-        <div class="auth-tabs">
-            <div id="tabGuest" class="auth-tab active-tab" onclick="switchAuthTab('guest')">🔹 ضيف سريع</div>
-            <div id="tabIndiv" class="auth-tab" onclick="switchAuthTab('individual')">👤 دخول أفراد</div>
-            <div id="tabCorp" class="auth-tab" onclick="switchAuthTab('corporate')">🏙️ دخول مؤسسات</div>
-        </div>
-
-        <div id="authFormFields">
-            <div class="form-group">
-                <label id="authNameLabel">الاسم أو اسم المتجر (اختياري للضيف):</label>
-                <input type="text" id="authNameInput" placeholder="مثال: ريان / متجر الجنوب الإلكتروني">
-            </div>
-            <div class="form-group" id="authExtraGroup" style="display:none;">
-                <label id="authExtraLabel">رقم الجوال أو السجل التجاري:</label>
-                <input type="text" id="authExtraInput" placeholder="05XXXXXXXX أو رقم السجل التجاري">
-            </div>
-        </div>
-
-        <button type="button" id="modalSaveBtn" onclick="confirmAuthLogin()">☑️ حفظ ومتابعة في المنصة</button>
-        <button type="button" id="modalCloseBtn" class="secondary-btn" onclick="closeAuthModal()">إغلاق</button>
+<div id="authBd" class="mb" onclick="if(event.target===this)closeAuth()">
+  <div class="modal" role="dialog" aria-modal="true">
+    <h3 data-i="mTitle"></h3><p data-i="mSub"></p>
+    <div class="opt o3">
+      <div class="oc sel" id="at-guest" tabindex="0" onclick="authTab('guest')" data-i="guest"></div>
+      <div class="oc" id="at-individual" tabindex="0" onclick="authTab('individual')" data-i="indiv"></div>
+      <div class="oc" id="at-corporate" tabindex="0" onclick="authTab('corporate')" data-i="corp"></div>
     </div>
+    <div class="fg"><label id="aNameL" for="aName"></label><input id="aName" data-ph="aNamePh"></div>
+    <div class="fg" id="aExtraG" style="display:none"><label id="aExtraL" for="aExtra"></label><input id="aExtra" data-ph="aExtraPh"></div>
+    <button type="button" class="btn" onclick="confirmAuth()"><svg class="i"><use href="#check"/></svg><span data-i="mSave"></span></button>
+    <button type="button" class="btn sec" onclick="closeAuth()" data-i="mClose"></button>
+  </div>
 </div>
 
-<div class="container">
-    <h2 id="mainHeading">🔷 مسارك اللوجستية</h2>
-    <div id="mainSubtitle" class="subtitle">تتبع حمولة الفروع لحظياً واعرف الطريق الرسمي ومحطات التوقف وعدد الساعات</div>
+<div class="card">
+  <h2 data-i="heading"></h2><div class="sub" data-i="subtitle"></div>
+  <div class="prog"><div class="ps cur" id="prog1" data-i="p1"></div><div class="ps" id="prog2" data-i="p2"></div><div class="ps" id="prog3" data-i="p3"></div></div>
 
-    <div class="progress-bar">
-        <div id="prog1" class="progress-step current">1. الشحنة والحمولة</div>
-        <div id="prog2" class="progress-step">2. جدول الشاحنات</div>
-        <div id="prog3" class="progress-step">3. المسار والتتبع</div>
+  <div class="dash" aria-live="polite">
+    <div class="dh"><div class="dt"><svg class="i"><use href="#truck"/></svg><span id="bTitle"></span></div><span class="live" data-i="live"></span></div>
+    <div class="kpis"><div class="kpi"><b id="kKm"></b><span data-i="kKm"></span></div><div class="kpi"><b id="kHr"></b><span data-i="kHr"></span></div><div class="kpi"><b id="kSt"></b><span data-i="kSt"></span></div></div>
+    <div class="hw"><span class="hwc" id="bCode"></span><span id="bName"></span></div>
+    <div class="nodes" id="nodes"></div>
+  </div>
+
+  <div id="step1" class="step on">
+    <div class="badge" data-i="bd1"></div>
+    <div class="fg"><div class="lb" data-i="lClient"></div>
+      <div class="opt o3">
+        <div class="oc" id="c-guest" tabindex="0" onclick="selectClient('guest')"><svg class="i"><use href="#bolt"/></svg><span data-i="guest"></span></div>
+        <div class="oc sel" id="c-individual" tabindex="0" onclick="selectClient('individual')"><svg class="i"><use href="#user"/></svg><span data-i="indivPc"></span></div>
+        <div class="oc" id="c-corporate" tabindex="0" onclick="selectClient('corporate')"><svg class="i"><use href="#bldg"/></svg><span data-i="corpPc"></span></div>
+      </div></div>
+
+    <div id="b2b" class="b2b">
+      <div class="lb" data-i="lTiers"></div>
+      <div class="opt o3">
+        <div class="tp sel" id="t50" onclick="setCount(50)"><span data-i="t50"></span><b data-i="t50p"></b></div>
+        <div class="tp" id="t100" onclick="setCount(100)"><span data-i="t100"></span><b data-i="t100p"></b></div>
+        <div class="tp" id="t250" onclick="setCount(250)"><span data-i="t250"></span><b data-i="t250p"></b></div>
+      </div>
+      <label for="cnt" data-i="lCount"></label>
+      <input type="number" id="cnt" min="50" max="5000" value="50" oninput="recalcB2B()">
+      <div class="sum" id="b2bSum"></div>
     </div>
 
-    <div class="live-route-banner">
-        <div class="live-route-header">
-            <span id="bannerRouteTitle" style="font-weight:bold;">🛰️ المسار النشط: جازان ⬅ جدة</span>
-            <span id="bannerTotalHours" class="live-time-badge">⏱️ 12 ساعة (715 كم)</span>
-        </div>
-        <div class="highway-sub-bar">
-            <span id="bannerHighwayCode" class="highway-code-pill">طريق 5 (Route 5M)</span>
-            <span id="bannerHighwayName">طريق الساحل الدولي السريع (جازان – الدرب – القنفذة – الليث – جدة)</span>
-        </div>
-        <div id="liveNodesContainer" class="route-nodes-track"></div>
+    <div class="cities">
+      <div class="fg"><label for="from"><svg class="i"><use href="#pin"/></svg> <span data-i="lFrom"></span></label><select id="from" onchange="onRoute()"></select></div>
+      <button type="button" class="swap" onclick="swapCities()" aria-label="Swap"><svg class="i"><use href="#swap"/></svg></button>
+      <div class="fg"><label for="to"><svg class="i"><use href="#flag"/></svg> <span data-i="lTo"></span></label><select id="to" onchange="onRoute()"></select></div>
     </div>
 
-    <!-- الخطوة 1 -->
-    <div id="step1" class="step-box active">
-        <div id="badgeStep1" class="badge">الخطوة 1: فئة الحساب، الطريق، وحمولة الفرع</div>
+    <div class="fg"><div class="lb" data-i="lSvc"></div>
+      <div class="opt o2">
+        <div class="oc sel" id="s-hub" tabindex="0" onclick="selectSvc('hub')"><svg class="i"><use href="#pin"/></svg><span data-i="sHub"></span></div>
+        <div class="oc" id="s-d2d" tabindex="0" onclick="selectSvc('d2d')"><svg class="i"><use href="#door"/></svg><span data-i="sD2d"></span></div>
+        <div class="oc" id="s-d2b" tabindex="0" onclick="selectSvc('d2b')"><svg class="i"><use href="#box"/></svg><span data-i="sD2b"></span></div>
+        <div class="oc" id="s-b2b" tabindex="0" onclick="selectSvc('b2b')"><svg class="i"><use href="#bldg"/></svg><span data-i="sB2b"></span></div>
+      </div>
+      <div class="hint" id="hint"></div></div>
 
-        <div class="form-group">
-            <label id="lblClientType">👥 فئة الحساب والتسعير:</label>
-            <div class="client-type-grid">
-                <div id="clientGuestBtn" class="client-card" onclick="selectClientType('guest')">
-                    🔹 ضيف سريع
-                </div>
-                <div id="clientIndivBtn" class="client-card selected" onclick="selectClientType('individual')">
-                    👤 أفراد (بالقطعة)
-                </div>
-                <div id="clientCorpBtn" class="client-card" onclick="selectClientType('corporate')">
-                    🏙️ مؤسسات (50+ طرد)
-                </div>
-            </div>
-        </div>
+    <div class="fg"><div class="lb" id="brLbl"></div><div id="branches"></div></div>
 
-        <div id="b2bBox" class="b2b-box">
-            <label id="lblB2BTiers" style="margin-bottom: 8px;">📊 شرائح أسعار المؤسسات والمتاجر (الحد الأدنى 50 طرد):</label>
-            <div class="tier-pills">
-                <div id="tier50" class="tier-pill active-tier" onclick="setParcelCount(50)">
-                    <span id="tier50Title">50 - 99 طرد</span>
-                    <span id="tier50Price" class="tier-price">29 ريال/طرد</span>
-                </div>
-                <div id="tier100" class="tier-pill" onclick="setParcelCount(100)">
-                    <span id="tier100Title">100 - 249 طرد</span>
-                    <span id="tier100Price" class="tier-price">26 ريال/طرد</span>
-                </div>
-                <div id="tier250" class="tier-pill" onclick="setParcelCount(250)">
-                    <span id="tier250Title">250+ طرد</span>
-                    <span id="tier250Price" class="tier-price">22 ريال/طرد</span>
-                </div>
-            </div>
-            <div class="form-group" style="margin-bottom: 6px;">
-                <label id="lblParcelCount" for="parcelCountInput" style="font-size: 13px;">حدد عدد الطرود في الدفعة (الحد الأدنى 50 طرد):</label>
-                <input type="number" id="parcelCountInput" min="50" max="5000" value="50" oninput="recalcB2B()">
-            </div>
-            <div id="b2bCalcSummary" class="b2b-calc-summary"></div>
-        </div>
-
-        <div class="grid-2">
-            <div class="form-group">
-                <label id="lblPickupCity">📍 مدينة / محافظة الانطلاق:</label>
-                <select id="pickupCity" onchange="onRouteChange()">
-                    <optgroup label="منطقة جازان ومحافظاتها (طريق الساحل 5)">
-                        <option value="جازان" selected>جازان (Jazan)</option>
-                        <option value="صبيا">صبيا (Sabya)</option>
-                        <option value="أبو عريش">أبو عريش (Abu Arish)</option>
-                        <option value="صامطة">صامطة (Samtah)</option>
-                        <option value="بيش">بيش (Baish)</option>
-                        <option value="الدرب">الدرب (Ad Darb)</option>
-                    </optgroup>
-                    <optgroup label="منطقة مكة المكرمة والساحل الغربي (طريق 5 / 40)">
-                        <option value="جدة">جدة (Jeddah)</option>
-                        <option value="مكة المكرمة">مكة المكرمة (Makkah)</option>
-                        <option value="الطائف">الطائف (Taif)</option>
-                        <option value="القنفذة">القنفذة (Al Qunfudhah)</option>
-                        <option value="الليث">الليث (Al Lith)</option>
-                        <option value="رابغ">رابغ (Rabigh)</option>
-                    </optgroup>
-                    <optgroup label="منطقة عسير والباحة ونجران (طريق 10 / 15)">
-                        <option value="أبها">أبها (Abha)</option>
-                        <option value="خميس مشيط">خميس مشيط (Khamis Mushait)</option>
-                        <option value="بيشة">بيشة (Bisha)</option>
-                        <option value="محايل عسير">محايل عسير (Muhayil)</option>
-                        <option value="النماص">النماص (An Namas)</option>
-                        <option value="الباحة">الباحة (Al Bahah)</option>
-                        <option value="نجران">نجران (Najran)</option>
-                        <option value="شرورة">شرورة (Sharurah)</option>
-                    </optgroup>
-                    <optgroup label="منطقة الرياض والقصيم (طريق 40 / 65)">
-                        <option value="الرياض">الرياض (Riyadh)</option>
-                        <option value="الخرج">الخرج (Al Kharj)</option>
-                        <option value="المجمعة">المجمعة (Al Majmaah)</option>
-                        <option value="الدوادمي">الدوادمي (Ad Duwadimi)</option>
-                        <option value="وادي الدواسر">وادي الدواسر (Wadi Ad Dawasir)</option>
-                        <option value="بريدة">بريدة (Buraydah)</option>
-                        <option value="عنيزة">عنيزة (Unaizah)</option>
-                    </optgroup>
-                    <optgroup label="المنطقة الشرقية (طريق 40 / 95)">
-                        <option value="الدمام">الدمام (Dammam)</option>
-                        <option value="الخبر">الخبر (Khobar)</option>
-                        <option value="الأحساء (الهفوف)">الأحساء - الهفوف (Al Ahsa)</option>
-                        <option value="الجبيل">الجبيل (Jubail)</option>
-                        <option value="حفر الباطن">حفر الباطن (Hafar Al Batin)</option>
-                    </optgroup>
-                    <optgroup label="المدينة المنورة وتبوك والشمال (طريق 15 / 5 / 85)">
-                        <option value="المدينة المنورة">المدينة المنورة (Madinah)</option>
-                        <option value="ينبع">ينبع (Yanbu)</option>
-                        <option value="تبوك">تبوك (Tabuk)</option>
-                        <option value="ضباء">ضباء (Duba)</option>
-                        <option value="الوجه">الوجه (Al Wajh)</option>
-                        <option value="حائل">حائل (Hail)</option>
-                        <option value="سكاكا (الجوف)">سكاكا - الجوف (Sakaka)</option>
-                        <option value="عرعر">عرعر (Arar)</option>
-                        <option value="القريات">القريات (Al Qurayyat)</option>
-                    </optgroup>
-                </select>
-            </div>
-            <div class="form-group">
-                <label id="lblDeliveryCity">🏁 مدينة / محافظة التسليم (الوجهة):</label>
-                <select id="deliveryCity" onchange="onRouteChange()">
-                    <optgroup label="منطقة مكة المكرمة والساحل الغربي (طريق 5 / 40)">
-                        <option value="جدة" selected>جدة (Jeddah)</option>
-                        <option value="مكة المكرمة">مكة المكرمة (Makkah)</option>
-                        <option value="الطائف">الطائف (Taif)</option>
-                        <option value="القنفذة">القنفذة (Al Qunfudhah)</option>
-                        <option value="الليث">الليث (Al Lith)</option>
-                        <option value="رابغ">رابغ (Rabigh)</option>
-                    </optgroup>
-                    <optgroup label="منطقة جازان ومحافظاتها (طريق الساحل 5)">
-                        <option value="جازان">جازان (Jazan)</option>
-                        <option value="صبيا">صبيا (Sabya)</option>
-                        <option value="أبو عريش">أبو عريش (Abu Arish)</option>
-                        <option value="صامطة">صامطة (Samtah)</option>
-                        <option value="بيش">بيش (Baish)</option>
-                        <option value="الدرب">الدرب (Ad Darb)</option>
-                    </optgroup>
-                    <optgroup label="منطقة عسير والباحة ونجران (طريق 10 / 15)">
-                        <option value="أبها">أبها (Abha)</option>
-                        <option value="خميس مشيط">خميس مشيط (Khamis Mushait)</option>
-                        <option value="بيشة">بيشة (Bisha)</option>
-                        <option value="محايل عسير">محايل عسير (Muhayil)</option>
-                        <option value="النماص">النماص (An Namas)</option>
-                        <option value="الباحة">الباحة (Al Bahah)</option>
-                        <option value="نجران">نجران (Najran)</option>
-                        <option value="شرورة">شرورة (Sharurah)</option>
-                    </optgroup>
-                    <optgroup label="منطقة الرياض والقصيم (طريق 40 / 65)">
-                        <option value="الرياض">الرياض (Riyadh)</option>
-                        <option value="الخرج">الخرج (Al Kharj)</option>
-                        <option value="المجمعة">المجمعة (Al Majmaah)</option>
-                        <option value="الدوادمي">الدوادمي (Ad Duwadimi)</option>
-                        <option value="وادي الدواسر">وادي الدواسر (Wadi Ad Dawasir)</option>
-                        <option value="بريدة">بريدة (Buraydah)</option>
-                        <option value="عنيزة">عنيزة (Unaizah)</option>
-                    </optgroup>
-                    <optgroup label="المنطقة الشرقية (طريق 40 / 95)">
-                        <option value="الدمام">الدمام (Dammam)</option>
-                        <option value="الخبر">الخبر (Khobar)</option>
-                        <option value="الأحساء (الهفوف)">الأحساء - الهفوف (Al Ahsa)</option>
-                        <option value="الجبيل">الجبيل (Jubail)</option>
-                        <option value="حفر الباطن">حفر الباطن (Hafar Al Batin)</option>
-                    </optgroup>
-                    <optgroup label="المدينة المنورة وتبوك والشمال (طريق 15 / 5 / 85)">
-                        <option value="المدينة المنورة">المدينة المنورة (Madinah)</option>
-                        <option value="ينبع">ينبع (Yanbu)</option>
-                        <option value="تبوك">تبوك (Tabuk)</option>
-                        <option value="ضباء">ضباء (Duba)</option>
-                        <option value="الوجه">الوجه (Al Wajh)</option>
-                        <option value="حائل">حائل (Hail)</option>
-                        <option value="سكاكا (الجوف)">سكاكا - الجوف (Sakaka)</option>
-                        <option value="عرعر">عرعر (Arar)</option>
-                        <option value="القريات">القريات (Al Qurayyat)</option>
-                    </optgroup>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label id="lblServiceType">🧭 نمط الخدمة اللوجستية:</label>
-            <div class="service-type-grid">
-                <div id="srvCard0" class="service-card selected" onclick="selectServiceType(this, 'استلام من مركز الحي المصغر')">🏙️ عبر مراكز الأحياء المصغرة</div>
-                <div id="srvCard1" class="service-card" onclick="selectServiceType(this, 'من الباب للباب')">🔹 من الباب للباب (مندوب)</div>
-                <div id="srvCard2" class="service-card" onclick="selectServiceType(this, 'من الباب للفرع')">🔷 من الباب لمركز/فرع الوجهة</div>
-                <div id="srvCard3" class="service-card" onclick="selectServiceType(this, 'من الفرع للفرع')">🏢 من الفرع للفرع المباشر</div>
-            </div>
-            <div id="serviceLogicHint" class="service-logic-hint">
-                🔷 <b>آلية مراكز الأحياء المصغرة:</b> تسلم طردك في أقرب مركز/فرع تجميع بحيك (أو الفرع الأسرع اكتمالاً للحمولة)، وعند وصول الشاحنة لوجهتها يتفرغ الطرد مباشرة في <b>مركز التوزيع المصغر داخل حي المستلم</b> دون تكدس في المستودع المركزي.
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label id="branchSectionLabel">🏢 اختر نقطة/فرع الانطلاق (مرتبة حسب اكتمال حمولة الشاحنة):</label>
-            <div class="branches-container">
-                <div class="branch-card selected" onclick="selectBranch(this, 0)">
-                    <div class="branch-top">
-                        <span id="branchName0">⚡ فرع المحور السريع (جازان)</span>
-                        <span id="branchBadge0" class="branch-badge-fast">الأسرع انطلاقاً: الحمولة 95 / 100 طرد</span>
-                    </div>
-                    <div id="branchMeta0" class="branch-meta">
-                        🔷 تتحرك الشاحنة فور وصولها إلى <b>100 طرد</b> أو خلال <b>5 ساعات</b> كحد أقصى (باقي 5 طرود فقط!)
-                    </div>
-                    <div class="capacity-bar-wrap">
-                        <div class="capacity-bar-fill fast" style="width: 95%;"></div>
-                    </div>
-                </div>
-
-                <div class="branch-card" onclick="selectBranch(this, 1)">
-                    <div class="branch-top">
-                        <span id="branchName1">🏢 فرع القطاع الأوسط (جازان)</span>
-                        <span id="branchBadge1" class="branch-badge-wait">الحمولة 60 / 100 طرد</span>
-                    </div>
-                    <div id="branchMeta1" class="branch-meta">
-                        🔹 الوقت المتوقع لاكتمال الـ 100 طرد وانطلاق الشاحنة: <b>9 ساعات</b>
-                    </div>
-                    <div class="capacity-bar-wrap">
-                        <div class="capacity-bar-fill" style="width: 60%;"></div>
-                    </div>
-                </div>
-
-                <div class="branch-card" onclick="selectBranch(this, 2)">
-                    <div class="branch-top">
-                        <span id="branchName2">🏙️ فرع البوابة الشمالية (جازان)</span>
-                        <span id="branchBadge2" class="branch-badge-wait">الحمولة 25 / 100 طرد</span>
-                    </div>
-                    <div id="branchMeta2" class="branch-meta">
-                        🔹 الوقت المتوقع لاكتمال الـ 100 طرد وانطلاق الشاحنة: <b>16 ساعة</b>
-                    </div>
-                    <div class="capacity-bar-wrap">
-                        <div class="capacity-bar-fill" style="width: 25%;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="grid-2">
-            <div class="form-group">
-                <label id="lblWeight">⚖️ وزن وحجم الطرد:</label>
-                <select id="weightOption">
-                    <option value="ظرف مستندات (أقل من 1 كجم)">🔹 ظرف مستندات (&lt; 1 كجم)</option>
-                    <option value="صندوق صغير (1 - 5 كجم)" selected>🔷 صندوق صغير (1-5 كجم)</option>
-                    <option value="صندوق متوسط (5 - 15 كجم)">🔷 صندوق متوسط (5-15 كجم)</option>
-                    <option value="شحنة ثقيلة (أكثر من 15 كجم)">🏢 شحنة ثقيلة (&gt; 15 كجم)</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label id="lblReadiness">⏱️ وقت تسليمك للطرد:</label>
-                <select id="readinessTime">
-                    <option value="جاهزة الآن (حجز فوري في الشاحنة)">جاهزة الآن (حجز فوري في الشاحنة) ⚡</option>
-                    <option value="خلال ساعتين قبل إغلاق الشاحنة">خلال ساعتين قبل إغلاق الشاحنة 🔹</option>
-                    <option value="خلال 5 ساعات">خلال 5 ساعات 🔷</option>
-                    <option value="غداً">غداً 🌐</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label id="lblNotes">📝 ملاحظات إضافية أو عنوان تفصيلي (اختياري):</label>
-            <textarea id="freeDescription" rows="2" placeholder="اكتب اسم الحي أو أي تعليمات خاصة بالشحنة..."></textarea>
-        </div>
-
-        <button type="button" id="btnNextStep1" onclick="registerShipment()">التالي: عرض جدول تحرك الشاحنات ⬅</button>
+    <div class="g2">
+      <div class="fg"><label for="weight" data-i="lWeight"></label><select id="weight"></select></div>
+      <div class="fg"><label for="ready" data-i="lReady"></label><select id="ready"></select></div>
     </div>
+    <div class="fg"><label for="notes" data-i="lNotes"></label><textarea id="notes" rows="2" data-ph="notesPh"></textarea></div>
+    <button type="button" class="btn" onclick="registerShipment()"><span data-i="next1"></span><svg class="i arr"><use href="#arrow"/></svg></button>
+  </div>
 
-    <!-- الخطوة 2 و 3 -->
-    <div id="step2" class="step-box">
-        <div id="badgeStep2" class="badge">الخطوة 2 &amp; 3: جدول تحرك الشاحنات وحساب ساعات المسار</div>
-        <div class="summary-box" id="shipmentInfoSummary"></div>
-        <div id="couriersList"></div>
-        <button type="button" id="btnBackStep1" class="secondary-btn" onclick="backToStep1()">🔙 تعديل بيانات الشحنة</button>
-    </div>
+  <div id="step2" class="step">
+    <div class="badge" data-i="bd2"></div>
+    <div class="sumbox" id="shipSum"></div>
+    <div id="couriers"></div>
+    <button type="button" class="btn sec" onclick="goStep(1)"><svg class="i arr" style="transform:scaleX(-1)"><use href="#arrow"/></svg><span data-i="back1"></span></button>
+  </div>
 
-    <!-- الخطوة 4 -->
-    <div id="step3" class="step-box">
-        <div id="badgeStep3" class="badge">الخطوة 4: خط السير التفصيلي وتتبع ساعات كل محطة 🛰️</div>
-        <div class="summary-box" id="trackingDetails"></div>
-        <button type="button" id="btnBackStep2" class="secondary-btn" onclick="backToStep2()">⬅ الرجوع لجدول الشركات</button>
-        <button type="button" id="btnResetApp" onclick="resetApp()">🔄 تسجيل شحنة جديدة</button>
-    </div>
+  <div id="step3" class="step">
+    <div class="badge" data-i="bd3"></div>
+    <div class="sumbox" id="trackBox"></div>
+    <button type="button" class="btn sec" onclick="goStep(2)"><span data-i="back2"></span></button>
+    <button type="button" class="btn" onclick="goStep(1)"><svg class="i"><use href="#box"/></svg><span data-i="reset"></span></button>
+  </div>
 </div>
 
-<!-- قسم تقييم العميل وملاحظاته -->
-<div class="reviews-section">
-    <div class="reviews-header">
-        <div>
-            <h3 id="reviewsHeading" style="margin:0; color:var(--navy-accent); font-size:18px;">⭐ تقييمات وملاحظات العملاء</h3>
-            <span id="reviewsSub" style="font-size:12px; color:var(--text-muted);">شاركنا تقييمك وملاحظاتك حول دقة مواعيد انطلاق الشاحنات ومراكز الأحياء</span>
-        </div>
-        <div id="avgRatingBadge" class="avg-rating-pill">⭐ 4.9 / 5.0 (128 تقييم)</div>
+<div class="card">
+  <div class="rv"><div><h3 style="margin:0;font-size:18px" data-i="rvH"></h3><span class="sub" style="font-size:12px" data-i="rvS"></span></div>
+    <div class="avg"><svg class="i fill"><use href="#star"/></svg><span id="avg"></span></div></div>
+  <div class="sumbox">
+    <div class="lb" data-i="rvRate"></div>
+    <div class="stars" id="stars"></div>
+    <div class="g2">
+      <div class="fg"><label for="rvName" data-i="rvName"></label><input id="rvName" data-ph="rvNamePh"></div>
+      <div class="fg"><label for="rvText" data-i="rvText"></label><input id="rvText" data-ph="rvTextPh"></div>
     </div>
-
-    <div class="summary-box" style="margin-bottom: 14px;">
-        <label id="lblRateStars" style="margin-bottom:8px;">🔷 اختر تقييمك لتجربة المنصة (من 1 إلى 5 نجوم):</label>
-        <div class="star-picker">
-            <button type="button" class="star-btn active-star" onclick="setReviewStars(1)">★</button>
-            <button type="button" class="star-btn active-star" onclick="setReviewStars(2)">★</button>
-            <button type="button" class="star-btn active-star" onclick="setReviewStars(3)">★</button>
-            <button type="button" class="star-btn active-star" onclick="setReviewStars(4)">★</button>
-            <button type="button" class="star-btn active-star" onclick="setReviewStars(5)">★</button>
-        </div>
-        <div class="grid-2">
-            <div class="form-group" style="margin-bottom:8px;">
-                <label id="lblReviewerName" style="font-size:12.5px;">الاسم أو اسم المتجر:</label>
-                <input type="text" id="reviewerNameInput" placeholder="مثال: متجر أطياف / فهد المالكي">
-            </div>
-            <div class="form-group" style="margin-bottom:8px;">
-                <label id="lblReviewComment" style="font-size:12.5px;">ملاحظتك عن المسار أو الخدمة:</label>
-                <input type="text" id="reviewCommentInput" placeholder="اكتب رأيك أو ملاحظتك هنا...">
-            </div>
-        </div>
-        <button type="button" id="btnSubmitReview" style="padding:11px; font-size:14px; margin-top:4px;" onclick="submitCustomerReview()">☑️ إضافة التقييم والملاحظة</button>
-    </div>
-
-    <div id="reviewsListContainer" class="reviews-list"></div>
+    <button type="button" class="btn" style="margin-top:0" onclick="submitReview()"><svg class="i"><use href="#check"/></svg><span data-i="rvBtn"></span></button>
+  </div>
+  <div class="rl" id="reviews"></div>
 </div>
 
 <script>
-    let currentLang = 'ar';
-    let currentShipment = null;
-    let selectedServiceType = 'استلام من مركز الحي المصغر';
-    let clientType = 'individual';
-    let currentUserName = 'ضيف سريع';
-    let parcelCount = 1;
-    let selectedBranchIndex = 0;
-    let currentCouriers = [];
-    let modalAuthRole = 'guest';
-    let selectedStars = 5;
-
-    const cityEnNames = {
-        'جازان': 'Jazan',
-        'صبيا': 'Sabya',
-        'أبو عريش': 'Abu Arish',
-        'صامطة': 'Samtah',
-        'بيش': 'Baish',
-        'الدرب': 'Ad Darb',
-        'القنفذة': 'Al Qunfudhah',
-        'الليث': 'Al Lith',
-        'جدة': 'Jeddah',
-        'مكة المكرمة': 'Makkah',
-        'الطائف': 'Taif',
-        'رابغ': 'Rabigh',
-        'أبها': 'Abha',
-        'خميس مشيط': 'Khamis Mushait',
-        'بيشة': 'Bisha',
-        'محايل عسير': 'Muhayil Asir',
-        'النماص': 'An Namas',
-        'الباحة': 'Al Bahah',
-        'نجران': 'Najran',
-        'شرورة': 'Sharurah',
-        'الرياض': 'Riyadh',
-        'الخرج': 'Al Kharj',
-        'المجمعة': 'Al Majmaah',
-        'الدوادمي': 'Ad Duwadimi',
-        'وادي الدواسر': 'Wadi Ad Dawasir',
-        'بريدة': 'Buraydah',
-        'عنيزة': 'Unaizah',
-        'الدمام': 'Dammam',
-        'الخبر': 'Khobar',
-        'الأحساء (الهفوف)': 'Al Ahsa (Hofuf)',
-        'الجبيل': 'Jubail',
-        'حفر الباطن': 'Hafar Al Batin',
-        'المدينة المنورة': 'Madinah',
-        'ينبع': 'Yanbu',
-        'تبوك': 'Tabuk',
-        'ضباء': 'Duba',
-        'الوجه': 'Al Wajh',
-        'حائل': 'Hail',
-        'سكاكا (الجوف)': 'Sakaka (Al Jouf)',
-        'عرعر': 'Arar',
-        'القريات': 'Al Qurayyat'
-    };
-
-    const cityGeo = {
-        'جازان': { lat: 16.889, lon: 42.551, region: 'south_coast' },
-        'صبيا': { lat: 17.149, lon: 42.625, region: 'south_coast' },
-        'أبو عريش': { lat: 16.968, lon: 42.832, region: 'south_coast' },
-        'صامطة': { lat: 16.597, lon: 42.944, region: 'south_coast' },
-        'بيش': { lat: 17.372, lon: 42.536, region: 'south_coast' },
-        'الدرب': { lat: 17.723, lon: 42.253, region: 'south_coast' },
-        'القنفذة': { lat: 19.126, lon: 41.078, region: 'west_coast' },
-        'الليث': { lat: 20.150, lon: 40.268, region: 'west_coast' },
-        'جدة': { lat: 21.543, lon: 39.172, region: 'west' },
-        'مكة المكرمة': { lat: 21.422, lon: 39.826, region: 'west' },
-        'الطائف': { lat: 21.270, lon: 40.415, region: 'west' },
-        'رابغ': { lat: 22.798, lon: 39.034, region: 'west' },
-        'أبها': { lat: 18.216, lon: 42.505, region: 'asir' },
-        'خميس مشيط': { lat: 18.306, lon: 42.729, region: 'asir' },
-        'بيشة': { lat: 20.008, lon: 42.598, region: 'asir' },
-        'محايل عسير': { lat: 18.549, lon: 42.049, region: 'asir' },
-        'النماص': { lat: 19.120, lon: 42.129, region: 'asir' },
-        'الباحة': { lat: 20.012, lon: 41.467, region: 'baha' },
-        'نجران': { lat: 17.492, lon: 44.127, region: 'najran' },
-        'شرورة': { lat: 17.485, lon: 47.114, region: 'najran' },
-        'الرياض': { lat: 24.713, lon: 46.675, region: 'central' },
-        'الخرج': { lat: 24.148, lon: 47.305, region: 'central' },
-        'المجمعة': { lat: 25.904, lon: 45.344, region: 'central' },
-        'الدوادمي': { lat: 24.507, lon: 44.393, region: 'central' },
-        'وادي الدواسر': { lat: 20.463, lon: 44.787, region: 'central' },
-        'بريدة': { lat: 26.326, lon: 43.975, region: 'qassim' },
-        'عنيزة': { lat: 26.084, lon: 43.993, region: 'qassim' },
-        'الدمام': { lat: 26.420, lon: 50.088, region: 'east' },
-        'الخبر': { lat: 26.279, lon: 50.208, region: 'east' },
-        'الأحساء (الهفوف)': { lat: 25.380, lon: 49.588, region: 'east' },
-        'الجبيل': { lat: 27.004, lon: 49.658, region: 'east' },
-        'حفر الباطن': { lat: 28.432, lon: 45.970, region: 'east' },
-        'المدينة المنورة': { lat: 24.524, lon: 39.569, region: 'madinah' },
-        'ينبع': { lat: 24.089, lon: 38.061, region: 'madinah' },
-        'تبوك': { lat: 28.383, lon: 36.566, region: 'north' },
-        'ضباء': { lat: 27.351, lon: 35.690, region: 'north' },
-        'الوجه': { lat: 26.245, lon: 36.452, region: 'north' },
-        'حائل': { lat: 27.511, lon: 41.720, region: 'north' },
-        'سكاكا (الجوف)': { lat: 29.969, lon: 40.206, region: 'north' },
-        'عرعر': { lat: 30.975, lon: 41.038, region: 'north' },
-        'القريات': { lat: 31.331, lon: 37.342, region: 'north' }
-    };
-
-    const branchTemplates = [
-        {
-            arPrefix: 'فرع المحور السريع',
-            enPrefix: 'Express Highway Hub',
-            load: 95,
-            maxLoad: 100,
-            etaHours: 5
-        },
-        {
-            arPrefix: 'فرع القطاع الأوسط',
-            enPrefix: 'Central Sector Branch',
-            load: 60,
-            maxLoad: 100,
-            etaHours: 9
-        },
-        {
-            arPrefix: 'فرع البوابة الشمالية',
-            enPrefix: 'Northern Gate Branch',
-            load: 25,
-            maxLoad: 100,
-            etaHours: 16
-        }
-    ];
-
-    let customerReviews = [
-        {
-            name: 'متجر البن الخولاني (مؤسسة)',
-            route: 'جازان ⬅ القنفذة ⬅ الليث ⬅ جدة (طريق 5)',
-            stars: 5,
-            comment: 'اخترنا الفرع اللي حمولته 95/100 بباقة 100 طرد (26 ريال للطرد)، تحركت الشاحنة خلال 3 ساعات ووصلت جدة في 12 ساعة بالضبط!'
-        },
-        {
-            name: 'عبدالرحمن الزهراني (أفراد)',
-            route: 'جازان ⬅ القنفذة (طريق الساحل الدولي 5)',
-            stars: 5,
-            comment: 'أول مرة أعرف متى تمر الشاحنة بالقنفذة بالساعة، استلمت طردي من مركز الحي المصغر في 5 ساعات بدل انتظار 4 أيام.'
-        }
-    ];
-
-    function trCity(c) {
-        return currentLang === 'en' ? (cityEnNames[c] || c) : c;
-    }
-
-    function calcDistanceKm(c1, c2) {
-        const g1 = cityGeo[c1] || { lat: 21.5, lon: 39.2 };
-        const g2 = cityGeo[c2] || { lat: 24.7, lon: 46.7 };
-        const R = 6371;
-        const dLat = (g2.lat - g1.lat) * Math.PI / 180;
-        const dLon = (g2.lon - g1.lon) * Math.PI / 180;
-        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                  Math.cos(g1.lat * Math.PI / 180) * Math.cos(g2.lat * Math.PI / 180) *
-                  Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return Math.round(R * c * 1.28);
-    }
-
-    function getOfficialHighway(fromCity, toCity) {
-        const coastalCities = ['صامطة', 'أبو عريش', 'جازان', 'صبيا', 'بيش', 'الدرب', 'القنفذة', 'الليث', 'جدة', 'رابغ', 'ينبع', 'الوجه', 'ضباء', 'تبوك'];
-        const southCentral = ['جازان', 'الدرب', 'أبها', 'خميس مشيط', 'بيشة', 'وادي الدواسر', 'الخرج', 'الرياض'];
-        const westEast40 = ['جدة', 'مكة المكرمة', 'الطائف', 'الدوادمي', 'الرياض', 'الأحساء (الهفوف)', 'الدمام', 'الخبر', 'الجبيل'];
-        const northQassim65 = ['الرياض', 'المجمعة', 'بريدة', 'عنيزة', 'حائل', 'سكاكا (الجوف)', 'عرعر', 'القريات'];
-
-        if (coastalCities.includes(fromCity) && coastalCities.includes(toCity)) {
-            return {
-                codeAr: 'طريق 5 (Route 5M)',
-                codeEn: 'Highway 5 (Coastal Route 5M)',
-                nameAr: 'طريق الساحل الدولي السريع (جازان – الدرب – القنفذة – الليث – جدة – ينبع – تبوك)',
-                nameEn: 'International Coastal Highway 5 (Jazan – Ad Darb – Al Qunfudhah – Al Lith – Jeddah – Yanbu)'
-            };
-        }
-        if (southCentral.includes(fromCity) && southCentral.includes(toCity)) {
-            return {
-                codeAr: 'طريق 10 / طريق 30',
-                codeEn: 'Highway 10 / Route 30',
-                nameAr: 'طريق الجنوب – وادي الدواسر – الخرج – الرياض السريع',
-                nameEn: 'South – Wadi Ad Dawasir – Al Kharj – Riyadh Expressway'
-            };
-        }
-        if (westEast40.includes(fromCity) && westEast40.includes(toCity)) {
-            return {
-                codeAr: 'طريق 40 السريع (Highway 40)',
-                codeEn: 'Highway 40 (Makkah – Riyadh – Dammam)',
-                nameAr: 'طريق جدة – مكة – الطائف – الدوادمي – الرياض – الدمام السريع',
-                nameEn: 'Jeddah – Makkah – Taif – Duwadimi – Riyadh – Dammam Highway 40'
-            };
-        }
-        if (northQassim65.includes(fromCity) && northQassim65.includes(toCity)) {
-            return {
-                codeAr: 'طريق 65 / طريق 85 الشمال',
-                codeEn: 'Highway 65 / North Route 85',
-                nameAr: 'طريق الرياض – المجمعة – القصيم – حائل – الجوف – الحدود الشمالية السريع',
-                nameEn: 'Riyadh – Majmaah – Qassim – Hail – Al Jouf Northern Highway'
-            };
-        }
-        return {
-            codeAr: 'طريق 15 / الشبكة الوطنية السريعة',
-            codeEn: 'Highway 15 / National Express Network',
-            nameAr: 'طريق الهجرة والسراة والمحاور الإقليمية الرابطة بين المناطق',
-            nameEn: 'Al Hijrah & As Sarah Regional Connector Highway 15'
-        };
-    }
-
-    function buildDetailedRoute(fromCity, toCity) {
-        const hw = getOfficialHighway(fromCity, toCity);
-        if (fromCity === toCity) {
-            return {
-                highway: hw,
-                totalHours: 1.5,
-                totalKm: 25,
-                legs: [
-                    { city: fromCity, addedHours: 0, cumHours: 0, kmSeg: 0, noteAr: 'نقطة التجميع والانطلاق', noteEn: 'Origin Collection Hub' },
-                    { city: toCity, addedHours: 1.5, cumHours: 1.5, kmSeg: 25, noteAr: 'توصيل داخلي لمراكز أحياء المحافظة', noteEn: 'Local Neighborhood Micro-Hub Delivery' }
-                ]
-            };
-        }
-
-        const coastalOrder = ['صامطة', 'أبو عريش', 'جازان', 'صبيا', 'بيش', 'الدرب', 'القنفذة', 'الليث', 'جدة', 'رابغ', 'ينبع', 'الوجه', 'ضباء', 'تبوك'];
-        const southToRiyadh = ['جازان', 'الدرب', 'أبها', 'خميس مشيط', 'بيشة', 'وادي الدواسر', 'الخرج', 'الرياض'];
-        const westToEast = ['جدة', 'مكة المكرمة', 'الطائف', 'الدوادمي', 'الرياض', 'الأحساء (الهفوف)', 'الدمام', 'الخبر'];
-        const riyadhToNorth = ['الرياض', 'المجمعة', 'بريدة', 'حائل', 'سكاكا (الجوف)', 'عرعر', 'القريات'];
-
-        let intermediateCities = [];
-
-        function extractCorridorStops(corridor) {
-            const i1 = corridor.indexOf(fromCity);
-            const i2 = corridor.indexOf(toCity);
-            if (i1 !== -1 && i2 !== -1 && Math.abs(i2 - i1) >= 2) {
-                const step = i2 > i1 ? 1 : -1;
-                const list = [];
-                for (let k = i1 + step; k !== i2; k += step) {
-                    list.push(corridor[k]);
-                }
-                return list;
-            }
-            return null;
-        }
-
-        const cStops = extractCorridorStops(coastalOrder);
-        const sStops = extractCorridorStops(southToRiyadh);
-        const wStops = extractCorridorStops(westToEast);
-        const nStops = extractCorridorStops(riyadhToNorth);
-
-        if ((fromCity === 'جازان' && toCity === 'جدة') || (fromCity === 'جدة' && toCity === 'جازان')) {
-            intermediateCities = fromCity === 'جازان' ? ['الدرب', 'القنفذة', 'الليث'] : ['الليث', 'القنفذة', 'الدرب'];
-        } else if (cStops) {
-            intermediateCities = cStops.filter(c => ['بيش', 'الدرب', 'القنفذة', 'الليث', 'جدة', 'رابغ', 'ينبع', 'الوجه', 'ضباء'].includes(c)).slice(0, 4);
-        } else if (sStops) {
-            intermediateCities = sStops.filter(c => ['الدرب', 'أبها', 'بيشة', 'وادي الدواسر', 'الخرج'].includes(c)).slice(0, 4);
-        } else if (wStops) {
-            intermediateCities = wStops.filter(c => ['مكة المكرمة', 'الطائف', 'الدوادمي', 'الرياض', 'الأحساء (الهفوف)'].includes(c)).slice(0, 4);
-        } else if (nStops) {
-            intermediateCities = nStops.filter(c => ['المجمعة', 'بريدة', 'حائل', 'سكاكا (الجوف)'].includes(c)).slice(0, 4);
-        } else {
-            const distTotal = calcDistanceKm(fromCity, toCity);
-            if (distTotal > 200) {
-                const hubs = ['الدرب', 'القنفذة', 'الليث', 'جدة', 'الطائف', 'أبها', 'بيشة', 'وادي الدواسر', 'الدوادمي', 'الرياض', 'المجمعة', 'بريدة', 'حائل', 'ينبع', 'المدينة المنورة', 'الأحساء (الهفوف)'];
-                const valid = [];
-                hubs.forEach(h => {
-                    if (h === fromCity || h === toCity) return;
-                    const d1 = calcDistanceKm(fromCity, h);
-                    const d2 = calcDistanceKm(h, toCity);
-                    if (d1 + d2 <= distTotal * 1.24 && d1 > 75 && d2 > 75) {
-                        valid.push({ h, d1 });
-                    }
-                });
-                valid.sort((a, b) => a.d1 - b.d1);
-                if (valid.length === 1) intermediateCities = [valid[0].h];
-                else if (valid.length === 2) intermediateCities = [valid[0].h, valid[1].h];
-                else if (valid.length >= 3) intermediateCities = [valid[0].h, valid[Math.floor(valid.length / 2)].h, valid[valid.length - 1].h];
-            }
-        }
-
-        const fullChain = [fromCity, ...intermediateCities, toCity];
-        const legs = [];
-        let cumHours = 0;
-        let totalKm = 0;
-
-        for (let i = 0; i < fullChain.length; i++) {
-            if (i === 0) {
-                legs.push({
-                    city: fullChain[0],
-                    addedHours: 0,
-                    cumHours: 0,
-                    kmSeg: 0,
-                    noteAr: 'انطلاق الشاحنة على الخط السريع',
-                    noteEn: 'Truck Departure onto Expressway'
-                });
-            } else {
-                const segKm = calcDistanceKm(fullChain[i - 1], fullChain[i]);
-                totalKm += segKm;
-                let segHours = Math.max(1.0, Math.round((segKm / 80) * 2) / 2);
-                cumHours = Math.round((cumHours + segHours) * 2) / 2;
-                legs.push({
-                    city: fullChain[i],
-                    addedHours: segHours,
-                    cumHours: cumHours,
-                    kmSeg: segKm,
-                    noteAr: i === fullChain.length - 1 ? 'الوصول للوجهة النهائية وتفريغ مراكز الأحياء' : 'توقف جدولي سريع (15 دقيقة) لإنزال واستلام طرود المحافظة',
-                    noteEn: i === fullChain.length - 1 ? 'Final Arrival & Neighborhood Micro-Hub Unloading' : 'Scheduled 15-min Governorate Stop (Drop-off & Pick-up)'
-                });
-            }
-        }
-
-        if (fromCity === 'جازان' && toCity === 'جدة' && legs.length === 5) {
-            legs[1].addedHours = 1.5; legs[1].cumHours = 1.5; legs[1].kmSeg = 125;
-            legs[2].addedHours = 3.5; legs[2].cumHours = 5.0; legs[2].kmSeg = 215;
-            legs[3].addedHours = 3.0; legs[3].cumHours = 8.0; legs[3].kmSeg = 170;
-            legs[4].addedHours = 4.0; legs[4].cumHours = 12.0; legs[4].kmSeg = 205;
-            cumHours = 12.0;
-            totalKm = 715;
-        }
-
-        return {
-            highway: hw,
-            totalHours: cumHours,
-            totalKm: Math.max(35, totalKm),
-            legs
-        };
-    }
-
-    function onRouteChange() {
-        const fromCity = document.getElementById('pickupCity').value;
-        const toCity = document.getElementById('deliveryCity').value;
-        const isEn = currentLang === 'en';
-
-        document.getElementById('branchName0').textContent = isEn
-            ? `⚡ ${branchTemplates[0].enPrefix} (${trCity(fromCity)})`
-            : `⚡ ${branchTemplates[0].arPrefix} (${fromCity})`;
-        document.getElementById('branchName1').textContent = isEn
-            ? `🏢 ${branchTemplates[1].enPrefix} (${trCity(fromCity)})`
-            : `🏢 ${branchTemplates[1].arPrefix} (${fromCity})`;
-        document.getElementById('branchName2').textContent = isEn
-            ? `🏙️ ${branchTemplates[2].enPrefix} (${trCity(fromCity)})`
-            : `🏙️ ${branchTemplates[2].arPrefix} (${fromCity})`;
-
-        const routeObj = buildDetailedRoute(fromCity, toCity);
-        const arrowSep = isEn ? ' ➔ ' : ' ⬅ ';
-        const arrowChain = routeObj.legs.map(l => trCity(l.city)).join(arrowSep);
-
-        document.getElementById('bannerRouteTitle').innerHTML = isEn
-            ? `🛰️ Active Route: ${arrowChain}`
-            : `🛰️ المسار النشط: ${arrowChain}`;
-        document.getElementById('bannerTotalHours').innerHTML = isEn
-            ? `⏱️ ${routeObj.totalHours} hrs (${routeObj.totalKm} km | ${routeObj.legs.length} stops)`
-            : `⏱️ ${routeObj.totalHours} ساعة (${routeObj.totalKm} كم | ${routeObj.legs.length} محطات)`;
-
-        document.getElementById('bannerHighwayCode').textContent = isEn ? routeObj.highway.codeEn : routeObj.highway.codeAr;
-        document.getElementById('bannerHighwayName').textContent = isEn ? routeObj.highway.nameEn : routeObj.highway.nameAr;
-
-        let nodesHtml = '<div class="route-line-bg"></div><div class="route-line-animated"></div>';
-        routeObj.legs.forEach((leg, idx) => {
-            const icon = idx === 0 ? '📍' : (idx === routeObj.legs.length - 1 ? '🏁' : '🔷');
-            const hourText = idx === 0
-                ? (isEn ? 'Start (0h)' : 'الانطلاق (0 س)')
-                : (isEn ? `+${leg.addedHours}h (${leg.cumHours}h)` : `+${leg.addedHours} س (${leg.cumHours} س)`);
-            nodesHtml += `
-                <div class="route-node">
-                    <div class="node-dot">${icon}</div>
-                    <div class="node-city">${trCity(leg.city)}</div>
-                    <div class="node-hour">${hourText}</div>
-                </div>
-            `;
-        });
-        document.getElementById('liveNodesContainer').innerHTML = nodesHtml;
-    }
-
-    function toggleLanguage() {
-        currentLang = currentLang === 'ar' ? 'en' : 'ar';
-        const isEn = currentLang === 'en';
-        const root = document.getElementById('htmlRoot');
-        root.lang = isEn ? 'en' : 'ar';
-        root.dir = isEn ? 'ltr' : 'rtl';
-
-        document.getElementById('langToggleBtn').textContent = isEn ? '🌐 العربية' : '🌐 English';
-        document.getElementById('uiBrandTitle').textContent = isEn ? 'Masarak Smart Logistics' : 'منصة مسارك الذكية';
-        document.getElementById('uiBrandTagline').textContent = isEn
-            ? 'Live Truck Schedules, Branch Load & Highway Stops'
-            : 'جدولة رحلات الشحن وحمولة الفروع عبر طرق المملكة';
-        document.getElementById('authTriggerBtn').textContent = isEn ? '🛡️ Sign In / Account' : '🛡️ تسجيل دخول / الحساب';
-
-        document.getElementById('mainHeading').textContent = isEn ? '🔷 Masarak Logistics Network' : '🔷 مسارك اللوجستية';
-        document.getElementById('mainSubtitle').textContent = isEn
-            ? 'Track real-time branch load, official highway routes, governorate stops & cumulative hours'
-            : 'تتبع حمولة الفروع لحظياً واعرف الطريق الرسمي ومحطات التوقف وعدد الساعات';
-
-        document.getElementById('prog1').textContent = isEn ? '1. Shipment & Load' : '1. الشحنة والحمولة';
-        document.getElementById('prog2').textContent = isEn ? '2. Truck Schedules' : '2. جدول الشاحنات';
-        document.getElementById('prog3').textContent = isEn ? '3. Highway Tracking' : '3. المسار والتتبع';
-
-        document.getElementById('badgeStep1').textContent = isEn ? 'Step 1: Account Tier, Highway Route & Branch Load' : 'الخطوة 1: فئة الحساب، الطريق، وحمولة الفرع';
-        document.getElementById('lblClientType').textContent = isEn ? '👥 Account Type & Pricing Tier:' : '👥 فئة الحساب والتسعير:';
-        document.getElementById('clientGuestBtn').textContent = isEn ? '🔹 Quick Guest' : '🔹 ضيف سريع';
-        document.getElementById('clientIndivBtn').textContent = isEn ? '👤 Individual' : '👤 أفراد (بالقطعة)';
-        document.getElementById('clientCorpBtn').textContent = isEn ? '🏙️ Corporate (50+)' : '🏙️ مؤسسات (50+ طرد)';
-
-        document.getElementById('lblB2BTiers').textContent = isEn ? '📊 Corporate & Store Volume Tiers (Min 50 Parcels):' : '📊 شرائح أسعار المؤسسات والمتاجر (الحد الأدنى 50 طرد):';
-        document.getElementById('tier50Title').textContent = isEn ? '50 - 99 Parcels' : '50 - 99 طرد';
-        document.getElementById('tier50Price').textContent = isEn ? '29 SAR / parcel' : '29 ريال/طرد';
-        document.getElementById('tier100Title').textContent = isEn ? '100 - 249 Parcels' : '100 - 249 طرد';
-        document.getElementById('tier100Price').textContent = isEn ? '26 SAR / parcel' : '26 ريال/طرد';
-        document.getElementById('tier250Title').textContent = isEn ? '250+ Parcels' : '250+ طرد';
-        document.getElementById('tier250Price').textContent = isEn ? '22 SAR / parcel' : '22 ريال/طرد';
-        document.getElementById('lblParcelCount').textContent = isEn ? 'Enter Batch Quantity (Min 50 parcels):' : 'حدد عدد الطرود في الدفعة (الحد الأدنى 50 طرد):';
-
-        document.getElementById('lblPickupCity').textContent = isEn ? '📍 Origin City / Governorate:' : '📍 مدينة / محافظة الانطلاق:';
-        document.getElementById('lblDeliveryCity').textContent = isEn ? '🏁 Destination City / Governorate:' : '🏁 مدينة / محافظة التسليم (الوجهة):';
-        document.getElementById('lblServiceType').textContent = isEn ? '🧭 Logistics Service Mode:' : '🧭 نمط الخدمة اللوجستية:';
-
-        document.getElementById('srvCard0').textContent = isEn ? '🏙️ Neighborhood Micro-Hubs' : '🏙️ عبر مراكز الأحياء المصغرة';
-        document.getElementById('srvCard1').textContent = isEn ? '🔹 Door-to-Door (Courier)' : '🔹 من الباب للباب (مندوب)';
-        document.getElementById('srvCard2').textContent = isEn ? '🔷 Door-to-Branch' : '🔷 من الباب لمركز/فرع الوجهة';
-        document.getElementById('srvCard3').textContent = isEn ? '🏢 Branch-to-Branch' : '🏢 من الفرع للفرع المباشر';
-
-        document.getElementById('branchBadge0').textContent = isEn ? 'Fastest Departure: Load 95 / 100' : 'الأسرع انطلاقاً: الحمولة 95 / 100 طرد';
-        document.getElementById('branchMeta0').innerHTML = isEn
-            ? '🔷 Truck departs immediately at <b>100 parcels</b> or within <b>5 hours</b> max (Only 5 parcels left!)'
-            : '🔷 تتحرك الشاحنة فور وصولها إلى <b>100 طرد</b> أو خلال <b>5 ساعات</b> كحد أقصى (باقي 5 طرود فقط!)';
-        document.getElementById('branchBadge1').textContent = isEn ? 'Load 60 / 100 Parcels' : 'الحمولة 60 / 100 طرد';
-        document.getElementById('branchMeta1').innerHTML = isEn
-            ? '🔹 Expected time to reach 100 parcels & depart: <b>9 hours</b>'
-            : '🔹 الوقت المتوقع لاكتمال الـ 100 طرد وانطلاق الشاحنة: <b>9 ساعات</b>';
-        document.getElementById('branchBadge2').textContent = isEn ? 'Load 25 / 100 Parcels' : 'الحمولة 25 / 100 طرد';
-        document.getElementById('branchMeta2').innerHTML = isEn
-            ? '🔹 Expected time to reach 100 parcels & depart: <b>16 hours</b>'
-            : '🔹 الوقت المتوقع لاكتمال الـ 100 طرد وانطلاق الشاحنة: <b>16 ساعة</b>';
-
-        document.getElementById('lblWeight').textContent = isEn ? '⚖️ Parcel Weight & Size:' : '⚖️ وزن وحجم الطرد:';
-        document.getElementById('lblReadiness').textContent = isEn ? '⏱️ Handover Readiness:' : '⏱️ وقت تسليمك للطرد:';
-        document.getElementById('lblNotes').textContent = isEn ? '📝 Additional Notes / Address (Optional):' : '📝 ملاحظات إضافية أو عنوان تفصيلي (اختياري):';
-
-        document.getElementById('reviewsHeading').textContent = isEn ? '⭐ Customer Ratings & Feedback' : '⭐ تقييمات وملاحظات العملاء';
-        document.getElementById('reviewsSub').textContent = isEn
-            ? 'Share your rating and feedback on truck departure accuracy and neighborhood micro-hubs'
-            : 'شاركنا تقييمك وملاحظاتك حول دقة مواعيد انطلاق الشاحنات ومراكز الأحياء';
-        document.getElementById('lblRateStars').textContent = isEn ? '🔷 Rate your experience (1 to 5 stars):' : '🔷 اختر تقييمك لتجربة المنصة (من 1 إلى 5 نجوم):';
-        document.getElementById('lblReviewerName').textContent = isEn ? 'Your Name or Store Name:' : 'الاسم أو اسم المتجر:';
-        document.getElementById('lblReviewComment').textContent = isEn ? 'Your Feedback on Route / Service:' : 'ملاحظتك عن المسار أو الخدمة:';
-        document.getElementById('btnSubmitReview').textContent = isEn ? '☑️ Submit Rating & Review' : '☑️ إضافة التقييم والملاحظة';
-
-        selectClientType(clientType);
-        recalcB2B();
-        onRouteChange();
-        renderReviews();
-        if (currentShipment) {
-            loadSchedule();
-        }
-    }
-
-    function openAuthModal() {
-        document.getElementById('authModalBackdrop').classList.add('open');
-    }
-
-    function closeAuthModal() {
-        document.getElementById('authModalBackdrop').classList.remove('open');
-    }
-
-    function switchAuthTab(role) {
-        modalAuthRole = role;
-        ['tabGuest', 'tabIndiv', 'tabCorp'].forEach(id => document.getElementById(id).classList.remove('active-tab'));
-        const extraGroup = document.getElementById('authExtraGroup');
-        const nameLabel = document.getElementById('authNameLabel');
-
-        if (role === 'guest') {
-            document.getElementById('tabGuest').classList.add('active-tab');
-            nameLabel.textContent = 'الاسم المستعار (اختياري للضيف):';
-            extraGroup.style.display = 'none';
-        } else if (role === 'individual') {
-            document.getElementById('tabIndiv').classList.add('active-tab');
-            nameLabel.textContent = 'اسم العميل الثلاثي:';
-            document.getElementById('authExtraLabel').textContent = 'رقم الجوال للتنبيهات:';
-            extraGroup.style.display = 'block';
-        } else {
-            document.getElementById('tabCorp').classList.add('active-tab');
-            nameLabel.textContent = 'اسم المؤسسة أو المتجر الإلكتروني:';
-            document.getElementById('authExtraLabel').textContent = 'رقم السجل التجاري / وثيقة العمل الحر:';
-            extraGroup.style.display = 'block';
-        }
-    }
-
-    function confirmAuthLogin() {
-        const inputName = document.getElementById('authNameInput').value.trim();
-        if (modalAuthRole === 'corporate') {
-            currentUserName = inputName || 'مؤسسة مسارك التجارية';
-            selectClientType('corporate');
-        } else if (modalAuthRole === 'individual') {
-            currentUserName = inputName || 'ريان (حساب أفراد)';
-            selectClientType('individual');
-        } else {
-            currentUserName = inputName || 'ضيف سريع';
-            selectClientType('guest');
-        }
-        closeAuthModal();
-    }
-
-    function updateProgress(stepNum) {
-        ['prog1', 'prog2', 'prog3'].forEach((id, idx) => {
-            const el = document.getElementById(id);
-            if (idx + 1 === stepNum) {
-                el.classList.add('current');
-            } else {
-                el.classList.remove('current');
-            }
-        });
-    }
-
-    function selectClientType(type) {
-        clientType = type;
-        const isEn = currentLang === 'en';
-        const guestBtn = document.getElementById('clientGuestBtn');
-        const indivBtn = document.getElementById('clientIndivBtn');
-        const corpBtn = document.getElementById('clientCorpBtn');
-        const b2bBox = document.getElementById('b2bBox');
-        const pill = document.getElementById('activeUserPill');
-
-        [guestBtn, indivBtn, corpBtn].forEach(b => b.classList.remove('selected'));
-
-        if (type === 'corporate') {
-            corpBtn.classList.add('selected');
-            b2bBox.classList.add('show');
-            pill.innerHTML = isEn ? `🏙️ Corporate: ${currentUserName}` : `🏙️ حساب مؤسسة: ${currentUserName === 'ضيف سريع' ? 'متجر/مؤسسة' : currentUserName}`;
-            recalcB2B();
-        } else if (type === 'guest') {
-            guestBtn.classList.add('selected');
-            b2bBox.classList.remove('show');
-            parcelCount = 1;
-            pill.innerHTML = isEn ? `🔹 Quick Guest` : `🔹 ضيف سريع`;
-        } else {
-            indivBtn.classList.add('selected');
-            b2bBox.classList.remove('show');
-            parcelCount = 1;
-            pill.innerHTML = isEn ? `👤 Individual Account` : `👤 حساب أفراد: ${currentUserName === 'ضيف سريع' ? 'عميل أفراد' : currentUserName}`;
-        }
-    }
-
-    function getB2BUnitPrice(count) {
-        if (count >= 250) return 22;
-        if (count >= 100) return 26;
-        return 29;
-    }
-
-    function setParcelCount(val) {
-        document.getElementById('parcelCountInput').value = val;
-        recalcB2B();
-    }
-
-    function recalcB2B() {
-        const isEn = currentLang === 'en';
-        const rawVal = parseInt(document.getElementById('parcelCountInput').value, 10) || 50;
-        const effectiveCount = Math.max(50, rawVal);
-        parcelCount = effectiveCount;
-
-        const unitPrice = getB2BUnitPrice(effectiveCount);
-        const total = effectiveCount * unitPrice;
-        const standardTotal = effectiveCount * 38;
-        const saved = standardTotal - total;
-
-        ['tier50', 'tier100', 'tier250'].forEach(id => document.getElementById(id).classList.remove('active-tier'));
-        if (effectiveCount >= 250) {
-            document.getElementById('tier250').classList.add('active-tier');
-        } else if (effectiveCount >= 100) {
-            document.getElementById('tier100').classList.add('active-tier');
-        } else {
-            document.getElementById('tier50').classList.add('active-tier');
-        }
-
-        if (isEn) {
-            const minWarn = rawVal < 50 ? ' <span style="color:#0284c7;">(Min 50 parcels applied)</span>' : '';
-            document.getElementById('b2bCalcSummary').innerHTML = `
-                <span>Unit Price: <b style="color:#0284c7;">${unitPrice} SAR</b>${minWarn}</span>
-                <span>Total (${effectiveCount} parcels): <b>${total.toLocaleString()} SAR</b></span>
-                <span style="color:#0284c7; font-weight:bold;">Saved ${saved.toLocaleString()} SAR ☑️</span>
-            `;
-        } else {
-            const minWarn = rawVal < 50 ? ' <span style="color:#0284c7;">(الحد الأدنى للمؤسسات 50 طرد)</span>' : '';
-            document.getElementById('b2bCalcSummary').innerHTML = `
-                <span>سعر الطرد: <b style="color:#0284c7;">${unitPrice} ريال</b>${minWarn}</span>
-                <span>الإجمالي لـ ${effectiveCount} طرد: <b>${total.toLocaleString()} ريال</b></span>
-                <span style="color:#0284c7; font-weight:bold;">وفّرت ${saved.toLocaleString()} ريال ☑️</span>
-            `;
-        }
-    }
-
-    function selectBranch(element, idx) {
-        document.querySelectorAll('.branch-card').forEach(c => c.classList.remove('selected'));
-        element.classList.add('selected');
-        selectedBranchIndex = idx;
-    }
-
-    function selectServiceType(element, type) {
-        document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
-        element.classList.add('selected');
-        selectedServiceType = type;
-
-        const isEn = currentLang === 'en';
-        const hint = document.getElementById('serviceLogicHint');
-        const branchLabel = document.getElementById('branchSectionLabel');
-
-        if (type === 'استلام من مركز الحي المصغر') {
-            branchLabel.textContent = isEn
-                ? '🏙️ Select Origin Consolidation Hub (Ranked by Truck Load Completion):'
-                : '🏙️ اختر مركز/فرع التجميع في مدينة الانطلاق (مرتبة حسب اكتمال الشاحنة):';
-            hint.innerHTML = isEn
-                ? '🔷 <b>Neighborhood Micro-Hub Mode:</b> Drop off at the selected origin hub below; upon arrival, parcels unload directly at the <b>recipient’s neighborhood micro-hub</b> without central warehouse congestion.'
-                : '🔷 <b>آلية مراكز الأحياء المصغرة:</b> تسلم طردك في مركز التجميع المختار بالأسفل، وفور وصول الشاحنة لوجهتها يتفرغ الطرد في <b>مركز التوزيع المصغر داخل حي المستلم</b> دون تكدس بالمستودع المركزي.';
-        } else if (type === 'من الباب للباب') {
-            branchLabel.textContent = isEn
-                ? '🔷 Select Origin Truck Dispatch Branch (Courier picks up from your door):'
-                : '🔷 اختر شاحنة الفرع التي سيوجّه المندوب شحنتك إليها:';
-            hint.innerHTML = isEn
-                ? '🔷 <b>Door-to-Door Mode:</b> Masarak courier picks up from your location, loads onto the selected branch truck below, and delivers directly to the <b>recipient’s door</b> upon arrival.'
-                : '🔷 <b>آلية من الباب للباب:</b> يستلم مندوب مسارك الشحنة من باب موقعك ويسلمها لشاحنة الفرع المختار بالأسفل، وعند وصولها للمدينة توصل مباشرة <b>لباب منزل المستلم</b>.';
-        } else if (type === 'من الباب للفرع') {
-            branchLabel.textContent = isEn
-                ? '🔷 Select Origin Truck Dispatch Branch:'
-                : '🔷 اختر شاحنة الفرع التي سيوجّه المندوب شحنتك إليها:';
-            hint.innerHTML = isEn
-                ? '🔷 <b>Door-to-Branch Mode:</b> Courier picks up from your door, and the recipient collects from their nearest destination branch/hub.'
-                : '🔷 <b>آلية من الباب للفرع:</b> يستلم المندوب الشحنة من بابك، ويستلمها العميل في الوجهة من أقرب مركز أو فرع له.';
-        } else {
-            branchLabel.textContent = isEn
-                ? '🏢 Select Origin Drop-off Branch (Ranked by Truck Load):'
-                : '🏢 اختر فرع التسليم المباشر في مدينة الانطلاق (حسب اكتمال الشاحنة):';
-            hint.innerHTML = isEn
-                ? '🔷 <b>Branch-to-Branch Mode:</b> Hand over directly at the fastest-filling origin branch below for direct expressway dispatch to the destination branch.'
-                : '🔷 <b>آلية من الفرع للفرع:</b> تسلم شحنتك مباشرة في الفرع الأسرع اكتمالاً بالأسفل، ويستلمها العميل من فرع الوجهة فور وصول الشاحنة.';
-        }
-    }
-
-    function registerShipment() {
-        const pickupCity = document.getElementById('pickupCity').value;
-        const deliveryCity = document.getElementById('deliveryCity').value;
-        const weightOption = document.getElementById('weightOption').value;
-        const freeDescription = document.getElementById('freeDescription').value || 'لا توجد ملاحظات';
-        const readinessTime = document.getElementById('readinessTime').value;
-
-        if (clientType === 'corporate') {
-            const rawVal = parseInt(document.getElementById('parcelCountInput').value, 10) || 50;
-            parcelCount = Math.max(50, rawVal);
-            document.getElementById('parcelCountInput').value = parcelCount;
-        } else {
-            parcelCount = 1;
-        }
-
-        const chosenBranch = branchTemplates[selectedBranchIndex];
-        const routeObj = buildDetailedRoute(pickupCity, deliveryCity);
-
-        currentShipment = {
-            id: 'MSK-' + Math.floor(100000 + Math.random() * 900000),
-            clientType,
-            parcelCount,
-            serviceType: selectedServiceType,
-            pickupCity,
-            deliveryCity,
-            branchAr: `${chosenBranch.arPrefix} (${pickupCity})`,
-            branchEn: `${chosenBranch.enPrefix} (${trCity(pickupCity)})`,
-            branchLoad: chosenBranch.load,
-            branchMax: chosenBranch.maxLoad,
-            branchEtaHours: chosenBranch.etaHours,
-            weightOption,
-            freeDescription,
-            readinessTime,
-            routeObj
-        };
-
-        loadSchedule();
-        window.scrollTo(0, 0);
-    }
-
-    function loadSchedule() {
-        const isEn = currentLang === 'en';
-        const arrowSep = isEn ? ' ➔ ' : ' ⬅ ';
-        const routeArrow = currentShipment.routeObj.legs.map(s => trCity(s.city)).join(arrowSep);
-        const hw = currentShipment.routeObj.highway;
-        const hwLabel = isEn ? `${hw.codeEn} — ${hw.nameEn}` : `${hw.codeAr} — ${hw.nameAr}`;
-        const branchTitle = isEn ? currentShipment.branchEn : currentShipment.branchAr;
-
-        const newLoadAfterBooking = Math.min(100, currentShipment.branchLoad + currentShipment.parcelCount);
-        const waitHours = newLoadAfterBooking >= 100 ? 0.5 : currentShipment.branchEtaHours;
-
-        if (isEn) {
-            document.getElementById('shipmentInfoSummary').innerHTML = `
-                Shipment ID: <b>${currentShipment.id}</b> | Quantity: <b>${currentShipment.parcelCount} parcel(s)</b><br>
-                Origin Branch: <b style="color:#0284c7;">${branchTitle}</b> (Load: <b>${currentShipment.branchLoad}/100</b> ➔ <b>${newLoadAfterBooking}/100</b> after booking)<br>
-                Official Highway: <b>${hwLabel}</b><br>
-                Stops (${currentShipment.routeObj.totalKm} km): <b>${routeArrow}</b> (Road Time: <b>${currentShipment.routeObj.totalHours} hrs</b>)
-            `;
-        } else {
-            document.getElementById('shipmentInfoSummary').innerHTML = `
-                رقم الشحنة: <b>${currentShipment.id}</b> | الكمية: <b>${currentShipment.parcelCount} طرد</b><br>
-                نقطة الانطلاق: <b style="color:#0284c7;">${branchTitle}</b> (الحمولة: <b>${currentShipment.branchLoad}/100</b> ⬅ بعد حجزك تصبح <b>${newLoadAfterBooking}/100</b>)<br>
-                الطريق الرسمي المعتمد: <b style="color:#1e3a8a;">${hwLabel}</b><br>
-                محطات التوقف (${currentShipment.routeObj.totalKm} كم): <b>${routeArrow}</b> (زمن الطريق الفعلي: <b>${currentShipment.routeObj.totalHours} ساعة</b>)
-            `;
-        }
-
-        let priceMultiplier = 1;
-        if (currentShipment.serviceType === 'من الباب للباب') priceMultiplier = 1.25;
-        if (currentShipment.serviceType === 'من الفرع للفرع') priceMultiplier = 0.85;
-        if (currentShipment.serviceType === 'استلام من مركز الحي المصغر') priceMultiplier = 0.95;
-
-        const distanceAddon = Math.min(12, Math.floor(currentShipment.routeObj.totalKm / 250) * 3);
-        const baseCorpUnit = getB2BUnitPrice(currentShipment.parcelCount);
-
-        const rawCarriers = [
-            {
-                nameAr: 'مسارك إكسبريس (سمسا - الخط السريع المباشر)',
-                nameEn: 'Masarak Express (SMSA Direct Line)',
-                indivPrice: Math.round((35 + distanceAddon) * priceMultiplier),
-                corpUnitPrice: baseCorpUnit,
-                speedFactor: 1.0,
-                rating: '4.9 ⭐'
-            },
-            {
-                nameAr: 'درة اللوجستية (أرامكس - خط المحافظات)',
-                nameEn: 'Durrah Logistics (Aramex Regional Line)',
-                indivPrice: Math.round((31 + distanceAddon) * priceMultiplier),
-                corpUnitPrice: Math.max(20, baseCorpUnit - 2),
-                speedFactor: 1.15,
-                rating: '4.7 ⭐'
-            },
-            {
-                nameAr: 'الناقل الوطني الموحد (سبل)',
-                nameEn: 'National Unified Carrier (SPL)',
-                indivPrice: Math.round((24 + distanceAddon) * priceMultiplier),
-                corpUnitPrice: Math.max(18, baseCorpUnit - 4),
-                speedFactor: 1.3,
-                rating: '4.6 ⭐'
-            }
-        ];
-
-        currentCouriers = rawCarriers.map(c => {
-            const isCorp = currentShipment.clientType === 'corporate';
-            const unitCost = isCorp ? c.corpUnitPrice : c.indivPrice;
-            const totalCost = unitCost * currentShipment.parcelCount;
-            const costText = isCorp
-                ? (isEn
-                    ? `${unitCost} SAR/parcel (Total for ${currentShipment.parcelCount}: ${totalCost.toLocaleString()} SAR)`
-                    : `${unitCost} ريال/طرد (الإجمالي لـ ${currentShipment.parcelCount} طرد: ${totalCost.toLocaleString()} ريال)`)
-                : (isEn ? `${unitCost} SAR` : `${unitCost} ريال`);
-
-            const roadHours = Math.max(1.5, Math.round(currentShipment.routeObj.totalHours * c.speedFactor * 2) / 2);
-            const totalElapsed = Math.round((roadHours + waitHours) * 2) / 2;
-
-            const departText = newLoadAfterBooking >= 100
-                ? (isEn ? 'Load 100/100 Full — Departs Immediately ⚡' : 'اكتملت الحمولة 100/100 — تنطلق الشاحنة فوراً ⚡')
-                : (isEn ? `Load ${newLoadAfterBooking}/100 — Departs within ${currentShipment.branchEtaHours} hrs` : `الحمولة ${newLoadAfterBooking}/100 — تنطلق خلال ${currentShipment.branchEtaHours} ساعات`);
-
-            return {
-                name: isEn ? c.nameEn : c.nameAr,
-                cost: costText,
-                departIn: departText,
-                roadHours,
-                waitHours,
-                totalElapsed,
-                speedFactor: c.speedFactor,
-                duration: isEn
-                    ? `${roadHours}h highway + ${waitHours === 0.5 ? 'immediate dispatch' : waitHours + 'h load wait'} = ${totalElapsed} hrs total`
-                    : `${roadHours} ساعة طريق + ${waitHours === 0.5 ? 'انطلاق فوري' : waitHours + ' س انتظار اكتمال'} = إجمالي ${totalElapsed} ساعة`,
-                rating: c.rating,
-                loadPercent: newLoadAfterBooking
-            };
-        });
-
-        let couriersHtml = `<h4 style="color: #1e3a8a; margin-top: 0; margin-bottom: 10px; font-size:14px;">${isEn ? '🔷 Select a carrier to view governorate stop hours & confirm booking:' : '🔷 اضغط على الشركة لعرض ساعات التوقف في المحافظات وتأكيد الحجز:'}</h4>`;
-        currentCouriers.forEach((c, idx) => {
-            couriersHtml += `
-                <div class="courier-card" onclick="goToTracking(${idx})">
-                    <div class="courier-header">
-                        <b>🔷 ${c.name}</b>
-                        <span class="departure-pill">${c.departIn}</span>
-                    </div>
-                    💳 ${isEn ? 'Cost' : 'التكلفة'}: <b style="color:#0284c7;">${c.cost}</b> | ${c.rating}<br>
-                    🏁 ${isEn ? 'Total Time' : 'الزمن الكلي'}: <b>${c.duration}</b>
-                    <div class="route-preview">
-                        🛰️ ${routeArrow} | ${isEn ? 'Truck Load' : 'نسبة اكتمال الشاحنة'}: <b>${c.loadPercent}%</b>
-                        <div class="capacity-bar-wrap">
-                            <div class="capacity-bar-fill ${c.loadPercent >= 95 ? 'fast' : ''}" style="width: ${c.loadPercent}%;"></div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
-        document.getElementById('couriersList').innerHTML = couriersHtml;
-
-        document.getElementById('step1').classList.remove('active');
-        document.getElementById('step3').classList.remove('active');
-        document.getElementById('step2').classList.add('active');
-        updateProgress(2);
-    }
-
-    function goToTracking(courierIndex) {
-        const isEn = currentLang === 'en';
-        const courier = currentCouriers[courierIndex];
-        const legs = currentShipment.routeObj.legs;
-        const hw = currentShipment.routeObj.highway;
-        const branchTitle = isEn ? currentShipment.branchEn : currentShipment.branchAr;
-
-        let runningHours = 0;
-        const stopsHtml = legs.map((leg, i) => {
-            if (i === 0) {
-                return `
-                    <li>
-                        <span class="step-hour-tag">${isEn ? 'Hour 0.0 (Origin)' : 'الساعة 0.0 (الانطلاق)'}</span>
-                        <b>📍 ${trCity(leg.city)}</b> — ${branchTitle} (${courier.departIn})
-                    </li>
-                `;
-            }
-            const segH = Math.max(1, Math.round(leg.addedHours * courier.speedFactor * 2) / 2);
-            runningHours = Math.round((runningHours + segH) * 2) / 2;
-
-            if (i === legs.length - 1) {
-                const finalNote = currentShipment.serviceType === 'من الباب للباب'
-                    ? (isEn ? 'Direct courier delivery to recipient door' : 'توصيل مباشر لباب عنوان المستلم فور وصول الشاحنة')
-                    : (isEn ? 'Immediate unloading at recipient neighborhood micro-hub' : 'تفريغ فوري في مركز التوزيع المصغر داخل حي المستلم دون دخول المستودع المركزي');
-                return `
-                    <li>
-                        <span class="step-hour-tag">+${segH}h (${leg.kmSeg} km) | ${isEn ? 'Cumulative' : 'التراكمي'}: ${runningHours} ${isEn ? 'hrs' : 'ساعة'}</span>
-                        <b>🏁 ${trCity(leg.city)}</b> — ${finalNote}
-                    </li>
-                `;
-            }
-            return `
-                <li>
-                    <span class="step-hour-tag">+${segH}h (${leg.kmSeg} km) | ${isEn ? 'Cumulative' : 'التراكمي'}: ${runningHours} ${isEn ? 'hrs' : 'ساعة'}</span>
-                    <b>🔷 ${isEn ? 'Stop at ' + trCity(leg.city) : 'محطة توقف محافظة ' + leg.city}</b> — ${isEn ? leg.noteEn : leg.noteAr}
-                </li>
-            `;
-        }).join('');
-
-        let deliveryHubBoxHtml = '';
-        if (currentShipment.serviceType === 'من الباب للباب') {
-            deliveryHubBoxHtml = `
-                <div class="hub-selector">
-                    <label style="margin-bottom:4px;">🔹 ${isEn ? 'Final Door Delivery in ' + trCity(currentShipment.deliveryCity) : 'التوصيل النهائي في ' + currentShipment.deliveryCity + ' (من الباب للباب)'}:</label>
-                    <select id="microHubSelect" onchange="updateHubNote()">
-                        <option value="${isEn ? 'Direct delivery to recipient door upon truck arrival' : 'توصيل مباشر لباب منزل/مقر المستلم فور وصول الشاحنة'}">${isEn ? 'Direct delivery to recipient door upon truck arrival' : 'توصيل مباشر لباب منزل/مقر المستلم فور وصول الشاحنة'}</option>
-                        <option value="${isEn ? 'Switch to nearest Neighborhood Micro-Hub for instant pickup' : 'تحويل الاستلام إلى أقرب مركز توزيع مصغر بالحي'}">${isEn ? 'Switch to nearest Neighborhood Micro-Hub for instant pickup' : 'تحويل الاستلام إلى أقرب مركز توزيع مصغر بالحي'}</option>
-                    </select>
-                    <div id="hubStatusMsg" style="font-size:12px; color:#0284c7; font-weight:bold; margin-top:6px;">
-                        ☑️ ${isEn ? 'Courier delivers directly to the recipient address after ' + runningHours + ' highway hours.' : 'سيتولى مندوب التوزيع إيصال الطرد لباب المستلم مباشرة بعد ' + runningHours + ' ساعة من انطلاق الشاحنة.'}
-                    </div>
-                </div>
-            `;
-        } else {
-            deliveryHubBoxHtml = `
-                <div class="hub-selector">
-                    <label style="margin-bottom:4px;">🏙️ ${isEn ? 'Select Receiving Neighborhood Micro-Hub in ' + trCity(currentShipment.deliveryCity) : 'حدد مركز التوزيع المصغر للاستلام داخل أحياء (' + currentShipment.deliveryCity + ')'}:</label>
-                    <select id="microHubSelect" onchange="updateHubNote()">
-                        <option value="مركز التوزيع المصغر - القطاع الشمالي (${currentShipment.deliveryCity})">${isEn ? 'Northern Sector Micro-Hub (' + trCity(currentShipment.deliveryCity) + ')' : 'مركز التوزيع المصغر - القطاع الشمالي (' + currentShipment.deliveryCity + ')'}</option>
-                        <option value="مركز التوزيع المصغر - القطاع الأوسط (${currentShipment.deliveryCity})">${isEn ? 'Central Sector Micro-Hub (' + trCity(currentShipment.deliveryCity) + ')' : 'مركز التوزيع المصغر - القطاع الأوسط (' + currentShipment.deliveryCity + ')'}</option>
-                        <option value="مركز التوزيع المصغر - القطاع الجنوبي (${currentShipment.deliveryCity})">${isEn ? 'Southern Sector Micro-Hub (' + trCity(currentShipment.deliveryCity) + ')' : 'مركز التوزيع المصغر - القطاع الجنوبي (' + currentShipment.deliveryCity + ')'}</option>
-                    </select>
-                    <div id="hubStatusMsg" style="font-size:12px; color:#0284c7; font-weight:bold; margin-top:6px;">
-                        ☑️ ${isEn ? 'Unloads directly at your selected neighborhood hub after ' + runningHours + ' hrs without central warehouse delay.' : 'ستتفرغ شحنتك مباشرة في المركز المختار داخل (' + currentShipment.deliveryCity + ') بعد ' + runningHours + ' ساعة دون تكدس بالمستودع المركزي.'}
-                    </div>
-                </div>
-            `;
-        }
-
-        document.getElementById('trackingDetails').innerHTML = `
-            ${isEn ? 'Shipment ID' : 'رقم الشحنة'}: <b>${currentShipment.id}</b> | ${isEn ? 'Carrier' : 'الناقل'}: <b>${courier.name}</b><br>
-            ${isEn ? 'Approved Cost' : 'التكلفة المعتمدة'}: <b style="color:#0284c7;">${courier.cost}</b><br>
-            ${isEn ? 'Official Highway' : 'الطريق الرسمي'}: <b style="color:#1e3a8a;">${isEn ? hw.codeEn + ' — ' + hw.nameEn : hw.codeAr + ' — ' + hw.nameAr}</b><br>
-            ${isEn ? 'Origin Dispatch' : 'انطلاق الشاحنة'}: <span style="color: #0284c7; font-weight: bold;">${branchTitle} — ${courier.departIn}</span>
-
-            ${deliveryHubBoxHtml}
-
-            <h4 style="color:#1e3a8a; margin-bottom:6px; margin-top:14px; font-size:13.5px;">🛰️ ${isEn ? 'Cumulative Highway Stops & Governorate Schedule:' : 'الجدول الزمني التراكمي لمحطات الطريق والمحافظات بالساعة:'}</h4>
-            <ul class="timeline">
-                ${stopsHtml}
-            </ul>
-        `;
-
-        document.getElementById('step2').classList.remove('active');
-        document.getElementById('step3').classList.add('active');
-        updateProgress(3);
-        window.scrollTo(0, 0);
-    }
-
-    function updateHubNote() {
-        const hub = document.getElementById('microHubSelect').value;
-        document.getElementById('hubStatusMsg').innerHTML = (currentLang === 'en' ? '☑️ Confirmed Destination Point: ' : '☑️ تم اعتماد وجهة التسليم النهائية: ') + hub;
-    }
-
-    function setReviewStars(count) {
-        selectedStars = count;
-        const buttons = document.querySelectorAll('.star-btn');
-        buttons.forEach((btn, idx) => {
-            if (idx < count) btn.classList.add('active-star');
-            else btn.classList.remove('active-star');
-        });
-    }
-
-    function renderReviews() {
-        const isEn = currentLang === 'en';
-        const container = document.getElementById('reviewsListContainer');
-        const totalReviews = 126 + customerReviews.length;
-        document.getElementById('avgRatingBadge').textContent = isEn
-            ? `⭐ 4.9 / 5.0 (${totalReviews} Reviews)`
-            : `⭐ 4.9 / 5.0 (${totalReviews} تقييم)`;
-
-        container.innerHTML = customerReviews.map(r => `
-            <div class="review-card">
-                <div class="review-card-top">
-                    <span>👤 ${r.name}</span>
-                    <span style="color:#0284c7;">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</span>
-                </div>
-                <div class="review-route-tag">🛰️ ${r.route}</div>
-                <div style="color:var(--text-dark); line-height:1.5;">"${r.comment}"</div>
-            </div>
-        `).join('');
-    }
-
-    function submitCustomerReview() {
-        const isEn = currentLang === 'en';
-        const nameInput = document.getElementById('reviewerNameInput');
-        const commentInput = document.getElementById('reviewCommentInput');
-        const fromCity = document.getElementById('pickupCity').value;
-        const toCity = document.getElementById('deliveryCity').value;
-        const hw = getOfficialHighway(fromCity, toCity);
-
-        const nameVal = nameInput.value.trim() || (currentUserName !== 'ضيف سريع' ? currentUserName : (isEn ? 'Verified Customer' : 'عميل مسارك'));
-        const commentVal = commentInput.value.trim() || (isEn
-            ? 'Accurate branch load tracking and fast highway delivery!'
-            : 'تجربة ممتازة، معرفة حمولة الفرع وموعد تحرك الشاحنة وفر علينا أيام من الانتظار!');
-
-        customerReviews.unshift({
-            name: nameVal,
-            route: `${trCity(fromCity)} ⬅ ${trCity(toCity)} (${isEn ? hw.codeEn : hw.codeAr})`,
-            stars: selectedStars,
-            comment: commentVal
-        });
-
-        nameInput.value = '';
-        commentInput.value = '';
-        renderReviews();
-    }
-
-    function backToStep1() {
-        document.getElementById('step2').classList.remove('active');
-        document.getElementById('step1').classList.add('active');
-        updateProgress(1);
-        window.scrollTo(0, 0);
-    }
-
-    function backToStep2() {
-        document.getElementById('step3').classList.remove('active');
-        document.getElementById('step2').classList.add('active');
-        updateProgress(2);
-        window.scrollTo(0, 0);
-    }
-
-    function resetApp() {
-        document.getElementById('step3').classList.remove('active');
-        document.getElementById('step1').classList.add('active');
-        updateProgress(1);
-        window.scrollTo(0, 0);
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-        recalcB2B();
-        onRouteChange();
-        renderReviews();
-    });
+const $=id=>document.getElementById(id);
+let lang='ar',ship=null,svc='hub',ctype='individual',count=1,bIdx=0,cour=[],role='guest',stars=5,uname='';
+const isEn=()=>lang==='en';
+
+/* ---------- Translations ---------- */
+const T={ar:{
+brand:'مسارك الذكية للشحن',tag:'رحلات الخطوط السريعة وإشغال الشاحنات عبر طرق المملكة',login:'تسجيل الدخول',guest:'ضيف',indiv:'أفراد',corp:'مؤسسات',
+indivPc:'أفراد (بالطرد)',corpPc:'مؤسسات (50+ طرد)',guestPill:'ضيف',indivPill:'حساب أفراد',corpPill:'حساب مؤسسة',
+heading:'مسارك اللوجستية',subtitle:'تابع إشغال الشاحنات، والطريق السريع المعتمد، ومحطات التوقف بالساعة',
+p1:'بيانات الشحنة',p2:'رحلات الخطوط السريعة المجدولة',p3:'المسار والتتبع',
+live:'تحديث مباشر',kKm:'المسافة (كم)',kHr:'زمن الرحلة (ساعة)',kSt:'المحطات',active:'المسار النشط',
+bd1:'الخطوة 1 من 3: فئة الحساب والمسار والفرع',bd2:'الخطوة 2 من 3: رحلات الخطوط السريعة المجدولة',bd3:'الخطوة 3 من 3: المسار والتتبع بالساعة',
+lClient:'فئة الحساب والتسعير',lTiers:'شرائح أسعار المؤسسات (الحد الأدنى 50 طرداً)',
+t50:'50 - 99 طرداً',t50p:'29 ريال/طرد',t100:'100 - 249 طرداً',t100p:'26 ريال/طرد',t250:'250+ طرد',t250p:'22 ريال/طرد',
+lCount:'عدد الطرود في الدفعة (الحد الأدنى 50)',lFrom:'مدينة الانطلاق',lTo:'مدينة الوجهة',lSvc:'نمط الخدمة',
+sHub:'نقاط الاستلام الذكية بالأحياء',sD2d:'من الباب إلى الباب',sD2b:'من الباب إلى فرع الوجهة',sB2b:'من فرع إلى فرع',
+hint_hub:'<b>مراكز التوزيع الفرعية (Micro-Hubs):</b> تسلّم الطرد في مركز التجميع المختار، ويُفرَّغ عند الوصول في مركز فرعي داخل حي المستلم دون المرور بالمستودع المركزي.',
+hint_d2d:'<b>من الباب إلى الباب:</b> يستلم المندوب الطرد من موقعك، ويسلّمه للمستلم عند بابه فور وصول الشاحنة.',
+hint_d2b:'<b>من الباب إلى فرع الوجهة:</b> يستلم المندوب الطرد من موقعك، ويستلمه المستلم من أقرب فرع في الوجهة.',
+hint_b2b:'<b>من فرع إلى فرع:</b> تسلّم الطرد مباشرة في فرع الانطلاق، ويستلمه المستلم من فرع الوجهة.',
+brLbl_hub:'اختر مركز التجميع (مرتب حسب إشغال الشاحنة)',brLbl_d2d:'اختر الفرع الذي سيُحمَّل فيه طردك',brLbl_d2b:'اختر الفرع الذي سيُحمَّل فيه طردك',brLbl_b2b:'اختر فرع التسليم (مرتب حسب إشغال الشاحنة)',
+b0:'فرع المحور السريع',b1:'فرع القطاع الأوسط',b2:'فرع البوابة الشمالية',next:'التالي للانطلاق',loading:'قيد التحميل',
+occ:'معدل إشغال الشاحنة: {p}% (متبقي {r} طرداً للانطلاق)',bMeta:'تنطلق الشاحنة عند اكتمال 100 طرد أو خلال {h} ساعات كحد أقصى',
+lWeight:'وزن الطرد وحجمه',lReady:'موعد تسليم الطرد',lNotes:'ملاحظات أو عنوان تفصيلي (اختياري)',notesPh:'اسم الحي أو أي تعليمات خاصة بالشحنة',
+w0:'ظرف مستندات (أقل من 1 كجم)',w1:'صندوق صغير (1 - 5 كجم)',w2:'صندوق متوسط (5 - 15 كجم)',w3:'شحنة ثقيلة (أكثر من 15 كجم)',
+r0:'جاهز الآن (حجز فوري في الشاحنة)',r1:'خلال ساعتين قبل إغلاق التحميل',r2:'خلال 5 ساعات',r3:'غداً',
+next1:'التالي: رحلات الخطوط السريعة',back1:'تعديل بيانات الشحنة',back2:'الرجوع إلى الرحلات',reset:'تسجيل شحنة جديدة',
+rvH:'تقييمات العملاء',rvS:'قيّم دقة مواعيد الانطلاق ومراكز التوزيع الفرعية',rvRate:'قيّم تجربتك (من 1 إلى 5)',rvName:'الاسم أو اسم المتجر',rvText:'ملاحظتك',
+rvNamePh:'مثال: متجر أطياف',rvTextPh:'اكتب ملاحظتك هنا',rvBtn:'إضافة التقييم',rvCount:'{n} تقييم',
+mTitle:'الدخول إلى مسارك',mSub:'اختر نوع الحساب لتخصيص الأسعار والفروع',mSave:'حفظ ومتابعة',mClose:'إغلاق',
+aNameG:'الاسم (اختياري)',aNameI:'الاسم الثلاثي',aNameC:'اسم المؤسسة أو المتجر',aExtraI:'رقم الجوال للتنبيهات',aExtraC:'رقم السجل التجاري',aNamePh:'مثال: ريان',aExtraPh:'05XXXXXXXX',
+dfltCorp:'مؤسسة',dfltInd:'عميل أفراد',unit:'سعر الطرد',total:'الإجمالي لـ {n} طرداً',saved:'وفّرت',minNote:'(الحد الأدنى 50)',sar:'ريال',h:'س',hrs:'ساعة',km:'كم',
+shipId:'رقم الشحنة',qty:'الكمية',parc:'طرداً',origin:'نقطة الانطلاق',occB:'الإشغال',after:'بعد الحجز',hwL:'الطريق السريع',stopsL:'المحطات',roadT:'زمن الطريق',
+chooseC:'اختر الناقل لعرض جدول المحطات وتأكيد الحجز',cost:'التكلفة',totalT:'الزمن الكلي',road:'طريق',wait:'انتظار اكتمال الحمولة',immed:'انطلاق فوري',total2:'الإجمالي',
+full:'اكتمل الإشغال 100%: انطلاق فوري',dep:'إشغال {p}%: انطلاق خلال {h} ساعات',truckOcc:'إشغال الشاحنة',carrier:'الناقل',appr:'التكلفة المعتمدة',depL:'انطلاق الشاحنة',
+cum:'التراكمي',hour0:'الساعة 0 (الانطلاق)',stopAt:'توقف في',schedL:'الجدول الزمني التراكمي لمحطات الطريق',
+n_start:'انطلاق الشاحنة على الخط السريع',n_local:'نقطة التجميع والانطلاق',n_stop:'توقف مجدول (15 دقيقة) لتفريغ وتحميل طرود المحافظة',
+n_endD:'تسليم مباشر للمستلم عند الباب',n_endH:'تفريغ في المركز الفرعي بحي المستلم دون المرور بالمستودع المركزي',
+hubFinal:'التسليم النهائي في {c}',hubPick:'اختر مركز الاستلام الفرعي في {c}',
+hD0:'تسليم مباشر للمستلم عند وصول الشاحنة',hD1:'التحويل إلى أقرب مركز توزيع فرعي بالحي',
+hN:'مركز التوزيع الفرعي: القطاع الشمالي',hM:'مركز التوزيع الفرعي: القطاع الأوسط',hS:'مركز التوزيع الفرعي: القطاع الجنوبي',
+hOkD:'سيسلّم المندوب الطرد عند باب المستلم بعد {h} ساعة من انطلاق الشاحنة.',hOkH:'يُفرَّغ الطرد في المركز المختار داخل {c} بعد {h} ساعة.',hConf:'تم اعتماد وجهة التسليم: ',
+g_jz:'منطقة جازان (طريق الساحل 5)',g_mk:'مكة المكرمة والساحل الغربي',g_as:'عسير والباحة ونجران',g_rc:'الرياض والقصيم',g_ea:'المنطقة الشرقية',g_nm:'المدينة المنورة وتبوك والشمال',
+nameDef:'عميل مسارك',cmtDef:'معرفة إشغال الشاحنة وموعد انطلاقها وفّرت علينا أياماً من الانتظار.',
+}, en:{
+brand:'Masarak Smart Logistics',tag:'Scheduled express trips and truck occupancy across Saudi highways',login:'Sign in',guest:'Guest',indiv:'Individual',corp:'Corporate',
+indivPc:'Individual (per parcel)',corpPc:'Corporate (50+ parcels)',guestPill:'Guest',indivPill:'Individual account',corpPill:'Corporate account',
+heading:'Masarak Logistics',subtitle:'Track truck occupancy, the official highway and hourly stops',
+p1:'Shipment details',p2:'Scheduled express trips',p3:'Route & tracking',
+live:'Live update',kKm:'Distance (km)',kHr:'Trip time (hrs)',kSt:'Stops',active:'Active route',
+bd1:'Step 1 of 3: Account tier, route and branch',bd2:'Step 2 of 3: Scheduled express trips',bd3:'Step 3 of 3: Hourly route tracking',
+lClient:'Account type and pricing',lTiers:'Corporate pricing tiers (minimum 50 parcels)',
+t50:'50 - 99 parcels',t50p:'29 SAR/parcel',t100:'100 - 249 parcels',t100p:'26 SAR/parcel',t250:'250+ parcels',t250p:'22 SAR/parcel',
+lCount:'Parcels in this batch (minimum 50)',lFrom:'Origin city',lTo:'Destination city',lSvc:'Service mode',
+sHub:'Smart neighborhood pickup points',sD2d:'Door to door',sD2b:'Door to destination branch',sB2b:'Branch to branch',
+hint_hub:'<b>Micro-Hubs:</b> drop your parcel at the selected collection hub. On arrival it is unloaded at a micro-hub inside the recipient’s neighborhood, bypassing the central warehouse.',
+hint_d2d:'<b>Door to door:</b> a courier collects from your location and delivers to the recipient’s door when the truck arrives.',
+hint_d2b:'<b>Door to destination branch:</b> a courier collects from your location and the recipient picks up from the nearest destination branch.',
+hint_b2b:'<b>Branch to branch:</b> hand the parcel over at the origin branch; the recipient collects it from the destination branch.',
+brLbl_hub:'Select a collection hub (ranked by truck occupancy)',brLbl_d2d:'Select the branch that will load your parcel',brLbl_d2b:'Select the branch that will load your parcel',brLbl_b2b:'Select a drop-off branch (ranked by truck occupancy)',
+b0:'Express Highway Hub',b1:'Central Sector Branch',b2:'Northern Gate Branch',next:'Next to depart',loading:'Loading',
+occ:'Truck occupancy: {p}% ({r} parcels left to dispatch)',bMeta:'Departs at 100 parcels or within {h} hours at most',
+lWeight:'Parcel weight and size',lReady:'Handover time',lNotes:'Notes or detailed address (optional)',notesPh:'Neighborhood name or special instructions',
+w0:'Document envelope (under 1 kg)',w1:'Small box (1 - 5 kg)',w2:'Medium box (5 - 15 kg)',w3:'Heavy shipment (over 15 kg)',
+r0:'Ready now (instant truck booking)',r1:'Within 2 hours, before loading closes',r2:'Within 5 hours',r3:'Tomorrow',
+next1:'Next: Scheduled express trips',back1:'Edit shipment details',back2:'Back to trips',reset:'New shipment',
+rvH:'Customer reviews',rvS:'Rate departure accuracy and micro-hubs',rvRate:'Rate your experience (1 to 5)',rvName:'Name or store name',rvText:'Your feedback',
+rvNamePh:'e.g. Atyaf Store',rvTextPh:'Write your feedback here',rvBtn:'Submit review',rvCount:'{n} reviews',
+mTitle:'Sign in to Masarak',mSub:'Choose an account type to personalize pricing and branches',mSave:'Save and continue',mClose:'Close',
+aNameG:'Name (optional)',aNameI:'Full name',aNameC:'Company or store name',aExtraI:'Mobile number for alerts',aExtraC:'Commercial registration no.',aNamePh:'e.g. Rayan',aExtraPh:'05XXXXXXXX',
+dfltCorp:'Company',dfltInd:'Individual customer',unit:'Unit price',total:'Total for {n} parcels',saved:'You saved',minNote:'(minimum 50)',sar:'SAR',h:'h',hrs:'hrs',km:'km',
+shipId:'Shipment ID',qty:'Quantity',parc:'parcel(s)',origin:'Origin',occB:'Occupancy',after:'after booking',hwL:'Highway',stopsL:'Stops',roadT:'Road time',
+chooseC:'Select a carrier to view stops and confirm the booking',cost:'Cost',totalT:'Total time',road:'road',wait:'load wait',immed:'immediate dispatch',total2:'total',
+full:'Occupancy 100%: departs immediately',dep:'Occupancy {p}%: departs within {h} hours',truckOcc:'Truck occupancy',carrier:'Carrier',appr:'Approved cost',depL:'Truck departure',
+cum:'Cumulative',hour0:'Hour 0 (Departure)',stopAt:'Stop at',schedL:'Cumulative schedule of highway stops',
+n_start:'Truck departs onto the expressway',n_local:'Collection and departure point',n_stop:'Scheduled 15-minute stop to unload and load governorate parcels',
+n_endD:'Direct delivery to the recipient’s door',n_endH:'Unloaded at the recipient’s neighborhood micro-hub, bypassing the central warehouse',
+hubFinal:'Final delivery in {c}',hubPick:'Select the receiving micro-hub in {c}',
+hD0:'Direct delivery to the recipient on truck arrival',hD1:'Switch to the nearest neighborhood micro-hub',
+hN:'Micro-Hub: Northern sector',hM:'Micro-Hub: Central sector',hS:'Micro-Hub: Southern sector',
+hOkD:'The courier delivers to the recipient’s door {h} hours after truck departure.',hOkH:'The parcel unloads at the selected hub in {c} after {h} hours.',hConf:'Delivery point confirmed: ',
+g_jz:'Jazan Region (Coastal Highway 5)',g_mk:'Makkah and the Western Coast',g_as:'Asir, Al Bahah and Najran',g_rc:'Riyadh and Qassim',g_ea:'Eastern Province',g_nm:'Madinah, Tabuk and the North',
+nameDef:'Masarak customer',cmtDef:'Knowing truck occupancy and departure time saved us days of waiting.',
+}};
+const t=(k,v)=>{let s=(T[lang][k]??k);if(v)for(const x in v)s=s.replace('{'+x+'}',v[x]);return s};
+const num=n=>Number(n).toLocaleString(isEn()?'en-US':'ar-SA-u-nu-latn');
+
+/* ---------- Data ---------- */
+// [Arabic key, English name, group, lat, lon]
+const CITIES=[
+['جازان','Jazan','jz',16.889,42.551],['صبيا','Sabya','jz',17.149,42.625],['أبو عريش','Abu Arish','jz',16.968,42.832],['صامطة','Samtah','jz',16.597,42.944],['بيش','Baish','jz',17.372,42.536],['الدرب','Ad Darb','jz',17.723,42.253],
+['جدة','Jeddah','mk',21.543,39.172],['مكة المكرمة','Makkah','mk',21.422,39.826],['الطائف','Taif','mk',21.270,40.415],['القنفذة','Al Qunfudhah','mk',19.126,41.078],['الليث','Al Lith','mk',20.150,40.268],['رابغ','Rabigh','mk',22.798,39.034],
+['أبها','Abha','as',18.216,42.505],['خميس مشيط','Khamis Mushait','as',18.306,42.729],['بيشة','Bisha','as',20.008,42.598],['محايل عسير','Muhayil Asir','as',18.549,42.049],['النماص','An Namas','as',19.120,42.129],['الباحة','Al Bahah','as',20.012,41.467],['نجران','Najran','as',17.492,44.127],['شرورة','Sharurah','as',17.485,47.114],
+['الرياض','Riyadh','rc',24.713,46.675],['الخرج','Al Kharj','rc',24.148,47.305],['المجمعة','Al Majmaah','rc',25.904,45.344],['الدوادمي','Ad Duwadimi','rc',24.507,44.393],['وادي الدواسر','Wadi Ad Dawasir','rc',20.463,44.787],['بريدة','Buraydah','rc',26.326,43.975],['عنيزة','Unaizah','rc',26.084,43.993],
+['الدمام','Dammam','ea',26.420,50.088],['الخبر','Khobar','ea',26.279,50.208],['الأحساء (الهفوف)','Al Ahsa (Hofuf)','ea',25.380,49.588],['الجبيل','Jubail','ea',27.004,49.658],['حفر الباطن','Hafar Al Batin','ea',28.432,45.970],
+['المدينة المنورة','Madinah','nm',24.524,39.569],['ينبع','Yanbu','nm',24.089,38.061],['تبوك','Tabuk','nm',28.383,36.566],['ضباء','Duba','nm',27.351,35.690],['الوجه','Al Wajh','nm',26.245,36.452],['حائل','Hail','nm',27.511,41.720],['سكاكا (الجوف)','Sakaka (Al Jouf)','nm',29.969,40.206],['عرعر','Arar','nm',30.975,41.038],['القريات','Al Qurayyat','nm',31.331,37.342]];
+const GROUPS=['jz','mk','as','rc','ea','nm'];
+const CMAP={};CITIES.forEach(c=>CMAP[c[0]]={en:c[1],lat:c[3],lon:c[4]});
+const city=c=>isEn()?(CMAP[c]?CMAP[c].en:c):c;
+
+const BR=[{load:95,eta:5},{load:60,eta:9},{load:25,eta:16}];
+const HW={
+coast:{code:{ar:'طريق 5 (الساحل 5M)',en:'Highway 5 (Coastal 5M)'},name:{ar:'طريق الساحل الدولي: جازان - الدرب - القنفذة - الليث - جدة - ينبع - تبوك',en:'International Coastal Highway: Jazan - Ad Darb - Al Qunfudhah - Al Lith - Jeddah - Yanbu - Tabuk'}},
+south:{code:{ar:'طريق 10 / طريق 30',en:'Highway 10 / Route 30'},name:{ar:'الجنوب - وادي الدواسر - الخرج - الرياض',en:'South - Wadi Ad Dawasir - Al Kharj - Riyadh'}},
+w40:{code:{ar:'طريق 40 السريع',en:'Highway 40'},name:{ar:'جدة - مكة - الطائف - الدوادمي - الرياض - الدمام',en:'Jeddah - Makkah - Taif - Duwadimi - Riyadh - Dammam'}},
+north:{code:{ar:'طريق 65 / طريق 85',en:'Highway 65 / Route 85'},name:{ar:'الرياض - المجمعة - القصيم - حائل - الجوف - الحدود الشمالية',en:'Riyadh - Majmaah - Qassim - Hail - Al Jouf - Northern Border'}},
+nat:{code:{ar:'طريق 15 / الشبكة الوطنية',en:'Highway 15 / National Network'},name:{ar:'الهجرة والسراة والمحاور الإقليمية بين المناطق',en:'Al Hijrah, As Sarah and inter-regional connector highways'}}};
+const COAST=['صامطة','أبو عريش','جازان','صبيا','بيش','الدرب','القنفذة','الليث','جدة','رابغ','ينبع','الوجه','ضباء','تبوك'];
+const SOUTH=['جازان','الدرب','أبها','خميس مشيط','بيشة','وادي الدواسر','الخرج','الرياض'];
+const WEST=['جدة','مكة المكرمة','الطائف','الدوادمي','الرياض','الأحساء (الهفوف)','الدمام','الخبر','الجبيل'];
+const NORTH=['الرياض','المجمعة','بريدة','عنيزة','حائل','سكاكا (الجوف)','عرعر','القريات'];
+const WEST_ORD=['جدة','مكة المكرمة','الطائف','الدوادمي','الرياض','الأحساء (الهفوف)','الدمام','الخبر'];
+const NORTH_ORD=['الرياض','المجمعة','بريدة','حائل','سكاكا (الجوف)','عرعر','القريات'];
+const SERV={hub:'hub',d2d:'d2d',d2b:'d2b',b2b:'b2b'};
+const REVIEWS=[
+{n:{ar:'متجر البن الخولاني (مؤسسة)',en:'Al Khawlani Coffee Store (Corporate)'},f:'جازان',to:'جدة',s:5,c:{ar:'اخترنا الفرع بإشغال 95% وباقة 100 طرد (26 ريالاً للطرد)، وانطلقت الشاحنة خلال 3 ساعات ووصلت جدة في 12 ساعة بالضبط.',en:'We picked the 95% occupancy branch with the 100-parcel tier (26 SAR each). The truck left within 3 hours and reached Jeddah in exactly 12.'}},
+{n:{ar:'عبدالرحمن الزهراني (أفراد)',en:'Abdulrahman Al Zahrani (Individual)'},f:'جازان',to:'القنفذة',s:5,c:{ar:'عرفت موعد مرور الشاحنة بالقنفذة بالساعة، واستلمت طردي من المركز الفرعي في 5 ساعات بدلاً من 4 أيام.',en:'I knew the hour the truck reaches Al Qunfudhah and collected my parcel from the micro-hub in 5 hours instead of 4 days.'}}];
+let userReviews=[];
+
+/* ---------- Routing logic ---------- */
+function dist(a,b){const g=CMAP[a]||{lat:21.5,lon:39.2},h=CMAP[b]||{lat:24.7,lon:46.7},R=6371,r=Math.PI/180;
+ const dl=(h.lat-g.lat)*r,dn=(h.lon-g.lon)*r,x=Math.sin(dl/2)**2+Math.cos(g.lat*r)*Math.cos(h.lat*r)*Math.sin(dn/2)**2;
+ return Math.round(R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x))*1.28)}
+function hwOf(f,t2){const both=a=>a.includes(f)&&a.includes(t2);
+ return both(COAST)?'coast':both(SOUTH)?'south':both(WEST)?'w40':both(NORTH)?'north':'nat'}
+function buildRoute(f,t2){
+ const hw=hwOf(f,t2);
+ if(f===t2)return{hw,hrs:1.5,km:25,legs:[{c:f,add:0,cum:0,km:0,k:'local'},{c:t2,add:1.5,cum:1.5,km:25,k:'end'}]};
+ const ex=a=>{const i=a.indexOf(f),j=a.indexOf(t2);if(i<0||j<0||Math.abs(j-i)<2)return null;const s=j>i?1:-1,r=[];for(let k=i+s;k!==j;k+=s)r.push(a[k]);return r};
+ let mid=[];const jj=(f==='جازان'&&t2==='جدة')||(f==='جدة'&&t2==='جازان');
+ const cS=ex(COAST),sS=ex(SOUTH),wS=ex(WEST_ORD),nS=ex(NORTH_ORD);
+ if(jj)mid=f==='جازان'?['الدرب','القنفذة','الليث']:['الليث','القنفذة','الدرب'];
+ else if(cS)mid=cS.filter(c=>['بيش','الدرب','القنفذة','الليث','جدة','رابغ','ينبع','الوجه','ضباء'].includes(c)).slice(0,4);
+ else if(sS)mid=sS.filter(c=>['الدرب','أبها','بيشة','وادي الدواسر','الخرج'].includes(c)).slice(0,4);
+ else if(wS)mid=wS.filter(c=>['مكة المكرمة','الطائف','الدوادمي','الرياض','الأحساء (الهفوف)'].includes(c)).slice(0,4);
+ else if(nS)mid=nS.filter(c=>['المجمعة','بريدة','حائل','سكاكا (الجوف)'].includes(c)).slice(0,4);
+ else{const D=dist(f,t2);if(D>200){const valid=[];
+  ['الدرب','القنفذة','الليث','جدة','الطائف','أبها','بيشة','وادي الدواسر','الدوادمي','الرياض','المجمعة','بريدة','حائل','ينبع','المدينة المنورة','الأحساء (الهفوف)'].forEach(h=>{
+   if(h===f||h===t2)return;const d1=dist(f,h),d2=dist(h,t2);if(d1+d2<=D*1.24&&d1>75&&d2>75)valid.push({h,d1})});
+  valid.sort((a,b)=>a.d1-b.d1);
+  if(valid.length===1)mid=[valid[0].h];else if(valid.length===2)mid=[valid[0].h,valid[1].h];
+  else if(valid.length>=3)mid=[valid[0].h,valid[Math.floor(valid.length/2)].h,valid[valid.length-1].h]}}
+ const chain=[f,...mid,t2],legs=[];let cum=0,km=0;
+ chain.forEach((c,i)=>{
+  if(!i){legs.push({c,add:0,cum:0,km:0,k:'start'});return}
+  const s=dist(chain[i-1],c);km+=s;const h=Math.max(1,Math.round(s/80*2)/2);cum=Math.round((cum+h)*2)/2;
+  legs.push({c,add:h,cum,km:s,k:i===chain.length-1?'end':'stop'})});
+ if(jj&&legs.length===5){let seg=[[125,1.5],[215,3.5],[170,3],[205,4]];if(f==='جدة')seg=seg.reverse();
+  cum=0;km=0;seg.forEach((s,i)=>{cum+=s[1];km+=s[0];Object.assign(legs[i+1],{km:s[0],add:s[1],cum})})}
+ return{hw,hrs:cum,km:Math.max(35,km),legs}}
+const chainTxt=legs=>legs.map(l=>city(l.c)).join(isEn()?' → ':' ← ');
+
+/* ---------- Icons ---------- */
+const ic=(n,c='')=>`<svg class="i ${c}"><use href="#${n}"/></svg>`;
+
+/* ---------- Selects ---------- */
+function buildSelects(){
+ ['from','to'].forEach(id=>{const el=$(id),cur=el.value||(id==='from'?'جازان':'جدة');
+  el.innerHTML=GROUPS.map(g=>`<optgroup label="${t('g_'+g)}">`+CITIES.filter(c=>c[2]===g).map(c=>`<option value="${c[0]}">${isEn()?c[1]:c[0]}</option>`).join('')+'</optgroup>').join('');
+  el.value=cur});
+ [['weight','w'],['ready','r']].forEach(([id,p])=>{const el=$(id),cur=el.value||(id==='weight'?'1':'0');
+  el.innerHTML=[0,1,2,3].map(i=>`<option value="${i}">${t(p+i)}</option>`).join('');el.value=cur})}
+function swapCities(){const a=$('from'),b=$('to'),v=a.value;a.value=b.value;b.value=v;onRoute()}
+
+/* ---------- Banner & branches ---------- */
+function onRoute(){
+ const f=$('from').value,to=$('to').value,r=buildRoute(f,to),hw=HW[r.hw];
+ $('bTitle').textContent=t('active')+': '+chainTxt(r.legs);
+ $('kKm').textContent=num(r.km);$('kHr').textContent=num(r.hrs);$('kSt').textContent=num(r.legs.length);
+ $('bCode').textContent=hw.code[lang];$('bName').textContent=hw.name[lang];
+ $('nodes').innerHTML=r.legs.map((l,i)=>`<div class="node ${i===r.legs.length-1?'end':''}"><div class="dot">${ic(i===0?'pin':i===r.legs.length-1?'flag':'truck')}</div><div class="nc">${city(l.c)}</div><div class="nh">${i===0?'0 '+t('h'):'+'+num(l.add)+' '+t('h')+' ('+num(l.cum)+')'}</div></div>`).join('');
+ renderBranches()}
+function renderBranches(){
+ const f=$('from').value;
+ $('branches').innerHTML=BR.map((b,i)=>{const p=b.load,rem=100-p;
+  return `<div class="br ${i===bIdx?'sel':''}" tabindex="0" onclick="selectBranch(${i})" onkeydown="if(event.key==='Enter')selectBranch(${i})">
+  <div class="bt2"><span>${ic(i===0?'bolt':'bldg')} ${t('b'+i)} (${city(f)})</span><span class="tag ${i===0?'fast':''}">${i===0?t('next'):t('loading')}</span></div>
+  <div class="meta">${t('occ',{p,r:rem})}<br>${t('bMeta',{h:b.eta})}</div>
+  <div class="bar"><i class="${i===0?'f':''}" style="width:${p}%"></i></div></div>`}).join('')}
+function selectBranch(i){bIdx=i;renderBranches()}
+
+/* ---------- Selection UI ---------- */
+function selectSvc(k){svc=k;['hub','d2d','d2b','b2b'].forEach(x=>$('s-'+x).classList.toggle('sel',x===k));updateSvcText()}
+function updateSvcText(){$('hint').innerHTML=t('hint_'+svc);$('brLbl').textContent=t('brLbl_'+svc)}
+function selectClient(k){ctype=k;['guest','individual','corporate'].forEach(x=>$('c-'+x).classList.toggle('sel',x===k));
+ $('b2b').classList.toggle('show',k==='corporate');if(k==='corporate')recalcB2B();else count=1;updatePill()}
+function updatePill(){
+ const n=uname,m={guest:['bolt',t('guestPill')],individual:['user',t('indivPill')+(n?': '+n:'')],corporate:['bldg',t('corpPill')+(n?': '+n:'')]}[ctype];
+ $('uPill').textContent=m[1];$('uIcon').innerHTML=`<use href="#${m[0]}"/>`}
+const unitB2B=n=>n>=250?22:n>=100?26:29;
+function setCount(v){$('cnt').value=v;recalcB2B()}
+function recalcB2B(){
+ const raw=parseInt($('cnt').value,10)||50,n=Math.max(50,raw);count=n;
+ const u=unitB2B(n),tot=n*u,save=n*38-tot;
+ ['50','100','250'].forEach(x=>$('t'+x).classList.remove('sel'));$('t'+(n>=250?'250':n>=100?'100':'50')).classList.add('sel');
+ $('b2bSum').innerHTML=`<span>${t('unit')}: <b>${u} ${t('sar')}</b> ${raw<50?t('minNote'):''}</span><span>${t('total',{n:num(n)})}: <b>${num(tot)} ${t('sar')}</b></span><span style="color:var(--teal-d);font-weight:700">${t('saved')} ${num(save)} ${t('sar')}</span>`}
+
+/* ---------- Auth ---------- */
+function openAuth(){$('authBd').classList.add('open');authTab(role)}
+function closeAuth(){$('authBd').classList.remove('open')}
+function authTab(r){role=r;['guest','individual','corporate'].forEach(x=>$('at-'+x).classList.toggle('sel',x===r));
+ $('aNameL').textContent=t(r==='guest'?'aNameG':r==='individual'?'aNameI':'aNameC');
+ $('aExtraG').style.display=r==='guest'?'none':'block';
+ $('aExtraL').textContent=t(r==='corporate'?'aExtraC':'aExtraI')}
+function confirmAuth(){const v=$('aName').value.trim();
+ uname=v||(role==='corporate'?t('dfltCorp'):role==='individual'?t('dfltInd'):'');
+ if(role==='guest')uname='';selectClient(role);closeAuth()}
+
+/* ---------- Language ---------- */
+function applyText(){
+ document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));
+ document.querySelectorAll('[data-ph]').forEach(e=>e.placeholder=t(e.dataset.ph));
+ $('langTxt').textContent=isEn()?'العربية':'English';
+ document.title=isEn()?'Masarak Smart Logistics':'مسارك الذكية للشحن | Masarak';
+ const m=['bd1','bd2','bd3'];}
+function toggleLanguage(){
+ lang=isEn()?'ar':'en';const r=$('htmlRoot');r.lang=lang;r.dir=isEn()?'ltr':'rtl';
+ applyText();buildSelects();updateSvcText();updatePill();authTab(role);recalcB2B();onRoute();renderReviews();
+ if($('step2').classList.contains('on'))loadSchedule();
+ if($('step3').classList.contains('on')&&ship)goTrack(ship.cIdx)}
+
+/* ---------- Steps ---------- */
+function goStep(n){[1,2,3].forEach(i=>{$('step'+i).classList.toggle('on',i===n);
+ $('prog'+i).classList.toggle('cur',i===n);$('prog'+i).classList.toggle('done',i<n)});window.scrollTo({top:0,behavior:'smooth'})}
+function registerShipment(){
+ const f=$('from').value,to=$('to').value;
+ count=ctype==='corporate'?Math.max(50,parseInt($('cnt').value,10)||50):1;
+ if(ctype==='corporate')$('cnt').value=count;
+ ship={id:'MSK-'+Math.floor(100000+Math.random()*900000),ctype,count,svc,from:f,to,bi:bIdx,w:+$('weight').value,r:+$('ready').value,notes:$('notes').value.trim(),route:buildRoute(f,to),cIdx:0};
+ loadSchedule();goStep(2)}
+
+function loadSchedule(){
+ const s=ship,b=BR[s.bi],hw=HW[s.route.hw],ch=chainTxt(s.route.legs),after=Math.min(100,b.load+s.count);
+ const wait=after>=100?0.5:b.eta,bn=`${t('b'+s.bi)} (${city(s.from)})`;
+ $('shipSum').innerHTML=`${t('shipId')}: <b>${s.id}</b> | ${t('qty')}: <b>${num(s.count)} ${t('parc')}</b><br>
+ ${t('origin')}: <b style="color:var(--teal-d)">${bn}</b> (${t('occB')}: <b>${b.load}%</b> → <b>${after}%</b> ${t('after')})<br>
+ ${t('hwL')}: <b>${hw.code[lang]}</b> — ${hw.name[lang]}<br>
+ ${t('stopsL')} (${num(s.route.km)} ${t('km')}): <b>${ch}</b> | ${t('roadT')}: <b>${num(s.route.hrs)} ${t('hrs')}</b>`;
+ const mult=s.svc==='d2d'?1.25:s.svc==='b2b'?0.85:s.svc==='hub'?0.95:1,add=Math.min(12,Math.floor(s.route.km/250)*3),bu=unitB2B(s.count);
+ const base=[
+  {n:{ar:'مسارك إكسبريس (سمسا: الخط السريع المباشر)',en:'Masarak Express (SMSA Direct Line)'},ip:35,cp:bu,sf:1.0,rt:'4.9'},
+  {n:{ar:'درة اللوجستية (أرامكس: خط المحافظات)',en:'Durrah Logistics (Aramex Regional Line)'},ip:31,cp:Math.max(20,bu-2),sf:1.15,rt:'4.7'},
+  {n:{ar:'الناقل الوطني الموحد (سبل)',en:'National Unified Carrier (SPL)'},ip:24,cp:Math.max(18,bu-4),sf:1.3,rt:'4.6'}];
+ cour=base.map(c=>{
+  const corp=s.ctype==='corporate',unit=corp?c.cp:Math.round((c.ip+add)*mult),tot=unit*s.count;
+  const rh=Math.max(1.5,Math.round(s.route.hrs*c.sf*2)/2),te=Math.round((rh+wait)*2)/2;
+  return{n:c.n,unit,tot,corp,sf:c.sf,rt:c.rt,rh,wait,te,after,
+   dep:after>=100?t('full'):t('dep',{p:after,h:b.eta})}});
+ $('couriers').innerHTML=`<div class="lb">${t('chooseC')}</div>`+cour.map((c,i)=>{
+  const cost=c.corp?`${c.unit} ${t('sar')}/${isEn()?'parcel':'طرد'} (${num(c.tot)} ${t('sar')})`:`${c.unit} ${t('sar')}`;
+  const wt=c.wait===0.5?t('immed'):`${num(c.wait)} ${t('h')} ${t('wait')}`;
+  return `<div class="cc" tabindex="0" onclick="goTrack(${i})" onkeydown="if(event.key==='Enter')goTrack(${i})">
+  <div class="ch"><b>${ic('truck')} ${c.n[lang]}</b><span class="dep">${c.dep}</span></div>
+  ${t('cost')}: <b style="color:var(--teal-d)">${cost}</b> | <span style="color:var(--amber)">${ic('star','fill')}</span> ${c.rt}<br>
+  ${t('totalT')}: <b>${num(c.rh)} ${t('h')} ${t('road')} + ${wt} = ${num(c.te)} ${t('hrs')} ${t('total2')}</b>
+  <div class="rp">${ch} | ${t('truckOcc')}: <b>${c.after}%</b><div class="bar" style="margin-top:5px"><i class="${c.after>=95?'f':''}" style="width:${c.after}%"></i></div></div></div>`}).join('')}
+
+function goTrack(ci){
+ ship.cIdx=ci;const s=ship,c=cour[ci],legs=s.route.legs,hw=HW[s.route.hw],bn=`${t('b'+s.bi)} (${city(s.from)})`;
+ let run=0;
+ const items=legs.map((l,i)=>{
+  if(i===0)return `<li class="start"><span class="th">${t('hour0')}</span><b>${city(l.c)}</b><small>${bn} — ${c.dep}</small></li>`;
+  const h=Math.max(1,Math.round(l.add*c.sf*2)/2);run=Math.round((run+h)*2)/2;
+  const tag=`+${num(h)} ${t('h')} (${num(l.km)} ${t('km')}) | ${t('cum')}: ${num(run)} ${t('hrs')}`;
+  if(i===legs.length-1)return `<li class="end"><span class="th">${tag}</span><b>${city(l.c)}</b><small>${s.svc==='d2d'?t('n_endD'):t('n_endH')}</small></li>`;
+  return `<li><span class="th">${tag}</span><b>${t('stopAt')} ${city(l.c)}</b><small>${t('n_stop')}</small></li>`}).join('');
+ const d=city(s.to),d2=s.svc==='d2d';
+ const opts=d2?[t('hD0'),t('hD1')]:[t('hN')+' ('+d+')',t('hM')+' ('+d+')',t('hS')+' ('+d+')'];
+ const cost=c.corp?`${c.unit} ${t('sar')}/${isEn()?'parcel':'طرد'} (${num(c.tot)} ${t('sar')})`:`${c.unit} ${t('sar')}`;
+ window._run=run;
+ $('trackBox').innerHTML=`${t('shipId')}: <b>${s.id}</b> | ${t('carrier')}: <b>${c.n[lang]}</b><br>
+ ${t('appr')}: <b style="color:var(--teal-d)">${cost}</b><br>${t('hwL')}: <b>${hw.code[lang]}</b> — ${hw.name[lang]}<br>
+ ${t('depL')}: <b style="color:var(--amber)">${bn} — ${c.dep}</b>
+ <div class="hub"><label for="hubSel">${d2?t('hubFinal',{c:d}):t('hubPick',{c:d})}</label>
+ <select id="hubSel" onchange="hubNote()">${opts.map((o,i)=>`<option value="${i}">${o}</option>`).join('')}</select>
+ <div class="ok" id="hubMsg">${ic('check')} ${d2?t('hOkD',{h:num(run)}):t('hOkH',{c:d,h:num(run)})}</div></div>
+ <div class="lb" style="margin-top:14px">${ic('route')} ${t('schedL')}</div><ol class="tl">${items}</ol>`;
+ goStep(3)}
+function hubNote(){const sel=$('hubSel');$('hubMsg').innerHTML=ic('check')+' '+t('hConf')+sel.options[sel.selectedIndex].text}
+
+/* ---------- Reviews ---------- */
+function drawStars(){$('stars').innerHTML=[1,2,3,4,5].map(n=>`<button type="button" class="sb ${n<=stars?'on':''}" onclick="setStars(${n})" aria-label="${n}">${ic('star','fill')}</button>`).join('')}
+function setStars(n){stars=n;drawStars()}
+function renderReviews(){
+ const all=[...userReviews,...REVIEWS];
+ $('avg').textContent='4.9 / 5.0 ('+t('rvCount',{n:num(126+all.length)})+')';
+ $('reviews').innerHTML=all.map(r=>{const nm=typeof r.n==='string'?r.n:r.n[lang],cm=typeof r.c==='string'?r.c:r.c[lang];
+  return `<div class="rc"><div class="rt"><span>${nm}</span><span class="s">${Array.from({length:r.s},()=>ic('star','fill')).join('')}</span></div>
+  <div class="rr">${city(r.f)} ${isEn()?'→':'←'} ${city(r.to)} (${HW[hwOf(r.f,r.to)].code[lang]})</div><div>${cm}</div></div>`}).join('')}
+function submitReview(){
+ const n=$('rvName').value.trim()||uname||t('nameDef'),c=$('rvText').value.trim()||t('cmtDef');
+ userReviews.unshift({n,c,s:stars,f:$('from').value,to:$('to').value});
+ $('rvName').value='';$('rvText').value='';renderReviews()}
+
+/* ---------- Init ---------- */
+window.addEventListener('DOMContentLoaded',()=>{
+ applyText();buildSelects();updateSvcText();updatePill();authTab('guest');drawStars();recalcB2B();onRoute();renderReviews()});
 </script>
-
 </body>
 </html>

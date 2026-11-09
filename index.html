@@ -8,114 +8,755 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#0b1f3a;--ink2:#16355c;--teal:#0e7c86;--teal-d:#0a5f67;--tealbg:#e6f4f5;--amber:#d98a1f;--ambbg:#fdf3e1;--bg:#f2f5f9;--card:#fff;--line:#d9e1ea;--mut:#5b6b7e;--r:14px}
-*{box-sizing:border-box}
-body{margin:0;padding:16px;background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans Arabic','Segoe UI',Tahoma,system-ui,sans-serif;line-height:1.6;font-size:14px}
-body>*{max-width:780px;margin-inline:auto}
-.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-3px}
-.i.fill{fill:currentColor;stroke:none}
-[dir=rtl] .arr{transform:scaleX(-1)}
-.nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;background:var(--ink);color:#fff;border-radius:var(--r);padding:12px 16px;margin-bottom:14px}
-.brand{display:flex;align-items:center;gap:10px}
-.logo{width:40px;height:40px;border-radius:11px;background:var(--teal);display:grid;place-items:center}
-.logo .i{width:22px;height:22px}
-.bt{font-weight:700;font-size:17px;line-height:1.2}.bs{font-size:11.5px;color:#a9c4de}
-.acts{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:99px;font-size:12px;font-weight:600;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#fff}
-button{font-family:inherit;cursor:pointer}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border:0;border-radius:12px;background:var(--teal);color:#fff;font-size:15px;font-weight:600;margin-top:10px;transition:background .15s,transform .15s}
-.btn:hover{background:var(--teal-d)}.btn:active{transform:scale(.98)}
-.btn.sec{background:#fff;color:var(--teal);border:1.5px solid var(--teal)}.btn.sec:hover{background:var(--tealbg)}
-.nbtn{width:auto;margin:0;padding:6px 12px;font-size:12px;border-radius:99px;background:var(--teal)}
-.nbtn.ghost{background:transparent;border:1px solid rgba(255,255,255,.35)}
-:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:18px;box-shadow:0 6px 22px rgba(11,31,58,.06)}
-h2{margin:0 0 2px;font-size:23px}.sub{color:var(--mut);font-size:13px;margin-bottom:16px}
-.prog{display:flex;gap:8px;margin-bottom:16px}
-.ps{flex:1;padding:9px 6px;text-align:center;font-size:12px;font-weight:600;border-radius:10px;background:var(--bg);color:var(--mut);border-bottom:3px solid var(--line);transition:.25s}
-.ps.cur{background:var(--tealbg);color:var(--teal-d);border-color:var(--teal)}.ps.done{color:var(--ink);border-color:var(--ink2)}
-.dash{background:var(--ink);color:#fff;border-radius:16px;padding:16px;margin-bottom:18px}
-.dh{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-.dt{font-weight:700;font-size:14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.live{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#7fe0c3}
-.live:before{content:"";width:8px;height:8px;border-radius:50%;background:#2fd4a0;animation:pl 1.8s infinite}
-@keyframes pl{50%{opacity:.3}}
-.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
-.kpi{background:rgba(255,255,255,.07);border-radius:10px;padding:8px 10px}
-.kpi b{display:block;font-size:17px}.kpi span{font-size:11px;color:#a9c4de}
-.hw{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px;color:#c4d8ea}
-.hwc{background:var(--amber);color:#1b1200;font-weight:700;padding:2px 9px;border-radius:7px;font-size:11.5px}
-.nodes{display:flex;justify-content:space-between;position:relative;margin-top:16px;gap:4px}
-.nodes:before,.nodes:after{content:"";position:absolute;top:13px;inset-inline:22px;height:3px;border-radius:3px;background:rgba(255,255,255,.18)}
-.nodes:after{background:linear-gradient(90deg,transparent,#2fd4a0,transparent);background-size:40% 100%;background-repeat:no-repeat;animation:fl 2.6s linear infinite}
-@keyframes fl{from{background-position:-40% 0}to{background-position:140% 0}}
-.node{flex:1;min-width:54px;text-align:center;position:relative;z-index:2}
-.dot{width:28px;height:28px;margin:0 auto 5px;border-radius:50%;background:var(--ink2);border:2px solid #2fd4a0;display:grid;place-items:center}
-.dot .i{width:14px;height:14px}.node.end .dot{background:#2fd4a0;color:var(--ink)}
-.nc{font-size:11.5px;font-weight:600;line-height:1.25}.nh{font-size:10.5px;color:#9fc0dc}
-.fg{margin-bottom:14px}
-label,.lb{display:block;margin-bottom:6px;font-weight:600;font-size:13px;color:var(--ink2)}
-input,select,textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font:inherit;background:#fff;color:var(--ink);transition:border-color .2s,box-shadow .2s}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(14,124,134,.15)}
-.g2{display:grid;gap:14px;grid-template-columns:1fr}
-@media(min-width:560px){.g2{grid-template-columns:1fr 1fr}.rev{grid-template-columns:1fr 1fr}}
-.cities{display:grid;gap:10px;grid-template-columns:1fr;align-items:end}
-@media(min-width:560px){.cities{grid-template-columns:1fr auto 1fr}}
-.swap{width:42px;height:42px;margin:0 auto 14px;border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--teal);display:grid;place-items:center;transition:transform .35s,background .2s}
-.swap:hover{background:var(--tealbg);transform:rotate(180deg)}
-.step{display:none}.step.on{display:block;animation:in .3s ease-out}
-@keyframes in{from{opacity:0;transform:translateY(8px)}}
-.badge{display:inline-block;background:var(--tealbg);color:var(--teal-d);border-radius:99px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:12px}
-.opt{display:grid;gap:8px;margin-bottom:14px}.o3{grid-template-columns:repeat(3,1fr)}.o2{grid-template-columns:1fr 1fr}
-.oc{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;padding:11px 8px;border:1.5px solid var(--line);border-radius:12px;background:#fff;font-size:12.5px;font-weight:600;color:var(--ink2);cursor:pointer;transition:all .2s}
-.oc:hover{border-color:var(--teal)}
-.oc.sel{border-color:var(--teal);background:var(--tealbg);color:var(--teal-d);box-shadow:inset 0 0 0 1px var(--teal)}
-.b2b{display:none;background:var(--bg);border:1.5px solid var(--teal);border-radius:14px;padding:14px;margin-bottom:14px}.b2b.show{display:block;animation:in .25s}
-.tp{padding:9px 6px;border:1.5px solid var(--line);border-radius:10px;background:#fff;text-align:center;font-size:12px;cursor:pointer;transition:.2s}
-.tp.sel{border-color:var(--teal);background:var(--tealbg);font-weight:700}
-.tp b{display:block;font-size:15px;color:var(--teal-d)}
-.sum{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:12.5px;margin-top:8px}
-.hint{background:var(--tealbg);border-inline-start:4px solid var(--teal);border-radius:8px;padding:9px 12px;font-size:12.5px;margin-bottom:14px}
-.br{border:1.5px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;cursor:pointer;background:#fff;transition:all .2s}
-.br:hover{border-color:var(--teal);transform:translateY(-1px)}
-.br.sel{border-color:var(--teal);background:var(--tealbg);box-shadow:0 4px 14px rgba(14,124,134,.14)}
-.bt2{display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap;font-weight:700;font-size:13.5px}
-.tag{font-size:11px;font-weight:700;padding:2px 9px;border-radius:99px;background:var(--bg);color:var(--mut)}
-.tag.fast{background:var(--ambbg);color:#8a5200}
-.meta{font-size:12px;color:var(--mut);margin:4px 0 6px}
-.bar{height:8px;border-radius:6px;background:#e3e9f0;overflow:hidden}
-.bar i{display:block;height:100%;border-radius:6px;background:var(--teal);transition:width .4s}.bar i.f{background:var(--amber)}
-.sumbox{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px;line-height:1.9;font-size:13px}
-.cc{border:1.5px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;cursor:pointer;background:#fff;transition:all .18s}
-.cc:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:0 8px 18px rgba(14,124,134,.14)}
-.ch{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:6px}
-.dep{background:var(--ambbg);color:#8a5200;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:99px}
-.rp{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:12px;color:var(--mut)}
-.hub{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin:12px 0}
-.ok{font-size:12.5px;color:var(--teal-d);font-weight:600;margin-top:6px}
-.tl{list-style:none;margin:14px 0 0;padding:0;border-inline-start:3px solid var(--line);margin-inline-start:8px}
-.tl li{position:relative;padding:4px 18px 16px}
-.tl li:before{content:"";position:absolute;inset-inline-start:-9.5px;top:8px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--teal)}
-.tl li.end:before{background:var(--teal)}.tl li.start:before{border-color:var(--ink)}
-.th{display:inline-block;background:var(--ink);color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:99px;margin-bottom:3px}
-.tl small{display:block;color:var(--mut);font-size:12px}
-.rv{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px}
-.avg{background:var(--ink);color:#fff;border-radius:99px;padding:5px 14px;font-size:13px;font-weight:700;display:inline-flex;gap:6px;align-items:center}
-.stars{display:flex;gap:6px;margin-bottom:10px}
-.sb{width:38px;height:38px;margin:0;padding:0;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:#b6c1ce;display:grid;place-items:center}
-.sb.on{background:var(--amber);border-color:var(--amber);color:#fff}
-.rl{display:grid;gap:10px;grid-template-columns:1fr;margin-top:14px}
-@media(min-width:560px){.rl{grid-template-columns:1fr 1fr}}
-.rc{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:12.5px}
-.rt{display:flex;justify-content:space-between;font-weight:700;margin-bottom:4px;color:var(--ink2)}.rt .s{color:var(--amber);display:flex}
-.rr{display:inline-block;font-size:11px;color:var(--teal-d);background:#fff;border:1px solid var(--line);border-radius:99px;padding:1px 8px;margin-bottom:6px}
-.mb{display:none;position:fixed;inset:0;background:rgba(11,31,58,.6);backdrop-filter:blur(3px);z-index:99;align-items:center;justify-content:center;padding:16px}.mb.open{display:flex;animation:in .2s}
-.modal{background:#fff;width:100%;max-width:450px;border-radius:18px;padding:22px}
-.modal h3{margin:0 0 4px;text-align:center}.modal p{margin:0 0 14px;text-align:center;font-size:12.5px;color:var(--mut)}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+:root {
+  --ink: #0b1f3a;
+  --ink2: #16355c;
+  --teal: #0e7c86;
+  --teal-d: #0a5f67;
+  --tealbg: #e6f4f5;
+  --amber: #d98a1f;
+  --ambbg: #fdf3e1;
+  --bg: #f0f4f8;
+  --card: #ffffff;
+  --sec-bg: #f8fafc;
+  --line: #d9e2ec;
+  --mut: #5b6b7e;
+  --r: 16px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 20px 14px 40px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, system-ui, sans-serif;
+  line-height: 1.7;
+  font-size: 14.5px;
+}
+
+body > * {
+  max-width: 820px;
+  margin-inline: auto;
+}
+
+.i {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+  vertical-align: -3px;
+}
+.i.fill { fill: currentColor; stroke: none; }
+[dir=rtl] .arr { transform: scaleX(-1); }
+
+/* الشريط العلوي */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: var(--ink);
+  color: #fff;
+  border-radius: var(--r);
+  padding: 14px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 24px rgba(11, 31, 58, 0.12);
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--teal);
+  display: grid;
+  place-items: center;
+}
+.logo .i { width: 24px; height: 24px; }
+.bt { font-weight: 700; font-size: 18px; line-height: 1.25; }
+.bs { font-size: 12px; color: #a9c4de; }
+.acts { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 99px;
+  font-size: 12.5px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+button { font-family: inherit; cursor: pointer; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 18px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--teal);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 0.15s, transform 0.15s;
+}
+.btn:hover { background: var(--teal-d); }
+.btn:active { transform: scale(0.99); }
+.btn.sec {
+  background: #fff;
+  color: var(--teal);
+  border: 1.5px solid var(--teal);
+}
+.btn.sec:hover { background: var(--tealbg); }
+
+.nav-btns {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.nav-btns .btn { margin-top: 0; }
+
+.nbtn {
+  width: auto;
+  margin: 0;
+  padding: 7px 14px;
+  font-size: 12.5px;
+  border-radius: 99px;
+  background: var(--teal);
+}
+.nbtn.ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+
+/* البطاقة الرئيسية */
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 28px 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 30px rgba(11, 31, 58, 0.06);
+}
+
+.header-wrap {
+  text-align: center;
+  margin-bottom: 24px;
+}
+h2 { margin: 0 0 6px; font-size: 24px; color: var(--ink); }
+.sub { color: var(--mut); font-size: 13.5px; margin: 0; }
+
+/* شريط التقدم (5 خطوات) */
+.prog {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-bottom: 28px;
+}
+@media (max-width: 640px) {
+  .prog {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .prog .ps:last-child {
+    grid-column: span 2;
+  }
+}
+.ps {
+  padding: 10px 8px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 12px;
+  background: var(--sec-bg);
+  color: var(--mut);
+  border: 1px solid var(--line);
+  border-bottom: 3.5px solid var(--line);
+  transition: 0.25s;
+}
+.ps.cur {
+  background: var(--tealbg);
+  color: var(--teal-d);
+  border-color: var(--teal);
+  font-weight: 700;
+}
+.ps.done {
+  background: #fff;
+  color: var(--ink);
+  border-color: var(--ink2);
+}
+
+/* الأقسام الداخلية المريحة */
+.sec-box {
+  background: var(--sec-bg);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.sec-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--line);
+}
+
+.save-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  color: var(--teal-d);
+  background: var(--tealbg);
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-weight: 600;
+}
+
+/* لوحة المسار النشط تحت المدن */
+.dash {
+  background: var(--ink);
+  color: #fff;
+  border-radius: 18px;
+  padding: 20px;
+  margin: 18px 0 22px;
+  box-shadow: 0 10px 26px rgba(11, 31, 58, 0.16);
+}
+.dh {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.dt {
+  font-weight: 700;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: #7fe0c3;
+  background: rgba(47, 212, 160, 0.12);
+  padding: 4px 10px;
+  border-radius: 99px;
+}
+.live:before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2fd4a0;
+  animation: pl 1.8s infinite;
+}
+@keyframes pl { 50% { opacity: 0.3; } }
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 14px 0;
+}
+.kpi {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px 12px;
+  text-align: center;
+}
+.kpi b { display: block; font-size: 18px; color: #fff; }
+.kpi span { font-size: 11.5px; color: #a9c4de; }
+
+.hw {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 12.5px;
+  color: #c4d8ea;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+.hwc {
+  background: var(--amber);
+  color: #1b1200;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 7px;
+  font-size: 11.5px;
+}
+
+.nodes {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-top: 20px;
+  gap: 6px;
+}
+.nodes:before, .nodes:after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  inset-inline: 24px;
+  height: 3px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.18);
+}
+.nodes:after {
+  background: linear-gradient(90deg, transparent, #2fd4a0, transparent);
+  background-size: 40% 100%;
+  background-repeat: no-repeat;
+  animation: fl 2.6s linear infinite;
+}
+@keyframes fl { from { background-position: -40% 0; } to { background-position: 140% 0; } }
+
+.node {
+  flex: 1;
+  min-width: 56px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.dot {
+  width: 30px;
+  height: 30px;
+  margin: 0 auto 6px;
+  border-radius: 50%;
+  background: var(--ink2);
+  border: 2px solid #2fd4a0;
+  display: grid;
+  place-items: center;
+}
+.dot .i { width: 14px; height: 14px; }
+.node.end .dot { background: #2fd4a0; color: var(--ink); }
+.nc { font-size: 12px; font-weight: 600; line-height: 1.3; }
+.nh { font-size: 11px; color: #9fc0dc; margin-top: 2px; }
+
+/* الحقول والشبكات */
+.fg { margin-bottom: 16px; }
+.fg:last-child { margin-bottom: 0; }
+label, .lb {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: 600;
+  font-size: 13.5px;
+  color: var(--ink2);
+}
+input, select, textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 11px;
+  font: inherit;
+  background: #fff;
+  color: var(--ink);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(14, 124, 134, 0.15);
+}
+
+.g2 { display: grid; gap: 18px; grid-template-columns: 1fr; }
+@media (min-width: 600px) {
+  .g2 { grid-template-columns: 1fr 1fr; }
+}
+
+.cities {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+  align-items: end;
+}
+@media (min-width: 600px) {
+  .cities { grid-template-columns: 1fr auto 1fr; }
+}
+.swap {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 2px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  color: var(--teal);
+  display: grid;
+  place-items: center;
+  transition: transform 0.35s, background 0.2s;
+}
+.swap:hover { background: var(--tealbg); transform: rotate(180deg); }
+
+.step { display: none; }
+.step.on { display: block; animation: in 0.3s ease-out; }
+@keyframes in { from { opacity: 0; transform: translateY(8px); } }
+
+.step-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.badge {
+  display: inline-block;
+  background: var(--tealbg);
+  color: var(--teal-d);
+  border-radius: 99px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.opt { display: grid; gap: 10px; margin-bottom: 16px; }
+.o3 { grid-template-columns: repeat(3, 1fr); }
+.o2 { grid-template-columns: 1fr 1fr; }
+@media (max-width: 480px) {
+  .o3, .o2 { grid-template-columns: 1fr; }
+}
+
+.oc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+  padding: 14px 10px;
+  border: 1.5px solid var(--line);
+  border-radius: 13px;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink2);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.oc:hover { border-color: var(--teal); }
+.oc.sel {
+  border-color: var(--teal);
+  background: var(--tealbg);
+  color: var(--teal-d);
+  box-shadow: inset 0 0 0 1px var(--teal);
+}
+
+.b2b {
+  display: none;
+  background: #fff;
+  border: 1.5px solid var(--teal);
+  border-radius: 14px;
+  padding: 16px;
+  margin-top: 14px;
+}
+.b2b.show { display: block; animation: in 0.25s; }
+
+.tp {
+  padding: 10px 8px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  background: var(--sec-bg);
+  text-align: center;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.tp.sel { border-color: var(--teal); background: var(--tealbg); font-weight: 700; }
+.tp b { display: block; font-size: 15px; color: var(--teal-d); margin-top: 2px; }
+
+.sum {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  background: var(--sec-bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.hint {
+  background: var(--tealbg);
+  border-inline-start: 4px solid var(--teal);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+/* الفروع والشركات */
+.br {
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  background: #fff;
+  transition: all 0.2s;
+}
+.br:hover { border-color: var(--teal); transform: translateY(-1px); }
+.br.sel {
+  border-color: var(--teal);
+  background: var(--tealbg);
+  box-shadow: 0 4px 14px rgba(14, 124, 134, 0.12);
+}
+.bt2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-weight: 700;
+  font-size: 14px;
+}
+.tag {
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 99px;
+  background: var(--bg);
+  color: var(--mut);
+}
+.tag.fast { background: var(--ambbg); color: #8a5200; }
+.meta { font-size: 12.5px; color: var(--mut); margin: 6px 0 8px; }
+.bar { height: 8px; border-radius: 6px; background: #e3e9f0; overflow: hidden; }
+.bar i { display: block; height: 100%; border-radius: 6px; background: var(--teal); transition: width 0.4s; }
+.bar i.f { background: var(--amber); }
+
+.sumbox {
+  background: var(--sec-bg);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 18px;
+  line-height: 1.9;
+  font-size: 13.5px;
+}
+
+.parties-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 12px 0;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+@media (max-width: 520px) {
+  .parties-summary { grid-template-columns: 1fr; }
+}
+
+.cc {
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 14px;
+  cursor: pointer;
+  background: #fff;
+  transition: all 0.18s;
+}
+.cc:hover {
+  border-color: var(--teal);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(14, 124, 134, 0.14);
+}
+.ch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.dep {
+  background: var(--ambbg);
+  color: #8a5200;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 99px;
+}
+.rp {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+  font-size: 12.5px;
+  color: var(--mut);
+}
+
+.hub {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+  margin: 16px 0;
+}
+.ok { font-size: 13px; color: var(--teal-d); font-weight: 600; margin-top: 8px; }
+
+/* الخط الزمني */
+.tl {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  border-inline-start: 3px solid var(--line);
+  margin-inline-start: 10px;
+}
+.tl li { position: relative; padding: 6px 20px 18px; }
+.tl li:before {
+  content: "";
+  position: absolute;
+  inset-inline-start: -9.5px;
+  top: 10px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--teal);
+}
+.tl li.end:before { background: var(--teal); }
+.tl li.start:before { border-color: var(--ink); }
+.th {
+  display: inline-block;
+  background: var(--ink);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 99px;
+  margin-bottom: 4px;
+}
+.tl small { display: block; color: var(--mut); font-size: 12.5px; margin-top: 2px; }
+
+/* التقييمات */
+.rv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.avg {
+  background: var(--ink);
+  color: #fff;
+  border-radius: 99px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+.stars { display: flex; gap: 6px; margin-bottom: 12px; }
+.sb {
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  color: #b6c1ce;
+  display: grid;
+  place-items: center;
+}
+.sb.on { background: var(--amber); border-color: var(--amber); color: #fff; }
+.rl { display: grid; gap: 12px; grid-template-columns: 1fr; margin-top: 16px; }
+@media (min-width: 600px) { .rl { grid-template-columns: 1fr 1fr; } }
+.rc {
+  background: var(--sec-bg);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  font-size: 13px;
+}
+.rt {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--ink2);
+}
+.rt .s { color: var(--amber); display: flex; }
+.rr {
+  display: inline-block;
+  font-size: 11.5px;
+  color: var(--teal-d);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  padding: 2px 10px;
+  margin-bottom: 8px;
+}
+
+/* نافذة الدخول */
+.mb {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 31, 58, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 99;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.mb.open { display: flex; animation: in 0.2s; }
+.modal {
+  background: #fff;
+  width: 100%;
+  max-width: 460px;
+  border-radius: 20px;
+  padding: 24px;
+}
+.modal h3 { margin: 0 0 6px; text-align: center; }
+.modal p { margin: 0 0 16px; text-align: center; font-size: 13px; color: var(--mut); }
+
+.err-msg {
+  display: none;
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #f87171;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 12px;
+}
+.err-msg.show { display: block; animation: in 0.2s; }
 </style>
 </head>
 <body>
+
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <symbol id="pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
 <symbol id="flag" viewBox="0 0 24 24"><path d="M5 21V4m0 0h11l-2 4 2 4H5"/></symbol>
@@ -126,425 +767,1140 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--teal);bo
 <symbol id="bldg" viewBox="0 0 24 24"><path d="M4 21V5l8-2v18M12 9h8v12M7 9h2m-2 4h2m-2 4h2m6-4h2m-2 4h2"/></symbol>
 <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
 <symbol id="star" viewBox="0 0 24 24"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
-<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
 <symbol id="box" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9zM4 7.5 12 12l8-4.5M12 12v9"/></symbol>
 <symbol id="shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
 <symbol id="bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
 <symbol id="check" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
 <symbol id="route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h7a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h7"/></symbol>
 <symbol id="door" viewBox="0 0 24 24"><path d="M6 21V4h12v17M3 21h18M14 12v.01"/></symbol>
+<symbol id="phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
 </defs></svg>
 
+<!-- الشريط العلوي -->
 <div class="nav">
-  <div class="brand"><div class="logo"><svg class="i"><use href="#route"/></svg></div>
-    <div><div class="bt" data-i="brand"></div><div class="bs" data-i="tag"></div></div></div>
+  <div class="brand">
+    <div class="logo"><svg class="i"><use href="#route"/></svg></div>
+    <div>
+      <div class="bt" data-i="brand"></div>
+      <div class="bs" data-i="tag"></div>
+    </div>
+  </div>
   <div class="acts">
-    <button type="button" id="langBtn" class="pill nbtn ghost" onclick="toggleLanguage()"><svg class="i"><use href="#globe"/></svg><span id="langTxt"></span></button>
+    <button type="button" id="langBtn" class="pill nbtn ghost" onclick="toggleLanguage()">
+      <svg class="i"><use href="#globe"/></svg><span id="langTxt"></span>
+    </button>
     <span class="pill"><svg class="i" id="uIcon"><use href="#user"/></svg><span id="uPill"></span></span>
-    <button type="button" class="pill nbtn" onclick="openAuth()"><svg class="i"><use href="#shield"/></svg><span data-i="login"></span></button>
+    <button type="button" class="pill nbtn" onclick="openAuth()">
+      <svg class="i"><use href="#shield"/></svg><span data-i="login"></span>
+    </button>
   </div>
 </div>
 
+<!-- نافذة تسجيل الدخول وحفظ الحساب -->
 <div id="authBd" class="mb" onclick="if(event.target===this)closeAuth()">
   <div class="modal" role="dialog" aria-modal="true">
-    <h3 data-i="mTitle"></h3><p data-i="mSub"></p>
+    <h3 data-i="mTitle"></h3>
+    <p data-i="mSub"></p>
     <div class="opt o3">
       <div class="oc sel" id="at-guest" tabindex="0" onclick="authTab('guest')" data-i="guest"></div>
       <div class="oc" id="at-individual" tabindex="0" onclick="authTab('individual')" data-i="indiv"></div>
       <div class="oc" id="at-corporate" tabindex="0" onclick="authTab('corporate')" data-i="corp"></div>
     </div>
-    <div class="fg"><label id="aNameL" for="aName"></label><input id="aName" data-ph="aNamePh"></div>
-    <div class="fg" id="aExtraG" style="display:none"><label id="aExtraL" for="aExtra"></label><input id="aExtra" data-ph="aExtraPh"></div>
-    <button type="button" class="btn" onclick="confirmAuth()"><svg class="i"><use href="#check"/></svg><span data-i="mSave"></span></button>
-    <button type="button" class="btn sec" onclick="closeAuth()" data-i="mClose"></button>
+    <div class="fg">
+      <label id="aNameL" for="aName"></label>
+      <input id="aName" data-ph="aNamePh">
+    </div>
+    <div class="fg" id="aExtraG" style="display:none">
+      <label id="aExtraL" for="aExtra"></label>
+      <input id="aExtra" data-ph="aExtraPh">
+    </div>
+    <button type="button" class="btn" style="margin-top:12px" onclick="confirmAuth()">
+      <svg class="i"><use href="#check"/></svg><span data-i="mSave"></span>
+    </button>
+    <button type="button" class="btn sec" style="margin-top:8px" onclick="closeAuth()" data-i="mClose"></button>
   </div>
 </div>
 
+<!-- الحاوية الرئيسية -->
 <div class="card">
-  <h2 data-i="heading"></h2><div class="sub" data-i="subtitle"></div>
-  <div class="prog"><div class="ps cur" id="prog1" data-i="p1"></div><div class="ps" id="prog2" data-i="p2"></div><div class="ps" id="prog3" data-i="p3"></div></div>
-
-  <div class="dash" aria-live="polite">
-    <div class="dh"><div class="dt"><svg class="i"><use href="#truck"/></svg><span id="bTitle"></span></div><span class="live" data-i="live"></span></div>
-    <div class="kpis"><div class="kpi"><b id="kKm"></b><span data-i="kKm"></span></div><div class="kpi"><b id="kHr"></b><span data-i="kHr"></span></div><div class="kpi"><b id="kSt"></b><span data-i="kSt"></span></div></div>
-    <div class="hw"><span class="hwc" id="bCode"></span><span id="bName"></span></div>
-    <div class="nodes" id="nodes"></div>
+  <div class="header-wrap">
+    <h2 data-i="heading"></h2>
+    <p class="sub" data-i="subtitle"></p>
   </div>
 
+  <!-- شريط 5 خطوات واضحة ومفصولة -->
+  <div class="prog">
+    <div class="ps cur" id="prog1" data-i="p1"></div>
+    <div class="ps" id="prog2" data-i="p2"></div>
+    <div class="ps" id="prog3" data-i="p3"></div>
+    <div class="ps" id="prog4" data-i="p4"></div>
+    <div class="ps" id="prog5" data-i="p5"></div>
+  </div>
+
+  <!-- ==================== الخطوة 1: الحساب وبيانات المرسل والمستلم ==================== -->
   <div id="step1" class="step on">
-    <div class="badge" data-i="bd1"></div>
-    <div class="fg"><div class="lb" data-i="lClient"></div>
-      <div class="opt o3">
+    <div class="step-head">
+      <div class="badge" data-i="bd1"></div>
+      <span class="save-badge"><svg class="i"><use href="#check"/></svg><span data-i="autoSave"></span></span>
+    </div>
+
+    <!-- قسم نوع الحساب -->
+    <div class="sec-box">
+      <div class="sec-title"><svg class="i"><use href="#shield"/></svg><span data-i="lClient"></span></div>
+      <div class="opt o3" style="margin-bottom:0">
         <div class="oc" id="c-guest" tabindex="0" onclick="selectClient('guest')"><svg class="i"><use href="#bolt"/></svg><span data-i="guest"></span></div>
         <div class="oc sel" id="c-individual" tabindex="0" onclick="selectClient('individual')"><svg class="i"><use href="#user"/></svg><span data-i="indivPc"></span></div>
         <div class="oc" id="c-corporate" tabindex="0" onclick="selectClient('corporate')"><svg class="i"><use href="#bldg"/></svg><span data-i="corpPc"></span></div>
-      </div></div>
-
-    <div id="b2b" class="b2b">
-      <div class="lb" data-i="lTiers"></div>
-      <div class="opt o3">
-        <div class="tp sel" id="t50" onclick="setCount(50)"><span data-i="t50"></span><b data-i="t50p"></b></div>
-        <div class="tp" id="t100" onclick="setCount(100)"><span data-i="t100"></span><b data-i="t100p"></b></div>
-        <div class="tp" id="t250" onclick="setCount(250)"><span data-i="t250"></span><b data-i="t250p"></b></div>
       </div>
-      <label for="cnt" data-i="lCount"></label>
-      <input type="number" id="cnt" min="50" max="5000" value="50" oninput="recalcB2B()">
-      <div class="sum" id="b2bSum"></div>
+
+      <div id="b2b" class="b2b">
+        <div class="lb" data-i="lTiers"></div>
+        <div class="opt o3">
+          <div class="tp sel" id="t50" onclick="setCount(50)"><span data-i="t50"></span><b data-i="t50p"></b></div>
+          <div class="tp" id="t100" onclick="setCount(100)"><span data-i="t100"></span><b data-i="t100p"></b></div>
+          <div class="tp" id="t250" onclick="setCount(250)"><span data-i="t250"></span><b data-i="t250p"></b></div>
+        </div>
+        <label for="cnt" data-i="lCount"></label>
+        <input type="number" id="cnt" min="50" max="5000" value="50" oninput="recalcB2B();saveLocalData()">
+        <div class="sum" id="b2bSum"></div>
+      </div>
     </div>
 
-    <div class="cities">
-      <div class="fg"><label for="from"><svg class="i"><use href="#pin"/></svg> <span data-i="lFrom"></span></label><select id="from" onchange="onRoute()"></select></div>
-      <button type="button" class="swap" onclick="swapCities()" aria-label="Swap"><svg class="i"><use href="#swap"/></svg></button>
-      <div class="fg"><label for="to"><svg class="i"><use href="#flag"/></svg> <span data-i="lTo"></span></label><select id="to" onchange="onRoute()"></select></div>
+    <!-- قسم بيانات المُسلّم (المرسل) والمستلم -->
+    <div class="g2">
+      <!-- بطاقة المُسلّم / الشاحن -->
+      <div class="sec-box" style="margin-bottom:0">
+        <div class="sec-title"><svg class="i"><use href="#user"/></svg><span data-i="senderSec"></span></div>
+        <div class="fg">
+          <label for="senderName" data-i="lSenderName"></label>
+          <input type="text" id="senderName" data-ph="phSenderName" oninput="saveLocalData()">
+        </div>
+        <div class="fg">
+          <label for="senderPhone"><svg class="i"><use href="#phone"/></svg> <span data-i="lSenderPhone"></span></label>
+          <input type="tel" id="senderPhone" dir="ltr" placeholder="05XXXXXXXX" oninput="saveLocalData()">
+        </div>
+      </div>
+
+      <!-- بطاقة المستلم -->
+      <div class="sec-box" style="margin-bottom:0">
+        <div class="sec-title"><svg class="i"><use href="#flag"/></svg><span data-i="receiverSec"></span></div>
+        <div class="fg">
+          <label for="receiverName" data-i="lReceiverName"></label>
+          <input type="text" id="receiverName" data-ph="phReceiverName" oninput="saveLocalData()">
+        </div>
+        <div class="fg">
+          <label for="receiverPhone"><svg class="i"><use href="#phone"/></svg> <span data-i="lReceiverPhone"></span></label>
+          <input type="tel" id="receiverPhone" dir="ltr" placeholder="05XXXXXXXX" oninput="saveLocalData()">
+        </div>
+      </div>
     </div>
 
-    <div class="fg"><div class="lb" data-i="lSvc"></div>
-      <div class="opt o2">
+    <div id="step1Err" class="err-msg"></div>
+
+    <div class="nav-btns">
+      <button type="button" class="btn" onclick="nextFromStep1()">
+        <span data-i="nextTo2"></span><svg class="i arr"><use href="#arrow"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== الخطوة 2: تحديد المدن والمسار النشط تحتها مباشرة ==================== -->
+  <div id="step2" class="step">
+    <div class="step-head">
+      <div class="badge" data-i="bd2"></div>
+    </div>
+
+    <div class="sec-box">
+      <div class="sec-title"><svg class="i"><use href="#route"/></svg><span data-i="secRouteCities"></span></div>
+      <div class="cities">
+        <div class="fg">
+          <label for="from"><svg class="i"><use href="#pin"/></svg> <span data-i="lFrom"></span></label>
+          <select id="from" onchange="onRoute();saveLocalData()"></select>
+        </div>
+        <button type="button" class="swap" onclick="swapCities()" aria-label="Swap">
+          <svg class="i"><use href="#swap"/></svg>
+        </button>
+        <div class="fg">
+          <label for="to"><svg class="i"><use href="#flag"/></svg> <span data-i="lTo"></span></label>
+          <select id="to" onchange="onRoute();saveLocalData()"></select>
+        </div>
+      </div>
+
+      <!-- المسار النشط تحت مدينة الانطلاق ومدينة الوجهة مباشرة -->
+      <div class="dash" aria-live="polite">
+        <div class="dh">
+          <div class="dt"><svg class="i"><use href="#truck"/></svg><span id="bTitle"></span></div>
+          <span class="live" data-i="live"></span>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><b id="kKm"></b><span data-i="kKm"></span></div>
+          <div class="kpi"><b id="kHr"></b><span data-i="kHr"></span></div>
+          <div class="kpi"><b id="kSt"></b><span data-i="kSt"></span></div>
+        </div>
+        <div class="hw"><span class="hwc" id="bCode"></span><span id="bName"></span></div>
+        <div class="nodes" id="nodes"></div>
+      </div>
+    </div>
+
+    <div class="sec-box" style="margin-bottom:0">
+      <div class="sec-title"><svg class="i"><use href="#box"/></svg><span data-i="lSvc"></span></div>
+      <div class="opt o2" style="margin-bottom:0">
         <div class="oc sel" id="s-hub" tabindex="0" onclick="selectSvc('hub')"><svg class="i"><use href="#pin"/></svg><span data-i="sHub"></span></div>
         <div class="oc" id="s-d2d" tabindex="0" onclick="selectSvc('d2d')"><svg class="i"><use href="#door"/></svg><span data-i="sD2d"></span></div>
         <div class="oc" id="s-d2b" tabindex="0" onclick="selectSvc('d2b')"><svg class="i"><use href="#box"/></svg><span data-i="sD2b"></span></div>
         <div class="oc" id="s-b2b" tabindex="0" onclick="selectSvc('b2b')"><svg class="i"><use href="#bldg"/></svg><span data-i="sB2b"></span></div>
       </div>
-      <div class="hint" id="hint"></div></div>
-
-    <div class="fg"><div class="lb" id="brLbl"></div><div id="branches"></div></div>
-
-    <div class="g2">
-      <div class="fg"><label for="weight" data-i="lWeight"></label><select id="weight"></select></div>
-      <div class="fg"><label for="ready" data-i="lReady"></label><select id="ready"></select></div>
+      <div class="hint" id="hint"></div>
     </div>
-    <div class="fg"><label for="notes" data-i="lNotes"></label><textarea id="notes" rows="2" data-ph="notesPh"></textarea></div>
-    <button type="button" class="btn" onclick="registerShipment()"><span data-i="next1"></span><svg class="i arr"><use href="#arrow"/></svg></button>
+
+    <div class="nav-btns">
+      <button type="button" class="btn sec" onclick="goStep(1)">
+        <span data-i="backTo1"></span>
+      </button>
+      <button type="button" class="btn" onclick="goStep(3)">
+        <span data-i="nextTo3"></span><svg class="i arr"><use href="#arrow"/></svg>
+      </button>
+    </div>
   </div>
 
-  <div id="step2" class="step">
-    <div class="badge" data-i="bd2"></div>
+  <!-- ==================== الخطوة 3: اختيار الفرع ومواصفات الطرد ==================== -->
+  <div id="step3" class="step">
+    <div class="step-head">
+      <div class="badge" data-i="bd3"></div>
+    </div>
+
+    <div class="sec-box">
+      <div class="sec-title"><svg class="i"><use href="#bldg"/></svg><span id="brLbl"></span></div>
+      <div id="branches"></div>
+    </div>
+
+    <div class="sec-box" style="margin-bottom:0">
+      <div class="sec-title"><svg class="i"><use href="#box"/></svg><span data-i="secParcelSpec"></span></div>
+      <div class="g2">
+        <div class="fg">
+          <label for="weight" data-i="lWeight"></label>
+          <select id="weight" onchange="saveLocalData()"></select>
+        </div>
+        <div class="fg">
+          <label for="ready" data-i="lReady"></label>
+          <select id="ready" onchange="saveLocalData()"></select>
+        </div>
+      </div>
+      <div class="fg" style="margin-top:16px">
+        <label for="notes" data-i="lNotes"></label>
+        <textarea id="notes" rows="2" data-ph="notesPh" oninput="saveLocalData()"></textarea>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button type="button" class="btn sec" onclick="goStep(2)">
+        <span data-i="backTo2"></span>
+      </button>
+      <button type="button" class="btn" onclick="registerShipment()">
+        <span data-i="nextTo4"></span><svg class="i arr"><use href="#arrow"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== الخطوة 4: رحلات الخطوط السريعة المجدولة ==================== -->
+  <div id="step4" class="step">
+    <div class="step-head">
+      <div class="badge" data-i="bd4"></div>
+    </div>
+
     <div class="sumbox" id="shipSum"></div>
     <div id="couriers"></div>
-    <button type="button" class="btn sec" onclick="goStep(1)"><svg class="i arr" style="transform:scaleX(-1)"><use href="#arrow"/></svg><span data-i="back1"></span></button>
+
+    <div class="nav-btns">
+      <button type="button" class="btn sec" onclick="goStep(3)">
+        <span data-i="backTo3"></span>
+      </button>
+    </div>
   </div>
 
-  <div id="step3" class="step">
-    <div class="badge" data-i="bd3"></div>
+  <!-- ==================== الخطوة 5: بوليصة الشحن والتتبع بالساعة ==================== -->
+  <div id="step5" class="step">
+    <div class="step-head">
+      <div class="badge" data-i="bd5"></div>
+    </div>
+
     <div class="sumbox" id="trackBox"></div>
-    <button type="button" class="btn sec" onclick="goStep(2)"><span data-i="back2"></span></button>
-    <button type="button" class="btn" onclick="goStep(1)"><svg class="i"><use href="#box"/></svg><span data-i="reset"></span></button>
+
+    <div class="nav-btns">
+      <button type="button" class="btn sec" onclick="goStep(4)">
+        <span data-i="backTo4"></span>
+      </button>
+      <button type="button" class="btn" onclick="goStep(1)">
+        <svg class="i"><use href="#box"/></svg><span data-i="reset"></span>
+      </button>
+    </div>
   </div>
 </div>
 
+<!-- قسم تقييمات العملاء -->
 <div class="card">
-  <div class="rv"><div><h3 style="margin:0;font-size:18px" data-i="rvH"></h3><span class="sub" style="font-size:12px" data-i="rvS"></span></div>
-    <div class="avg"><svg class="i fill"><use href="#star"/></svg><span id="avg"></span></div></div>
-  <div class="sumbox">
+  <div class="rv">
+    <div>
+      <h3 style="margin:0;font-size:18px" data-i="rvH"></h3>
+      <span class="sub" style="font-size:12.5px" data-i="rvS"></span>
+    </div>
+    <div class="avg"><svg class="i fill"><use href="#star"/></svg><span id="avg"></span></div>
+  </div>
+  <div class="sec-box" style="margin-bottom:0">
     <div class="lb" data-i="rvRate"></div>
     <div class="stars" id="stars"></div>
     <div class="g2">
       <div class="fg"><label for="rvName" data-i="rvName"></label><input id="rvName" data-ph="rvNamePh"></div>
       <div class="fg"><label for="rvText" data-i="rvText"></label><input id="rvText" data-ph="rvTextPh"></div>
     </div>
-    <button type="button" class="btn" style="margin-top:0" onclick="submitReview()"><svg class="i"><use href="#check"/></svg><span data-i="rvBtn"></span></button>
+    <button type="button" class="btn" style="margin-top:14px" onclick="submitReview()">
+      <svg class="i"><use href="#check"/></svg><span data-i="rvBtn"></span>
+    </button>
   </div>
   <div class="rl" id="reviews"></div>
 </div>
 
 <script>
-const $=id=>document.getElementById(id);
-let lang='ar',ship=null,svc='hub',ctype='individual',count=1,bIdx=0,cour=[],role='guest',stars=5,uname='';
-const isEn=()=>lang==='en';
+const $ = id => document.getElementById(id);
+const STORAGE_KEY = 'masarak_saved_state_v2';
 
-/* ---------- Translations ---------- */
-const T={ar:{
-brand:'مسارك الذكية للشحن',tag:'رحلات الخطوط السريعة وإشغال الشاحنات عبر طرق المملكة',login:'تسجيل الدخول',guest:'ضيف',indiv:'أفراد',corp:'مؤسسات',
-indivPc:'أفراد (بالطرد)',corpPc:'مؤسسات (50+ طرد)',guestPill:'ضيف',indivPill:'حساب أفراد',corpPill:'حساب مؤسسة',
-heading:'مسارك اللوجستية',subtitle:'تابع إشغال الشاحنات، والطريق السريع المعتمد، ومحطات التوقف بالساعة',
-p1:'بيانات الشحنة',p2:'رحلات الخطوط السريعة المجدولة',p3:'المسار والتتبع',
-live:'تحديث مباشر',kKm:'المسافة (كم)',kHr:'زمن الرحلة (ساعة)',kSt:'المحطات',active:'المسار النشط',
-bd1:'الخطوة 1 من 3: فئة الحساب والمسار والفرع',bd2:'الخطوة 2 من 3: رحلات الخطوط السريعة المجدولة',bd3:'الخطوة 3 من 3: المسار والتتبع بالساعة',
-lClient:'فئة الحساب والتسعير',lTiers:'شرائح أسعار المؤسسات (الحد الأدنى 50 طرداً)',
-t50:'50 - 99 طرداً',t50p:'29 ريال/طرد',t100:'100 - 249 طرداً',t100p:'26 ريال/طرد',t250:'250+ طرد',t250p:'22 ريال/طرد',
-lCount:'عدد الطرود في الدفعة (الحد الأدنى 50)',lFrom:'مدينة الانطلاق',lTo:'مدينة الوجهة',lSvc:'نمط الخدمة',
-sHub:'نقاط الاستلام الذكية بالأحياء',sD2d:'من الباب إلى الباب',sD2b:'من الباب إلى فرع الوجهة',sB2b:'من فرع إلى فرع',
-hint_hub:'<b>مراكز التوزيع الفرعية (Micro-Hubs):</b> تسلّم الطرد في مركز التجميع المختار، ويُفرَّغ عند الوصول في مركز فرعي داخل حي المستلم دون المرور بالمستودع المركزي.',
-hint_d2d:'<b>من الباب إلى الباب:</b> يستلم المندوب الطرد من موقعك، ويسلّمه للمستلم عند بابه فور وصول الشاحنة.',
-hint_d2b:'<b>من الباب إلى فرع الوجهة:</b> يستلم المندوب الطرد من موقعك، ويستلمه المستلم من أقرب فرع في الوجهة.',
-hint_b2b:'<b>من فرع إلى فرع:</b> تسلّم الطرد مباشرة في فرع الانطلاق، ويستلمه المستلم من فرع الوجهة.',
-brLbl_hub:'اختر مركز التجميع (مرتب حسب إشغال الشاحنة)',brLbl_d2d:'اختر الفرع الذي سيُحمَّل فيه طردك',brLbl_d2b:'اختر الفرع الذي سيُحمَّل فيه طردك',brLbl_b2b:'اختر فرع التسليم (مرتب حسب إشغال الشاحنة)',
-b0:'فرع المحور السريع',b1:'فرع القطاع الأوسط',b2:'فرع البوابة الشمالية',next:'التالي للانطلاق',loading:'قيد التحميل',
-occ:'معدل إشغال الشاحنة: {p}% (متبقي {r} طرداً للانطلاق)',bMeta:'تنطلق الشاحنة عند اكتمال 100 طرد أو خلال {h} ساعات كحد أقصى',
-lWeight:'وزن الطرد وحجمه',lReady:'موعد تسليم الطرد',lNotes:'ملاحظات أو عنوان تفصيلي (اختياري)',notesPh:'اسم الحي أو أي تعليمات خاصة بالشحنة',
-w0:'ظرف مستندات (أقل من 1 كجم)',w1:'صندوق صغير (1 - 5 كجم)',w2:'صندوق متوسط (5 - 15 كجم)',w3:'شحنة ثقيلة (أكثر من 15 كجم)',
-r0:'جاهز الآن (حجز فوري في الشاحنة)',r1:'خلال ساعتين قبل إغلاق التحميل',r2:'خلال 5 ساعات',r3:'غداً',
-next1:'التالي: رحلات الخطوط السريعة',back1:'تعديل بيانات الشحنة',back2:'الرجوع إلى الرحلات',reset:'تسجيل شحنة جديدة',
-rvH:'تقييمات العملاء',rvS:'قيّم دقة مواعيد الانطلاق ومراكز التوزيع الفرعية',rvRate:'قيّم تجربتك (من 1 إلى 5)',rvName:'الاسم أو اسم المتجر',rvText:'ملاحظتك',
-rvNamePh:'مثال: متجر أطياف',rvTextPh:'اكتب ملاحظتك هنا',rvBtn:'إضافة التقييم',rvCount:'{n} تقييم',
-mTitle:'الدخول إلى مسارك',mSub:'اختر نوع الحساب لتخصيص الأسعار والفروع',mSave:'حفظ ومتابعة',mClose:'إغلاق',
-aNameG:'الاسم (اختياري)',aNameI:'الاسم الثلاثي',aNameC:'اسم المؤسسة أو المتجر',aExtraI:'رقم الجوال للتنبيهات',aExtraC:'رقم السجل التجاري',aNamePh:'مثال: ريان',aExtraPh:'05XXXXXXXX',
-dfltCorp:'مؤسسة',dfltInd:'عميل أفراد',unit:'سعر الطرد',total:'الإجمالي لـ {n} طرداً',saved:'وفّرت',minNote:'(الحد الأدنى 50)',sar:'ريال',h:'س',hrs:'ساعة',km:'كم',
-shipId:'رقم الشحنة',qty:'الكمية',parc:'طرداً',origin:'نقطة الانطلاق',occB:'الإشغال',after:'بعد الحجز',hwL:'الطريق السريع',stopsL:'المحطات',roadT:'زمن الطريق',
-chooseC:'اختر الناقل لعرض جدول المحطات وتأكيد الحجز',cost:'التكلفة',totalT:'الزمن الكلي',road:'طريق',wait:'انتظار اكتمال الحمولة',immed:'انطلاق فوري',total2:'الإجمالي',
-full:'اكتمل الإشغال 100%: انطلاق فوري',dep:'إشغال {p}%: انطلاق خلال {h} ساعات',truckOcc:'إشغال الشاحنة',carrier:'الناقل',appr:'التكلفة المعتمدة',depL:'انطلاق الشاحنة',
-cum:'التراكمي',hour0:'الساعة 0 (الانطلاق)',stopAt:'توقف في',schedL:'الجدول الزمني التراكمي لمحطات الطريق',
-n_start:'انطلاق الشاحنة على الخط السريع',n_local:'نقطة التجميع والانطلاق',n_stop:'توقف مجدول (15 دقيقة) لتفريغ وتحميل طرود المحافظة',
-n_endD:'تسليم مباشر للمستلم عند الباب',n_endH:'تفريغ في المركز الفرعي بحي المستلم دون المرور بالمستودع المركزي',
-hubFinal:'التسليم النهائي في {c}',hubPick:'اختر مركز الاستلام الفرعي في {c}',
-hD0:'تسليم مباشر للمستلم عند وصول الشاحنة',hD1:'التحويل إلى أقرب مركز توزيع فرعي بالحي',
-hN:'مركز التوزيع الفرعي: القطاع الشمالي',hM:'مركز التوزيع الفرعي: القطاع الأوسط',hS:'مركز التوزيع الفرعي: القطاع الجنوبي',
-hOkD:'سيسلّم المندوب الطرد عند باب المستلم بعد {h} ساعة من انطلاق الشاحنة.',hOkH:'يُفرَّغ الطرد في المركز المختار داخل {c} بعد {h} ساعة.',hConf:'تم اعتماد وجهة التسليم: ',
-g_jz:'منطقة جازان (طريق الساحل 5)',g_mk:'مكة المكرمة والساحل الغربي',g_as:'عسير والباحة ونجران',g_rc:'الرياض والقصيم',g_ea:'المنطقة الشرقية',g_nm:'المدينة المنورة وتبوك والشمال',
-nameDef:'عميل مسارك',cmtDef:'معرفة إشغال الشاحنة وموعد انطلاقها وفّرت علينا أياماً من الانتظار.',
-}, en:{
-brand:'Masarak Smart Logistics',tag:'Scheduled express trips and truck occupancy across Saudi highways',login:'Sign in',guest:'Guest',indiv:'Individual',corp:'Corporate',
-indivPc:'Individual (per parcel)',corpPc:'Corporate (50+ parcels)',guestPill:'Guest',indivPill:'Individual account',corpPill:'Corporate account',
-heading:'Masarak Logistics',subtitle:'Track truck occupancy, the official highway and hourly stops',
-p1:'Shipment details',p2:'Scheduled express trips',p3:'Route & tracking',
-live:'Live update',kKm:'Distance (km)',kHr:'Trip time (hrs)',kSt:'Stops',active:'Active route',
-bd1:'Step 1 of 3: Account tier, route and branch',bd2:'Step 2 of 3: Scheduled express trips',bd3:'Step 3 of 3: Hourly route tracking',
-lClient:'Account type and pricing',lTiers:'Corporate pricing tiers (minimum 50 parcels)',
-t50:'50 - 99 parcels',t50p:'29 SAR/parcel',t100:'100 - 249 parcels',t100p:'26 SAR/parcel',t250:'250+ parcels',t250p:'22 SAR/parcel',
-lCount:'Parcels in this batch (minimum 50)',lFrom:'Origin city',lTo:'Destination city',lSvc:'Service mode',
-sHub:'Smart neighborhood pickup points',sD2d:'Door to door',sD2b:'Door to destination branch',sB2b:'Branch to branch',
-hint_hub:'<b>Micro-Hubs:</b> drop your parcel at the selected collection hub. On arrival it is unloaded at a micro-hub inside the recipient’s neighborhood, bypassing the central warehouse.',
-hint_d2d:'<b>Door to door:</b> a courier collects from your location and delivers to the recipient’s door when the truck arrives.',
-hint_d2b:'<b>Door to destination branch:</b> a courier collects from your location and the recipient picks up from the nearest destination branch.',
-hint_b2b:'<b>Branch to branch:</b> hand the parcel over at the origin branch; the recipient collects it from the destination branch.',
-brLbl_hub:'Select a collection hub (ranked by truck occupancy)',brLbl_d2d:'Select the branch that will load your parcel',brLbl_d2b:'Select the branch that will load your parcel',brLbl_b2b:'Select a drop-off branch (ranked by truck occupancy)',
-b0:'Express Highway Hub',b1:'Central Sector Branch',b2:'Northern Gate Branch',next:'Next to depart',loading:'Loading',
-occ:'Truck occupancy: {p}% ({r} parcels left to dispatch)',bMeta:'Departs at 100 parcels or within {h} hours at most',
-lWeight:'Parcel weight and size',lReady:'Handover time',lNotes:'Notes or detailed address (optional)',notesPh:'Neighborhood name or special instructions',
-w0:'Document envelope (under 1 kg)',w1:'Small box (1 - 5 kg)',w2:'Medium box (5 - 15 kg)',w3:'Heavy shipment (over 15 kg)',
-r0:'Ready now (instant truck booking)',r1:'Within 2 hours, before loading closes',r2:'Within 5 hours',r3:'Tomorrow',
-next1:'Next: Scheduled express trips',back1:'Edit shipment details',back2:'Back to trips',reset:'New shipment',
-rvH:'Customer reviews',rvS:'Rate departure accuracy and micro-hubs',rvRate:'Rate your experience (1 to 5)',rvName:'Name or store name',rvText:'Your feedback',
-rvNamePh:'e.g. Atyaf Store',rvTextPh:'Write your feedback here',rvBtn:'Submit review',rvCount:'{n} reviews',
-mTitle:'Sign in to Masarak',mSub:'Choose an account type to personalize pricing and branches',mSave:'Save and continue',mClose:'Close',
-aNameG:'Name (optional)',aNameI:'Full name',aNameC:'Company or store name',aExtraI:'Mobile number for alerts',aExtraC:'Commercial registration no.',aNamePh:'e.g. Rayan',aExtraPh:'05XXXXXXXX',
-dfltCorp:'Company',dfltInd:'Individual customer',unit:'Unit price',total:'Total for {n} parcels',saved:'You saved',minNote:'(minimum 50)',sar:'SAR',h:'h',hrs:'hrs',km:'km',
-shipId:'Shipment ID',qty:'Quantity',parc:'parcel(s)',origin:'Origin',occB:'Occupancy',after:'after booking',hwL:'Highway',stopsL:'Stops',roadT:'Road time',
-chooseC:'Select a carrier to view stops and confirm the booking',cost:'Cost',totalT:'Total time',road:'road',wait:'load wait',immed:'immediate dispatch',total2:'total',
-full:'Occupancy 100%: departs immediately',dep:'Occupancy {p}%: departs within {h} hours',truckOcc:'Truck occupancy',carrier:'Carrier',appr:'Approved cost',depL:'Truck departure',
-cum:'Cumulative',hour0:'Hour 0 (Departure)',stopAt:'Stop at',schedL:'Cumulative schedule of highway stops',
-n_start:'Truck departs onto the expressway',n_local:'Collection and departure point',n_stop:'Scheduled 15-minute stop to unload and load governorate parcels',
-n_endD:'Direct delivery to the recipient’s door',n_endH:'Unloaded at the recipient’s neighborhood micro-hub, bypassing the central warehouse',
-hubFinal:'Final delivery in {c}',hubPick:'Select the receiving micro-hub in {c}',
-hD0:'Direct delivery to the recipient on truck arrival',hD1:'Switch to the nearest neighborhood micro-hub',
-hN:'Micro-Hub: Northern sector',hM:'Micro-Hub: Central sector',hS:'Micro-Hub: Southern sector',
-hOkD:'The courier delivers to the recipient’s door {h} hours after truck departure.',hOkH:'The parcel unloads at the selected hub in {c} after {h} hours.',hConf:'Delivery point confirmed: ',
-g_jz:'Jazan Region (Coastal Highway 5)',g_mk:'Makkah and the Western Coast',g_as:'Asir, Al Bahah and Najran',g_rc:'Riyadh and Qassim',g_ea:'Eastern Province',g_nm:'Madinah, Tabuk and the North',
-nameDef:'Masarak customer',cmtDef:'Knowing truck occupancy and departure time saved us days of waiting.',
-}};
-const t=(k,v)=>{let s=(T[lang][k]??k);if(v)for(const x in v)s=s.replace('{'+x+'}',v[x]);return s};
-const num=n=>Number(n).toLocaleString(isEn()?'en-US':'ar-SA-u-nu-latn');
+let lang = 'ar', ship = null, svc = 'hub', ctype = 'individual', count = 1, bIdx = 0, cour = [], role = 'guest', stars = 5, uname = '', uextra = '';
+const isEn = () => lang === 'en';
 
-/* ---------- Data ---------- */
-// [Arabic key, English name, group, lat, lon]
-const CITIES=[
-['جازان','Jazan','jz',16.889,42.551],['صبيا','Sabya','jz',17.149,42.625],['أبو عريش','Abu Arish','jz',16.968,42.832],['صامطة','Samtah','jz',16.597,42.944],['بيش','Baish','jz',17.372,42.536],['الدرب','Ad Darb','jz',17.723,42.253],
-['جدة','Jeddah','mk',21.543,39.172],['مكة المكرمة','Makkah','mk',21.422,39.826],['الطائف','Taif','mk',21.270,40.415],['القنفذة','Al Qunfudhah','mk',19.126,41.078],['الليث','Al Lith','mk',20.150,40.268],['رابغ','Rabigh','mk',22.798,39.034],
-['أبها','Abha','as',18.216,42.505],['خميس مشيط','Khamis Mushait','as',18.306,42.729],['بيشة','Bisha','as',20.008,42.598],['محايل عسير','Muhayil Asir','as',18.549,42.049],['النماص','An Namas','as',19.120,42.129],['الباحة','Al Bahah','as',20.012,41.467],['نجران','Najran','as',17.492,44.127],['شرورة','Sharurah','as',17.485,47.114],
-['الرياض','Riyadh','rc',24.713,46.675],['الخرج','Al Kharj','rc',24.148,47.305],['المجمعة','Al Majmaah','rc',25.904,45.344],['الدوادمي','Ad Duwadimi','rc',24.507,44.393],['وادي الدواسر','Wadi Ad Dawasir','rc',20.463,44.787],['بريدة','Buraydah','rc',26.326,43.975],['عنيزة','Unaizah','rc',26.084,43.993],
-['الدمام','Dammam','ea',26.420,50.088],['الخبر','Khobar','ea',26.279,50.208],['الأحساء (الهفوف)','Al Ahsa (Hofuf)','ea',25.380,49.588],['الجبيل','Jubail','ea',27.004,49.658],['حفر الباطن','Hafar Al Batin','ea',28.432,45.970],
-['المدينة المنورة','Madinah','nm',24.524,39.569],['ينبع','Yanbu','nm',24.089,38.061],['تبوك','Tabuk','nm',28.383,36.566],['ضباء','Duba','nm',27.351,35.690],['الوجه','Al Wajh','nm',26.245,36.452],['حائل','Hail','nm',27.511,41.720],['سكاكا (الجوف)','Sakaka (Al Jouf)','nm',29.969,40.206],['عرعر','Arar','nm',30.975,41.038],['القريات','Al Qurayyat','nm',31.331,37.342]];
-const GROUPS=['jz','mk','as','rc','ea','nm'];
-const CMAP={};CITIES.forEach(c=>CMAP[c[0]]={en:c[1],lat:c[3],lon:c[4]});
-const city=c=>isEn()?(CMAP[c]?CMAP[c].en:c):c;
+/* ---------- القاموس اللغوي الكامل ---------- */
+const T = {
+  ar: {
+    brand: 'مسارك الذكية للشحن',
+    tag: 'رحلات الخطوط السريعة وإشغال الشاحنات عبر طرق المملكة',
+    login: 'حسابي / الدخول',
+    guest: 'ضيف',
+    indiv: 'أفراد',
+    corp: 'مؤسسات',
+    indivPc: 'أفراد (بالطرد)',
+    corpPc: 'مؤسسات (50+ طرد)',
+    guestPill: 'ضيف',
+    indivPill: 'حساب أفراد',
+    corpPill: 'حساب مؤسسة',
+    heading: 'منصة مسارك اللوجستية',
+    subtitle: 'خطوات واضحة لتسجيل شحنتك ومتابعة إشغال الشاحنات ومحطات التوقف بالساعة',
+    p1: '1. الحساب والأطراف',
+    p2: '2. المدن والمسار',
+    p3: '3. الفرع والطرد',
+    p4: '4. رحلات الشاحنات',
+    p5: '5. البوليصة والتتبع',
+    autoSave: 'بياناتك محفوظة تلقائياً',
+    live: 'تحديث مباشر للمسار',
+    kKm: 'المسافة (كم)',
+    kHr: 'زمن الرحلة (ساعة)',
+    kSt: 'المحطات',
+    active: 'المسار النشط',
+    bd1: 'الخطوة 1 من 5: فئة الحساب وبيانات المرسل والمستلم',
+    bd2: 'الخطوة 2 من 5: تحديد المدن والمسار والخدمة',
+    bd3: 'الخطوة 3 من 5: اختيار الفرع ومواصفات الطرد',
+    bd4: 'الخطوة 4 من 5: رحلات الخطوط السريعة المجدولة',
+    bd5: 'الخطوة 5 من 5: بوليصة الشحن والتتبع بالساعة',
+    lClient: 'فئة الحساب والتسعير',
+    lTiers: 'شرائح أسعار المؤسسات (الحد الأدنى 50 طرداً)',
+    t50: '50 - 99 طرداً',
+    t50p: '29 ريال/طرد',
+    t100: '100 - 249 طرداً',
+    t100p: '26 ريال/طرد',
+    t250: '250+ طرد',
+    t250p: '22 ريال/طرد',
+    lCount: 'عدد الطرود في الدفعة (الحد الأدنى 50)',
+    senderSec: 'بيانات المُسلِّم (المرسل)',
+    receiverSec: 'بيانات المستلم',
+    lSenderName: 'اسم المُسلِّم (الشاحن)',
+    phSenderName: 'مثال: علي أحمد / متجر الجنوب',
+    lSenderPhone: 'رقم جوال المُسلِّم',
+    lReceiverName: 'اسم المستلم',
+    phReceiverName: 'مثال: محمد العتيبي',
+    lReceiverPhone: 'رقم جوال المستلم',
+    errParties: 'يرجى إدخال اسم ورقم جوال المُسلِّم (المرسل) والمستلم للمتابعة.',
+    secRouteCities: 'اختر مدينة الانطلاق ومدينة الوجهة لمعاينة المسار النشط',
+    lFrom: 'مدينة الانطلاق',
+    lTo: 'مدينة الوجهة',
+    lSvc: 'نمط الخدمة اللوجستية',
+    sHub: 'نقاط الاستلام الذكية بالأحياء',
+    sD2d: 'من الباب إلى الباب',
+    sD2b: 'من الباب إلى فرع الوجهة',
+    sB2b: 'من فرع إلى فرع',
+    hint_hub: '<b>مراكز التوزيع الفرعية (Micro-Hubs):</b> تسلّم الطرد في مركز التجميع المختار، ويُفرَّغ عند الوصول في مركز فرعي داخل حي المستلم دون المرور بالمستودع المركزي.',
+    hint_d2d: '<b>من الباب إلى الباب:</b> يستلم المندوب الطرد من موقعك، ويسلّمه للمستلم عند بابه فور وصول الشاحنة.',
+    hint_d2b: '<b>من الباب إلى فرع الوجهة:</b> يستلم المندوب الطرد من موقعك، ويستلمه المستلم من أقرب فرع في الوجهة.',
+    hint_b2b: '<b>من فرع إلى فرع:</b> تسلّم الطرد مباشرة في فرع الانطلاق، ويستلمه المستلم من فرع الوجهة.',
+    brLbl_hub: 'اختر مركز التجميع (مرتب حسب إشغال الشاحنة)',
+    brLbl_d2d: 'اختر الفرع الذي سيُحمَّل فيه طردك',
+    brLbl_d2b: 'اختر الفرع الذي سيُحمَّل فيه طردك',
+    brLbl_b2b: 'اختر فرع التسليم (مرتب حسب إشغال الشاحنة)',
+    b0: 'فرع المحور السريع',
+    b1: 'فرع القطاع الأوسط',
+    b2: 'فرع البوابة الشمالية',
+    next: 'الأقرب للانطلاق',
+    loading: 'قيد التحميل',
+    occ: 'معدل إشغال الشاحنة: {p}% (متبقي {r} طرداً للانطلاق)',
+    bMeta: 'تنطلق الشاحنة عند اكتمال 100 طرد أو خلال {h} ساعات كحد أقصى',
+    secParcelSpec: 'مواصفات الطرد وموعد التسليم',
+    lWeight: 'وزن الطرد وحجمه',
+    lReady: 'موعد تسليم الطرد',
+    lNotes: 'ملاحظات أو عنوان تفصيلي (اختياري)',
+    notesPh: 'اسم الحي أو أي تعليمات خاصة بالشحنة',
+    w0: 'ظرف مستندات (أقل من 1 كجم)',
+    w1: 'صندوق صغير (1 - 5 كجم)',
+    w2: 'صندوق متوسط (5 - 15 كجم)',
+    w3: 'شحنة ثقيلة (أكثر من 15 كجم)',
+    r0: 'جاهز الآن (حجز فوري في الشاحنة)',
+    r1: 'خلال ساعتين قبل إغلاق التحميل',
+    r2: 'خلال 5 ساعات',
+    r3: 'غداً',
+    nextTo2: 'التالي: اختيار المدن والمسار',
+    backTo1: 'السابق: بيانات الحساب والأطراف',
+    nextTo3: 'التالي: اختيار الفرع والطرد',
+    backTo2: 'السابق: المدن والمسار',
+    nextTo4: 'التالي: عرض رحلات الشاحنات',
+    backTo3: 'السابق: الفرع ومواصفات الطرد',
+    backTo4: 'الرجوع إلى جدول الشاحنات',
+    reset: 'تسجيل شحنة جديدة',
+    rvH: 'تقييمات العملاء',
+    rvS: 'قيّم دقة مواعيد الانطلاق ومراكز التوزيع الفرعية',
+    rvRate: 'قيّم تجربتك (من 1 إلى 5)',
+    rvName: 'الاسم أو اسم المتجر',
+    rvText: 'ملاحظتك',
+    rvNamePh: 'مثال: متجر أطياف',
+    rvTextPh: 'اكتب ملاحظتك هنا',
+    rvBtn: 'إضافة التقييم',
+    rvCount: '{n} تقييم',
+    mTitle: 'إعدادات الحساب المحفوظ',
+    mSub: 'تُحفظ بيانات حسابك تلقائياً في المتصفح لسرعة الشحن مستقبلاً',
+    mSave: 'حفظ بيانات الحساب',
+    mClose: 'إغلاق',
+    aNameG: 'الاسم (اختياري)',
+    aNameI: 'الاسم الثلاثي',
+    aNameC: 'اسم المؤسسة أو المتجر',
+    aExtraI: 'رقم الجوال للحساب',
+    aExtraC: 'رقم السجل التجاري',
+    aNamePh: 'مثال: علي حمدي',
+    aExtraPh: '05XXXXXXXX',
+    dfltCorp: 'مؤسسة',
+    dfltInd: 'عميل أفراد',
+    unit: 'سعر الطرد',
+    total: 'الإجمالي لـ {n} طرداً',
+    saved: 'وفّرت',
+    minNote: '(الحد الأدنى 50)',
+    sar: 'ريال',
+    h: 'س',
+    hrs: 'ساعة',
+    km: 'كم',
+    shipId: 'رقم الشحنة',
+    qty: 'الكمية',
+    parc: 'طرداً',
+    origin: 'نقطة الانطلاق',
+    occB: 'الإشغال',
+    after: 'بعد الحجز',
+    hwL: 'الطريق السريع',
+    stopsL: 'المحطات',
+    roadT: 'زمن الطريق',
+    senderLbl: 'المُسلِّم (المرسل)',
+    receiverLbl: 'المستلم',
+    chooseC: 'اختر الناقل لعرض بوليصة الشحن وجدول المحطات بالساعة:',
+    cost: 'التكلفة',
+    totalT: 'الزمن الكلي',
+    road: 'طريق',
+    wait: 'انتظار اكتمال الحمولة',
+    immed: 'انطلاق فوري',
+    total2: 'الإجمالي',
+    full: 'اكتمل الإشغال 100%: انطلاق فوري',
+    dep: 'إشغال {p}%: انطلاق خلال {h} ساعات',
+    truckOcc: 'إشغال الشاحنة',
+    carrier: 'الناقل',
+    appr: 'التكلفة المعتمدة',
+    depL: 'انطلاق الشاحنة',
+    cum: 'التراكمي',
+    hour0: 'الساعة 0 (الانطلاق)',
+    stopAt: 'توقف في',
+    schedL: 'الجدول الزمني التراكمي لمحطات الطريق بالساعة',
+    n_start: 'انطلاق الشاحنة على الخط السريع',
+    n_local: 'نقطة التجميع والانطلاق',
+    n_stop: 'توقف مجدول (15 دقيقة) لتفريغ وتحميل طرود المحافظة',
+    n_endD: 'تسليم مباشر للمستلم عند الباب',
+    n_endH: 'تفريغ في المركز الفرعي بحي المستلم دون المرور بالمستودع المركزي',
+    hubFinal: 'التسليم النهائي في {c}',
+    hubPick: 'اختر مركز الاستلام الفرعي في {c}',
+    hD0: 'تسليم مباشر للمستلم عند وصول الشاحنة',
+    hD1: 'التحويل إلى أقرب مركز توزيع فرعي بالحي',
+    hN: 'مركز التوزيع الفرعي: القطاع الشمالي',
+    hM: 'مركز التوزيع الفرعي: القطاع الأوسط',
+    hS: 'مركز التوزيع الفرعي: القطاع الجنوبي',
+    hOkD: 'سيسلّم المندوب الطرد عند باب المستلم بعد {h} ساعة من انطلاق الشاحنة.',
+    hOkH: 'يُفرَّغ الطرد في المركز المختار داخل {c} بعد {h} ساعة.',
+    hConf: 'تم اعتماد وجهة التسليم: ',
+    g_jz: 'منطقة جازان (طريق الساحل 5)',
+    g_mk: 'مكة المكرمة والساحل الغربي',
+    g_as: 'عسير والباحة ونجران',
+    g_rc: 'الرياض والقصيم',
+    g_ea: 'المنطقة الشرقية',
+    g_nm: 'المدينة المنورة وتبوك والشمال',
+    nameDef: 'عميل مسارك',
+    cmtDef: 'معرفة إشغال الشاحنة وموعد انطلاقها وفّرت علينا أياماً من الانتظار.'
+  },
+  en: {
+    brand: 'Masarak Smart Logistics',
+    tag: 'Scheduled express trips and truck occupancy across Saudi highways',
+    login: 'My Account / Sign in',
+    guest: 'Guest',
+    indiv: 'Individual',
+    corp: 'Corporate',
+    indivPc: 'Individual (per parcel)',
+    corpPc: 'Corporate (50+ parcels)',
+    guestPill: 'Guest',
+    indivPill: 'Individual account',
+    corpPill: 'Corporate account',
+    heading: 'Masarak Logistics Platform',
+    subtitle: 'Clear step-by-step booking with live truck occupancy and hourly highway stops',
+    p1: '1. Account & Parties',
+    p2: '2. Cities & Route',
+    p3: '3. Branch & Parcel',
+    p4: '4. Express Trips',
+    p5: '5. Waybill & Tracking',
+    autoSave: 'Auto-saved in browser',
+    live: 'Live Route Feed',
+    kKm: 'Distance (km)',
+    kHr: 'Trip time (hrs)',
+    kSt: 'Stops',
+    active: 'Active route',
+    bd1: 'Step 1 of 5: Account Tier, Sender & Receiver Info',
+    bd2: 'Step 2 of 5: Origin, Destination & Active Route',
+    bd3: 'Step 3 of 5: Origin Branch & Parcel Details',
+    bd4: 'Step 4 of 5: Scheduled Express Trips',
+    bd5: 'Step 5 of 5: Shipment Waybill & Hourly Tracking',
+    lClient: 'Account type and pricing',
+    lTiers: 'Corporate pricing tiers (minimum 50 parcels)',
+    t50: '50 - 99 parcels',
+    t50p: '29 SAR/parcel',
+    t100: '100 - 249 parcels',
+    t100p: '26 SAR/parcel',
+    t250: '250+ parcels',
+    t250p: '22 SAR/parcel',
+    lCount: 'Parcels in this batch (minimum 50)',
+    senderSec: 'Sender (Handover) Info',
+    receiverSec: 'Receiver Info',
+    lSenderName: 'Sender Name',
+    phSenderName: 'e.g. Ali Ahmad / South Store',
+    lSenderPhone: 'Sender Mobile Number',
+    lReceiverName: 'Receiver Name',
+    phReceiverName: 'e.g. Mohammed Al Otaibi',
+    lReceiverPhone: 'Receiver Mobile Number',
+    errParties: 'Please enter both Sender and Receiver names and mobile numbers to continue.',
+    secRouteCities: 'Select Origin and Destination to preview the Active Highway Route',
+    lFrom: 'Origin city',
+    lTo: 'Destination city',
+    lSvc: 'Logistics service mode',
+    sHub: 'Smart neighborhood pickup points',
+    sD2d: 'Door to door',
+    sD2b: 'Door to destination branch',
+    sB2b: 'Branch to branch',
+    hint_hub: '<b>Micro-Hubs:</b> drop your parcel at the selected collection hub. On arrival it is unloaded at a micro-hub inside the recipient’s neighborhood, bypassing the central warehouse.',
+    hint_d2d: '<b>Door to door:</b> a courier collects from your location and delivers to the recipient’s door when the truck arrives.',
+    hint_d2b: '<b>Door to destination branch:</b> a courier collects from your location and the recipient picks up from the nearest destination branch.',
+    hint_b2b: '<b>Branch to branch:</b> hand the parcel over at the origin branch; the recipient collects it from the destination branch.',
+    brLbl_hub: 'Select a collection hub (ranked by truck occupancy)',
+    brLbl_d2d: 'Select the branch that will load your parcel',
+    brLbl_d2b: 'Select the branch that will load your parcel',
+    brLbl_b2b: 'Select a drop-off branch (ranked by truck occupancy)',
+    b0: 'Express Highway Hub',
+    b1: 'Central Sector Branch',
+    b2: 'Northern Gate Branch',
+    next: 'Next to depart',
+    loading: 'Loading',
+    occ: 'Truck occupancy: {p}% ({r} parcels left to dispatch)',
+    bMeta: 'Departs at 100 parcels or within {h} hours at most',
+    secParcelSpec: 'Parcel Specifications & Handover Time',
+    lWeight: 'Parcel weight and size',
+    lReady: 'Handover time',
+    lNotes: 'Notes or detailed address (optional)',
+    notesPh: 'Neighborhood name or special instructions',
+    w0: 'Document envelope (under 1 kg)',
+    w1: 'Small box (1 - 5 kg)',
+    w2: 'Medium box (5 - 15 kg)',
+    w3: 'Heavy shipment (over 15 kg)',
+    r0: 'Ready now (instant truck booking)',
+    r1: 'Within 2 hours, before loading closes',
+    r2: 'Within 5 hours',
+    r3: 'Tomorrow',
+    nextTo2: 'Next: Cities & Route',
+    backTo1: 'Back: Account & Parties',
+    nextTo3: 'Next: Branch & Parcel',
+    backTo2: 'Back: Cities & Route',
+    nextTo4: 'Next: View Express Trips',
+    backTo3: 'Back: Branch & Parcel',
+    backTo4: 'Back to Express Trips',
+    reset: 'Book New Shipment',
+    rvH: 'Customer reviews',
+    rvS: 'Rate departure accuracy and micro-hubs',
+    rvRate: 'Rate your experience (1 to 5)',
+    rvName: 'Name or store name',
+    rvText: 'Your feedback',
+    rvNamePh: 'e.g. Atyaf Store',
+    rvTextPh: 'Write your feedback here',
+    rvBtn: 'Submit review',
+    rvCount: '{n} reviews',
+    mTitle: 'Saved Account Settings',
+    mSub: 'Your login and account details are saved in your browser automatically',
+    mSave: 'Save Account Info',
+    mClose: 'Close',
+    aNameG: 'Name (optional)',
+    aNameI: 'Full name',
+    aNameC: 'Company or store name',
+    aExtraI: 'Account Mobile Number',
+    aExtraC: 'Commercial registration no.',
+    aNamePh: 'e.g. Ali Hamdi',
+    aExtraPh: '05XXXXXXXX',
+    dfltCorp: 'Company',
+    dfltInd: 'Individual customer',
+    unit: 'Unit price',
+    total: 'Total for {n} parcels',
+    saved: 'You saved',
+    minNote: '(minimum 50)',
+    sar: 'SAR',
+    h: 'h',
+    hrs: 'hrs',
+    km: 'km',
+    shipId: 'Shipment ID',
+    qty: 'Quantity',
+    parc: 'parcel(s)',
+    origin: 'Origin',
+    occB: 'Occupancy',
+    after: 'after booking',
+    hwL: 'Highway',
+    stopsL: 'Stops',
+    roadT: 'Road time',
+    senderLbl: 'Sender',
+    receiverLbl: 'Receiver',
+    chooseC: 'Select a carrier to view the waybill and hourly stops schedule:',
+    cost: 'Cost',
+    totalT: 'Total time',
+    road: 'road',
+    wait: 'load wait',
+    immed: 'immediate dispatch',
+    total2: 'total',
+    full: 'Occupancy 100%: departs immediately',
+    dep: 'Occupancy {p}%: departs within {h} hours',
+    truckOcc: 'Truck occupancy',
+    carrier: 'Carrier',
+    appr: 'Approved cost',
+    depL: 'Truck departure',
+    cum: 'Cumulative',
+    hour0: 'Hour 0 (Departure)',
+    stopAt: 'Stop at',
+    schedL: 'Cumulative hourly schedule of highway stops',
+    n_start: 'Truck departs onto the expressway',
+    n_local: 'Collection and departure point',
+    n_stop: 'Scheduled 15-minute stop to unload and load governorate parcels',
+    n_endD: 'Direct delivery to the recipient’s door',
+    n_endH: 'Unloaded at the recipient’s neighborhood micro-hub, bypassing the central warehouse',
+    hubFinal: 'Final delivery in {c}',
+    hubPick: 'Select the receiving micro-hub in {c}',
+    hD0: 'Direct delivery to the recipient on truck arrival',
+    hD1: 'Switch to the nearest neighborhood micro-hub',
+    hN: 'Micro-Hub: Northern sector',
+    hM: 'Micro-Hub: Central sector',
+    hS: 'Micro-Hub: Southern sector',
+    hOkD: 'The courier delivers to the recipient’s door {h} hours after truck departure.',
+    hOkH: 'The parcel unloads at the selected hub in {c} after {h} hours.',
+    hConf: 'Delivery point confirmed: ',
+    g_jz: 'Jazan Region (Coastal Highway 5)',
+    g_mk: 'Makkah and the Western Coast',
+    g_as: 'Asir, Al Bahah and Najran',
+    g_rc: 'Riyadh and Qassim',
+    g_ea: 'Eastern Province',
+    g_nm: 'Madinah, Tabuk and the North',
+    nameDef: 'Masarak customer',
+    cmtDef: 'Knowing truck occupancy and departure time saved us days of waiting.'
+  }
+};
 
-const BR=[{load:95,eta:5},{load:60,eta:9},{load:25,eta:16}];
-const HW={
-coast:{code:{ar:'طريق 5 (الساحل 5M)',en:'Highway 5 (Coastal 5M)'},name:{ar:'طريق الساحل الدولي: جازان - الدرب - القنفذة - الليث - جدة - ينبع - تبوك',en:'International Coastal Highway: Jazan - Ad Darb - Al Qunfudhah - Al Lith - Jeddah - Yanbu - Tabuk'}},
-south:{code:{ar:'طريق 10 / طريق 30',en:'Highway 10 / Route 30'},name:{ar:'الجنوب - وادي الدواسر - الخرج - الرياض',en:'South - Wadi Ad Dawasir - Al Kharj - Riyadh'}},
-w40:{code:{ar:'طريق 40 السريع',en:'Highway 40'},name:{ar:'جدة - مكة - الطائف - الدوادمي - الرياض - الدمام',en:'Jeddah - Makkah - Taif - Duwadimi - Riyadh - Dammam'}},
-north:{code:{ar:'طريق 65 / طريق 85',en:'Highway 65 / Route 85'},name:{ar:'الرياض - المجمعة - القصيم - حائل - الجوف - الحدود الشمالية',en:'Riyadh - Majmaah - Qassim - Hail - Al Jouf - Northern Border'}},
-nat:{code:{ar:'طريق 15 / الشبكة الوطنية',en:'Highway 15 / National Network'},name:{ar:'الهجرة والسراة والمحاور الإقليمية بين المناطق',en:'Al Hijrah, As Sarah and inter-regional connector highways'}}};
-const COAST=['صامطة','أبو عريش','جازان','صبيا','بيش','الدرب','القنفذة','الليث','جدة','رابغ','ينبع','الوجه','ضباء','تبوك'];
-const SOUTH=['جازان','الدرب','أبها','خميس مشيط','بيشة','وادي الدواسر','الخرج','الرياض'];
-const WEST=['جدة','مكة المكرمة','الطائف','الدوادمي','الرياض','الأحساء (الهفوف)','الدمام','الخبر','الجبيل'];
-const NORTH=['الرياض','المجمعة','بريدة','عنيزة','حائل','سكاكا (الجوف)','عرعر','القريات'];
-const WEST_ORD=['جدة','مكة المكرمة','الطائف','الدوادمي','الرياض','الأحساء (الهفوف)','الدمام','الخبر'];
-const NORTH_ORD=['الرياض','المجمعة','بريدة','حائل','سكاكا (الجوف)','عرعر','القريات'];
-const SERV={hub:'hub',d2d:'d2d',d2b:'d2b',b2b:'b2b'};
-const REVIEWS=[
-{n:{ar:'متجر البن الخولاني (مؤسسة)',en:'Al Khawlani Coffee Store (Corporate)'},f:'جازان',to:'جدة',s:5,c:{ar:'اخترنا الفرع بإشغال 95% وباقة 100 طرد (26 ريالاً للطرد)، وانطلقت الشاحنة خلال 3 ساعات ووصلت جدة في 12 ساعة بالضبط.',en:'We picked the 95% occupancy branch with the 100-parcel tier (26 SAR each). The truck left within 3 hours and reached Jeddah in exactly 12.'}},
-{n:{ar:'عبدالرحمن الزهراني (أفراد)',en:'Abdulrahman Al Zahrani (Individual)'},f:'جازان',to:'القنفذة',s:5,c:{ar:'عرفت موعد مرور الشاحنة بالقنفذة بالساعة، واستلمت طردي من المركز الفرعي في 5 ساعات بدلاً من 4 أيام.',en:'I knew the hour the truck reaches Al Qunfudhah and collected my parcel from the micro-hub in 5 hours instead of 4 days.'}}];
-let userReviews=[];
+const t = (k, v) => {
+  let s = (T[lang][k] ?? k);
+  if (v) for (const x in v) s = s.replace('{' + x + '}', v[x]);
+  return s;
+};
+const num = n => Number(n).toLocaleString(isEn() ? 'en-US' : 'ar-SA-u-nu-latn');
 
-/* ---------- Routing logic ---------- */
-function dist(a,b){const g=CMAP[a]||{lat:21.5,lon:39.2},h=CMAP[b]||{lat:24.7,lon:46.7},R=6371,r=Math.PI/180;
- const dl=(h.lat-g.lat)*r,dn=(h.lon-g.lon)*r,x=Math.sin(dl/2)**2+Math.cos(g.lat*r)*Math.cos(h.lat*r)*Math.sin(dn/2)**2;
- return Math.round(R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x))*1.28)}
-function hwOf(f,t2){const both=a=>a.includes(f)&&a.includes(t2);
- return both(COAST)?'coast':both(SOUTH)?'south':both(WEST)?'w40':both(NORTH)?'north':'nat'}
-function buildRoute(f,t2){
- const hw=hwOf(f,t2);
- if(f===t2)return{hw,hrs:1.5,km:25,legs:[{c:f,add:0,cum:0,km:0,k:'local'},{c:t2,add:1.5,cum:1.5,km:25,k:'end'}]};
- const ex=a=>{const i=a.indexOf(f),j=a.indexOf(t2);if(i<0||j<0||Math.abs(j-i)<2)return null;const s=j>i?1:-1,r=[];for(let k=i+s;k!==j;k+=s)r.push(a[k]);return r};
- let mid=[];const jj=(f==='جازان'&&t2==='جدة')||(f==='جدة'&&t2==='جازان');
- const cS=ex(COAST),sS=ex(SOUTH),wS=ex(WEST_ORD),nS=ex(NORTH_ORD);
- if(jj)mid=f==='جازان'?['الدرب','القنفذة','الليث']:['الليث','القنفذة','الدرب'];
- else if(cS)mid=cS.filter(c=>['بيش','الدرب','القنفذة','الليث','جدة','رابغ','ينبع','الوجه','ضباء'].includes(c)).slice(0,4);
- else if(sS)mid=sS.filter(c=>['الدرب','أبها','بيشة','وادي الدواسر','الخرج'].includes(c)).slice(0,4);
- else if(wS)mid=wS.filter(c=>['مكة المكرمة','الطائف','الدوادمي','الرياض','الأحساء (الهفوف)'].includes(c)).slice(0,4);
- else if(nS)mid=nS.filter(c=>['المجمعة','بريدة','حائل','سكاكا (الجوف)'].includes(c)).slice(0,4);
- else{const D=dist(f,t2);if(D>200){const valid=[];
-  ['الدرب','القنفذة','الليث','جدة','الطائف','أبها','بيشة','وادي الدواسر','الدوادمي','الرياض','المجمعة','بريدة','حائل','ينبع','المدينة المنورة','الأحساء (الهفوف)'].forEach(h=>{
-   if(h===f||h===t2)return;const d1=dist(f,h),d2=dist(h,t2);if(d1+d2<=D*1.24&&d1>75&&d2>75)valid.push({h,d1})});
-  valid.sort((a,b)=>a.d1-b.d1);
-  if(valid.length===1)mid=[valid[0].h];else if(valid.length===2)mid=[valid[0].h,valid[1].h];
-  else if(valid.length>=3)mid=[valid[0].h,valid[Math.floor(valid.length/2)].h,valid[valid.length-1].h]}}
- const chain=[f,...mid,t2],legs=[];let cum=0,km=0;
- chain.forEach((c,i)=>{
-  if(!i){legs.push({c,add:0,cum:0,km:0,k:'start'});return}
-  const s=dist(chain[i-1],c);km+=s;const h=Math.max(1,Math.round(s/80*2)/2);cum=Math.round((cum+h)*2)/2;
-  legs.push({c,add:h,cum,km:s,k:i===chain.length-1?'end':'stop'})});
- if(jj&&legs.length===5){let seg=[[125,1.5],[215,3.5],[170,3],[205,4]];if(f==='جدة')seg=seg.reverse();
-  cum=0;km=0;seg.forEach((s,i)=>{cum+=s[1];km+=s[0];Object.assign(legs[i+1],{km:s[0],add:s[1],cum})})}
- return{hw,hrs:cum,km:Math.max(35,km),legs}}
-const chainTxt=legs=>legs.map(l=>city(l.c)).join(isEn()?' → ':' ← ');
+/* ---------- بيانات المدن والطرق ---------- */
+const CITIES = [
+  ['جازان','Jazan','jz',16.889,42.551],['صبيا','Sabya','jz',17.149,42.625],['أبو عريش','Abu Arish','jz',16.968,42.832],['صامطة','Samtah','jz',16.597,42.944],['بيش','Baish','jz',17.372,42.536],['الدرب','Ad Darb','jz',17.723,42.253],
+  ['جدة','Jeddah','mk',21.543,39.172],['مكة المكرمة','Makkah','mk',21.422,39.826],['الطائف','Taif','mk',21.270,40.415],['القنفذة','Al Qunfudhah','mk',19.126,41.078],['الليث','Al Lith','mk',20.150,40.268],['رابغ','Rabigh','mk',22.798,39.034],
+  ['أبها','Abha','as',18.216,42.505],['خميس مشيط','Khamis Mushait','as',18.306,42.729],['بيشة','Bisha','as',20.008,42.598],['محايل عسير','Muhayil Asir','as',18.549,42.049],['النماص','An Namas','as',19.120,42.129],['الباحة','Al Bahah','as',20.012,41.467],['نجران','Najran','as',17.492,44.127],['شرورة','Sharurah','as',17.485,47.114],
+  ['الرياض','Riyadh','rc',24.713,46.675],['الخرج','Al Kharj','rc',24.148,47.305],['المجمعة','Al Majmaah','rc',25.904,45.344],['الدوادمي','Ad Duwadimi','rc',24.507,44.393],['وادي الدواسر','Wadi Ad Dawasir','rc',20.463,44.787],['بريدة','Buraydah','rc',26.326,43.975],['عنيزة','Unaizah','rc',26.084,43.993],
+  ['الدمام','Dammam','ea',26.420,50.088],['الخبر','Khobar','ea',26.279,50.208],['الأحساء (الهفوف)','Al Ahsa (Hofuf)','ea',25.380,49.588],['الجبيل','Jubail','ea',27.004,49.658],['حفر الباطن','Hafar Al Batin','ea',28.432,45.970],
+  ['المدينة المنورة','Madinah','nm',24.524,39.569],['ينبع','Yanbu','nm',24.089,38.061],['تبوك','Tabuk','nm',28.383,36.566],['ضباء','Duba','nm',27.351,35.690],['الوجه','Al Wajh','nm',26.245,36.452],['حائل','Hail','nm',27.511,41.720],['سكاكا (الجوف)','Sakaka (Al Jouf)','nm',29.969,40.206],['عرعر','Arar','nm',30.975,41.038],['القريات','Al Qurayyat','nm',31.331,37.342]
+];
+const GROUPS = ['jz','mk','as','rc','ea','nm'];
+const CMAP = {};
+CITIES.forEach(c => CMAP[c[0]] = { en: c[1], lat: c[3], lon: c[4] });
+const city = c => isEn() ? (CMAP[c] ? CMAP[c].en : c) : c;
 
-/* ---------- Icons ---------- */
-const ic=(n,c='')=>`<svg class="i ${c}"><use href="#${n}"/></svg>`;
+const BR = [{ load: 95, eta: 5 }, { load: 60, eta: 9 }, { load: 25, eta: 16 }];
+const HW = {
+  coast: { code: { ar: 'طريق 5 (الساحل 5M)', en: 'Highway 5 (Coastal 5M)' }, name: { ar: 'طريق الساحل الدولي: جازان - الدرب - القنفذة - الليث - جدة - ينبع - تبوك', en: 'International Coastal Highway: Jazan - Ad Darb - Al Qunfudhah - Al Lith - Jeddah - Yanbu - Tabuk' } },
+  south: { code: { ar: 'طريق 10 / طريق 30', en: 'Highway 10 / Route 30' }, name: { ar: 'الجنوب - وادي الدواسر - الخرج - الرياض', en: 'South - Wadi Ad Dawasir - Al Kharj - Riyadh' } },
+  w40:   { code: { ar: 'طريق 40 السريع', en: 'Highway 40' }, name: { ar: 'جدة - مكة - الطائف - الدوادمي - الرياض - الدمام', en: 'Jeddah - Makkah - Taif - Duwadimi - Riyadh - Dammam' } },
+  north: { code: { ar: 'طريق 65 / طريق 85', en: 'Highway 65 / Route 85' }, name: { ar: 'الرياض - المجمعة - القصيم - حائل - الجوف - الحدود الشمالية', en: 'Riyadh - Majmaah - Qassim - Hail - Al Jouf - Northern Border' } },
+  nat:   { code: { ar: 'طريق 15 / الشبكة الوطنية', en: 'Highway 15 / National Network' }, name: { ar: 'الهجرة والسراة والمحاور الإقليمية بين المناطق', en: 'Al Hijrah, As Sarah and inter-regional connector highways' } }
+};
+const COAST = ['صامطة','أبو عريش','جازان','صبيا','بيش','الدرب','القنفذة','الليث','جدة','رابغ','ينبع','الوجه','ضباء','تبوك'];
+const SOUTH = ['جازان','الدرب','أبها','خميس مشيط','بيشة','وادي الدواسر','الخرج','الرياض'];
+const WEST = ['جدة','مكة المكرمة','الطائف','الدوادمي','الرياض','الأحساء (الهفوف)','الدمام','الخبر','الجبيل'];
+const NORTH = ['الرياض','المجمعة','بريدة','عنيزة','حائل','سكاكا (الجوف)','عرعر','القريات'];
+const WEST_ORD = ['جدة','مكة المكرمة','الطائف','الدوادمي','الرياض','الأحساء (الهفوف)','الدمام','الخبر'];
+const NORTH_ORD = ['الرياض','المجمعة','بريدة','حائل','سكاكا (الجوف)','عرعر','القريات'];
 
-/* ---------- Selects ---------- */
-function buildSelects(){
- ['from','to'].forEach(id=>{const el=$(id),cur=el.value||(id==='from'?'جازان':'جدة');
-  el.innerHTML=GROUPS.map(g=>`<optgroup label="${t('g_'+g)}">`+CITIES.filter(c=>c[2]===g).map(c=>`<option value="${c[0]}">${isEn()?c[1]:c[0]}</option>`).join('')+'</optgroup>').join('');
-  el.value=cur});
- [['weight','w'],['ready','r']].forEach(([id,p])=>{const el=$(id),cur=el.value||(id==='weight'?'1':'0');
-  el.innerHTML=[0,1,2,3].map(i=>`<option value="${i}">${t(p+i)}</option>`).join('');el.value=cur})}
-function swapCities(){const a=$('from'),b=$('to'),v=a.value;a.value=b.value;b.value=v;onRoute()}
+const REVIEWS = [
+  { n: { ar: 'متجر البن الخولاني (مؤسسة)', en: 'Al Khawlani Coffee Store (Corporate)' }, f: 'جازان', to: 'جدة', s: 5, c: { ar: 'اخترنا الفرع بإشغال 95% وباقة 100 طرد (26 ريالاً للطرد)، وانطلقت الشاحنة خلال 3 ساعات ووصلت جدة في 12 ساعة بالضبط.', en: 'We picked the 95% occupancy branch with the 100-parcel tier (26 SAR each). The truck left within 3 hours and reached Jeddah in exactly 12.' } },
+  { n: { ar: 'عبدالرحمن الزهراني (أفراد)', en: 'Abdulrahman Al Zahrani (Individual)' }, f: 'جازان', to: 'القنفذة', s: 5, c: { ar: 'عرفت موعد مرور الشاحنة بالقنفذة بالساعة، واستلمت طردي من المركز الفرعي في 5 ساعات بدلاً من 4 أيام.', en: 'I knew the hour the truck reaches Al Qunfudhah and collected my parcel from the micro-hub in 5 hours instead of 4 days.' } }
+];
+let userReviews = [];
 
-/* ---------- Banner & branches ---------- */
-function onRoute(){
- const f=$('from').value,to=$('to').value,r=buildRoute(f,to),hw=HW[r.hw];
- $('bTitle').textContent=t('active')+': '+chainTxt(r.legs);
- $('kKm').textContent=num(r.km);$('kHr').textContent=num(r.hrs);$('kSt').textContent=num(r.legs.length);
- $('bCode').textContent=hw.code[lang];$('bName').textContent=hw.name[lang];
- $('nodes').innerHTML=r.legs.map((l,i)=>`<div class="node ${i===r.legs.length-1?'end':''}"><div class="dot">${ic(i===0?'pin':i===r.legs.length-1?'flag':'truck')}</div><div class="nc">${city(l.c)}</div><div class="nh">${i===0?'0 '+t('h'):'+'+num(l.add)+' '+t('h')+' ('+num(l.cum)+')'}</div></div>`).join('');
- renderBranches()}
-function renderBranches(){
- const f=$('from').value;
- $('branches').innerHTML=BR.map((b,i)=>{const p=b.load,rem=100-p;
-  return `<div class="br ${i===bIdx?'sel':''}" tabindex="0" onclick="selectBranch(${i})" onkeydown="if(event.key==='Enter')selectBranch(${i})">
-  <div class="bt2"><span>${ic(i===0?'bolt':'bldg')} ${t('b'+i)} (${city(f)})</span><span class="tag ${i===0?'fast':''}">${i===0?t('next'):t('loading')}</span></div>
-  <div class="meta">${t('occ',{p,r:rem})}<br>${t('bMeta',{h:b.eta})}</div>
-  <div class="bar"><i class="${i===0?'f':''}" style="width:${p}%"></i></div></div>`}).join('')}
-function selectBranch(i){bIdx=i;renderBranches()}
+/* ---------- الحفظ والاسترجاع من المتصفح (localStorage) ---------- */
+function saveLocalData() {
+  try {
+    const data = {
+      ctype,
+      role,
+      uname,
+      uextra,
+      count: parseInt($('cnt')?.value, 10) || 50,
+      senderName: $('senderName')?.value || '',
+      senderPhone: $('senderPhone')?.value || '',
+      receiverName: $('receiverName')?.value || '',
+      receiverPhone: $('receiverPhone')?.value || '',
+      from: $('from')?.value || 'جازان',
+      to: $('to')?.value || 'جدة',
+      svc,
+      bIdx,
+      weight: $('weight')?.value || '1',
+      ready: $('ready')?.value || '0',
+      notes: $('notes')?.value || '',
+      userReviews
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (e) {}
+}
 
-/* ---------- Selection UI ---------- */
-function selectSvc(k){svc=k;['hub','d2d','d2b','b2b'].forEach(x=>$('s-'+x).classList.toggle('sel',x===k));updateSvcText()}
-function updateSvcText(){$('hint').innerHTML=t('hint_'+svc);$('brLbl').textContent=t('brLbl_'+svc)}
-function selectClient(k){ctype=k;['guest','individual','corporate'].forEach(x=>$('c-'+x).classList.toggle('sel',x===k));
- $('b2b').classList.toggle('show',k==='corporate');if(k==='corporate')recalcB2B();else count=1;updatePill()}
-function updatePill(){
- const n=uname,m={guest:['bolt',t('guestPill')],individual:['user',t('indivPill')+(n?': '+n:'')],corporate:['bldg',t('corpPill')+(n?': '+n:'')]}[ctype];
- $('uPill').textContent=m[1];$('uIcon').innerHTML=`<use href="#${m[0]}"/>`}
-const unitB2B=n=>n>=250?22:n>=100?26:29;
-function setCount(v){$('cnt').value=v;recalcB2B()}
-function recalcB2B(){
- const raw=parseInt($('cnt').value,10)||50,n=Math.max(50,raw);count=n;
- const u=unitB2B(n),tot=n*u,save=n*38-tot;
- ['50','100','250'].forEach(x=>$('t'+x).classList.remove('sel'));$('t'+(n>=250?'250':n>=100?'100':'50')).classList.add('sel');
- $('b2bSum').innerHTML=`<span>${t('unit')}: <b>${u} ${t('sar')}</b> ${raw<50?t('minNote'):''}</span><span>${t('total',{n:num(n)})}: <b>${num(tot)} ${t('sar')}</b></span><span style="color:var(--teal-d);font-weight:700">${t('saved')} ${num(save)} ${t('sar')}</span>`}
+function loadLocalData() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    if (d.ctype) ctype = d.ctype;
+    if (d.role) role = d.role;
+    if (typeof d.uname === 'string') uname = d.uname;
+    if (typeof d.uextra === 'string') uextra = d.uextra;
+    if (d.count && $('cnt')) $('cnt').value = d.count;
+    if (d.senderName && $('senderName')) $('senderName').value = d.senderName;
+    if (d.senderPhone && $('senderPhone')) $('senderPhone').value = d.senderPhone;
+    if (d.receiverName && $('receiverName')) $('receiverName').value = d.receiverName;
+    if (d.receiverPhone && $('receiverPhone')) $('receiverPhone').value = d.receiverPhone;
+    if (d.from && $('from')) $('from').value = d.from;
+    if (d.to && $('to')) $('to').value = d.to;
+    if (d.svc) svc = d.svc;
+    if (typeof d.bIdx === 'number') bIdx = d.bIdx;
+    if (d.weight && $('weight')) $('weight').value = d.weight;
+    if (d.ready && $('ready')) $('ready').value = d.ready;
+    if (d.notes && $('notes')) $('notes').value = d.notes;
+    if (Array.isArray(d.userReviews)) userReviews = d.userReviews;
+    if ($('aName')) $('aName').value = uname;
+    if ($('aExtra')) $('aExtra').value = uextra;
+  } catch (e) {}
+}
 
-/* ---------- Auth ---------- */
-function openAuth(){$('authBd').classList.add('open');authTab(role)}
-function closeAuth(){$('authBd').classList.remove('open')}
-function authTab(r){role=r;['guest','individual','corporate'].forEach(x=>$('at-'+x).classList.toggle('sel',x===r));
- $('aNameL').textContent=t(r==='guest'?'aNameG':r==='individual'?'aNameI':'aNameC');
- $('aExtraG').style.display=r==='guest'?'none':'block';
- $('aExtraL').textContent=t(r==='corporate'?'aExtraC':'aExtraI')}
-function confirmAuth(){const v=$('aName').value.trim();
- uname=v||(role==='corporate'?t('dfltCorp'):role==='individual'?t('dfltInd'):'');
- if(role==='guest')uname='';selectClient(role);closeAuth()}
+/* ---------- حساب المسافات والمحطات ---------- */
+function dist(a, b) {
+  const g = CMAP[a] || { lat: 21.5, lon: 39.2 }, h = CMAP[b] || { lat: 24.7, lon: 46.7 }, R = 6371, r = Math.PI / 180;
+  const dl = (h.lat - g.lat) * r, dn = (h.lon - g.lon) * r, x = Math.sin(dl / 2) ** 2 + Math.cos(g.lat * r) * Math.cos(h.lat * r) * Math.sin(dn / 2) ** 2;
+  return Math.round(R * 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1 - x)) * 1.28);
+}
+function hwOf(f, t2) {
+  const both = a => a.includes(f) && a.includes(t2);
+  return both(COAST) ? 'coast' : both(SOUTH) ? 'south' : both(WEST) ? 'w40' : both(NORTH) ? 'north' : 'nat';
+}
+function buildRoute(f, t2) {
+  const hw = hwOf(f, t2);
+  if (f === t2) return { hw, hrs: 1.5, km: 25, legs: [{ c: f, add: 0, cum: 0, km: 0, k: 'local' }, { c: t2, add: 1.5, cum: 1.5, km: 25, k: 'end' }] };
+  const ex = a => {
+    const i = a.indexOf(f), j = a.indexOf(t2);
+    if (i < 0 || j < 0 || Math.abs(j - i) < 2) return null;
+    const s = j > i ? 1 : -1, r = [];
+    for (let k = i + s; k !== j; k += s) r.push(a[k]);
+    return r;
+  };
+  let mid = [];
+  const jj = (f === 'جازان' && t2 === 'جدة') || (f === 'جدة' && t2 === 'جازان');
+  const cS = ex(COAST), sS = ex(SOUTH), wS = ex(WEST_ORD), nS = ex(NORTH_ORD);
+  if (jj) mid = f === 'جازان' ? ['الدرب','القنفذة','الليث'] : ['الليث','القنفذة','الدرب'];
+  else if (cS) mid = cS.filter(c => ['بيش','الدرب','القنفذة','الليث','جدة','رابغ','ينبع','الوجه','ضباء'].includes(c)).slice(0, 4);
+  else if (sS) mid = sS.filter(c => ['الدرب','أبها','بيشة','وادي الدواسر','الخرج'].includes(c)).slice(0, 4);
+  else if (wS) mid = wS.filter(c => ['مكة المكرمة','الطائف','الدوادمي','الرياض','الأحساء (الهفوف)'].includes(c)).slice(0, 4);
+  else if (nS) mid = nS.filter(c => ['المجمعة','بريدة','حائل','سكاكا (الجوف)'].includes(c)).slice(0, 4);
+  else {
+    const D = dist(f, t2);
+    if (D > 200) {
+      const valid = [];
+      ['الدرب','القنفذة','الليث','جدة','الطائف','أبها','بيشة','وادي الدواسر','الدوادمي','الرياض','المجمعة','بريدة','حائل','ينبع','المدينة المنورة','الأحساء (الهفوف)'].forEach(h => {
+        if (h === f || h === t2) return;
+        const d1 = dist(f, h), d2 = dist(h, t2);
+        if (d1 + d2 <= D * 1.24 && d1 > 75 && d2 > 75) valid.push({ h, d1 });
+      });
+      valid.sort((a, b) => a.d1 - b.d1);
+      if (valid.length === 1) mid = [valid[0].h];
+      else if (valid.length === 2) mid = [valid[0].h, valid[1].h];
+      else if (valid.length >= 3) mid = [valid[0].h, valid[Math.floor(valid.length / 2)].h, valid[valid.length - 1].h];
+    }
+  }
+  const chain = [f, ...mid, t2], legs = [];
+  let cum = 0, km = 0;
+  chain.forEach((c, i) => {
+    if (!i) { legs.push({ c, add: 0, cum: 0, km: 0, k: 'start' }); return; }
+    const s = dist(chain[i - 1], c);
+    km += s;
+    const h = Math.max(1, Math.round(s / 80 * 2) / 2);
+    cum = Math.round((cum + h) * 2) / 2;
+    legs.push({ c, add: h, cum, km: s, k: i === chain.length - 1 ? 'end' : 'stop' });
+  });
+  if (jj && legs.length === 5) {
+    let seg = [[125, 1.5], [215, 3.5], [170, 3], [205, 4]];
+    if (f === 'جدة') seg = seg.reverse();
+    cum = 0; km = 0;
+    seg.forEach((s, i) => { cum += s[1]; km += s[0]; Object.assign(legs[i + 1], { km: s[0], add: s[1], cum }); });
+  }
+  return { hw, hrs: cum, km: Math.max(35, km), legs };
+}
+const chainTxt = legs => legs.map(l => city(l.c)).join(isEn() ? ' → ' : ' ← ');
+const ic = (n, c = '') => `<svg class="i ${c}"><use href="#${n}"/></svg>`;
 
-/* ---------- Language ---------- */
-function applyText(){
- document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));
- document.querySelectorAll('[data-ph]').forEach(e=>e.placeholder=t(e.dataset.ph));
- $('langTxt').textContent=isEn()?'العربية':'English';
- document.title=isEn()?'Masarak Smart Logistics':'مسارك الذكية للشحن | Masarak';
- const m=['bd1','bd2','bd3'];}
-function toggleLanguage(){
- lang=isEn()?'ar':'en';const r=$('htmlRoot');r.lang=lang;r.dir=isEn()?'ltr':'rtl';
- applyText();buildSelects();updateSvcText();updatePill();authTab(role);recalcB2B();onRoute();renderReviews();
- if($('step2').classList.contains('on'))loadSchedule();
- if($('step3').classList.contains('on')&&ship)goTrack(ship.cIdx)}
+/* ---------- القوائم المنسدلة ---------- */
+function buildSelects() {
+  ['from', 'to'].forEach(id => {
+    const el = $(id), cur = el.value || (id === 'from' ? 'جازان' : 'جدة');
+    el.innerHTML = GROUPS.map(g => `<optgroup label="${t('g_' + g)}">` + CITIES.filter(c => c[2] === g).map(c => `<option value="${c[0]}">${isEn() ? c[1] : c[0]}</option>`).join('') + '</optgroup>').join('');
+    el.value = cur;
+  });
+  [['weight', 'w'], ['ready', 'r']].forEach(([id, p]) => {
+    const el = $(id), cur = el.value || (id === 'weight' ? '1' : '0');
+    el.innerHTML = [0, 1, 2, 3].map(i => `<option value="${i}">${t(p + i)}</option>`).join('');
+    el.value = cur;
+  });
+}
+function swapCities() {
+  const a = $('from'), b = $('to'), v = a.value;
+  a.value = b.value;
+  b.value = v;
+  onRoute();
+  saveLocalData();
+}
 
-/* ---------- Steps ---------- */
-function goStep(n){[1,2,3].forEach(i=>{$('step'+i).classList.toggle('on',i===n);
- $('prog'+i).classList.toggle('cur',i===n);$('prog'+i).classList.toggle('done',i<n)});window.scrollTo({top:0,behavior:'smooth'})}
-function registerShipment(){
- const f=$('from').value,to=$('to').value;
- count=ctype==='corporate'?Math.max(50,parseInt($('cnt').value,10)||50):1;
- if(ctype==='corporate')$('cnt').value=count;
- ship={id:'MSK-'+Math.floor(100000+Math.random()*900000),ctype,count,svc,from:f,to,bi:bIdx,w:+$('weight').value,r:+$('ready').value,notes:$('notes').value.trim(),route:buildRoute(f,to),cIdx:0};
- loadSchedule();goStep(2)}
+/* ---------- تحديث المسار النشط والفروع ---------- */
+function onRoute() {
+  const f = $('from').value, to = $('to').value, r = buildRoute(f, to), hw = HW[r.hw];
+  $('bTitle').textContent = t('active') + ': ' + chainTxt(r.legs);
+  $('kKm').textContent = num(r.km);
+  $('kHr').textContent = num(r.hrs);
+  $('kSt').textContent = num(r.legs.length);
+  $('bCode').textContent = hw.code[lang];
+  $('bName').textContent = hw.name[lang];
+  $('nodes').innerHTML = r.legs.map((l, i) => `<div class="node ${i === r.legs.length - 1 ? 'end' : ''}"><div class="dot">${ic(i === 0 ? 'pin' : i === r.legs.length - 1 ? 'flag' : 'truck')}</div><div class="nc">${city(l.c)}</div><div class="nh">${i === 0 ? '0 ' + t('h') : '+' + num(l.add) + ' ' + t('h') + ' (' + num(l.cum) + ')'}</div></div>`).join('');
+  renderBranches();
+}
+function renderBranches() {
+  const f = $('from').value;
+  $('branches').innerHTML = BR.map((b, i) => {
+    const p = b.load, rem = 100 - p;
+    return `<div class="br ${i === bIdx ? 'sel' : ''}" tabindex="0" onclick="selectBranch(${i})" onkeydown="if(event.key==='Enter')selectBranch(${i})">
+      <div class="bt2"><span>${ic(i === 0 ? 'bolt' : 'bldg')} ${t('b' + i)} (${city(f)})</span><span class="tag ${i === 0 ? 'fast' : ''}">${i === 0 ? t('next') : t('loading')}</span></div>
+      <div class="meta">${t('occ', { p, r: rem })}<br>${t('bMeta', { h: b.eta })}</div>
+      <div class="bar"><i class="${i === 0 ? 'f' : ''}" style="width:${p}%"></i></div>
+    </div>`;
+  }).join('');
+}
+function selectBranch(i) {
+  bIdx = i;
+  renderBranches();
+  saveLocalData();
+}
 
-function loadSchedule(){
- const s=ship,b=BR[s.bi],hw=HW[s.route.hw],ch=chainTxt(s.route.legs),after=Math.min(100,b.load+s.count);
- const wait=after>=100?0.5:b.eta,bn=`${t('b'+s.bi)} (${city(s.from)})`;
- $('shipSum').innerHTML=`${t('shipId')}: <b>${s.id}</b> | ${t('qty')}: <b>${num(s.count)} ${t('parc')}</b><br>
- ${t('origin')}: <b style="color:var(--teal-d)">${bn}</b> (${t('occB')}: <b>${b.load}%</b> → <b>${after}%</b> ${t('after')})<br>
- ${t('hwL')}: <b>${hw.code[lang]}</b> — ${hw.name[lang]}<br>
- ${t('stopsL')} (${num(s.route.km)} ${t('km')}): <b>${ch}</b> | ${t('roadT')}: <b>${num(s.route.hrs)} ${t('hrs')}</b>`;
- const mult=s.svc==='d2d'?1.25:s.svc==='b2b'?0.85:s.svc==='hub'?0.95:1,add=Math.min(12,Math.floor(s.route.km/250)*3),bu=unitB2B(s.count);
- const base=[
-  {n:{ar:'مسارك إكسبريس (سمسا: الخط السريع المباشر)',en:'Masarak Express (SMSA Direct Line)'},ip:35,cp:bu,sf:1.0,rt:'4.9'},
-  {n:{ar:'درة اللوجستية (أرامكس: خط المحافظات)',en:'Durrah Logistics (Aramex Regional Line)'},ip:31,cp:Math.max(20,bu-2),sf:1.15,rt:'4.7'},
-  {n:{ar:'الناقل الوطني الموحد (سبل)',en:'National Unified Carrier (SPL)'},ip:24,cp:Math.max(18,bu-4),sf:1.3,rt:'4.6'}];
- cour=base.map(c=>{
-  const corp=s.ctype==='corporate',unit=corp?c.cp:Math.round((c.ip+add)*mult),tot=unit*s.count;
-  const rh=Math.max(1.5,Math.round(s.route.hrs*c.sf*2)/2),te=Math.round((rh+wait)*2)/2;
-  return{n:c.n,unit,tot,corp,sf:c.sf,rt:c.rt,rh,wait,te,after,
-   dep:after>=100?t('full'):t('dep',{p:after,h:b.eta})}});
- $('couriers').innerHTML=`<div class="lb">${t('chooseC')}</div>`+cour.map((c,i)=>{
-  const cost=c.corp?`${c.unit} ${t('sar')}/${isEn()?'parcel':'طرد'} (${num(c.tot)} ${t('sar')})`:`${c.unit} ${t('sar')}`;
-  const wt=c.wait===0.5?t('immed'):`${num(c.wait)} ${t('h')} ${t('wait')}`;
-  return `<div class="cc" tabindex="0" onclick="goTrack(${i})" onkeydown="if(event.key==='Enter')goTrack(${i})">
-  <div class="ch"><b>${ic('truck')} ${c.n[lang]}</b><span class="dep">${c.dep}</span></div>
-  ${t('cost')}: <b style="color:var(--teal-d)">${cost}</b> | <span style="color:var(--amber)">${ic('star','fill')}</span> ${c.rt}<br>
-  ${t('totalT')}: <b>${num(c.rh)} ${t('h')} ${t('road')} + ${wt} = ${num(c.te)} ${t('hrs')} ${t('total2')}</b>
-  <div class="rp">${ch} | ${t('truckOcc')}: <b>${c.after}%</b><div class="bar" style="margin-top:5px"><i class="${c.after>=95?'f':''}" style="width:${c.after}%"></i></div></div></div>`}).join('')}
+/* ---------- خيارات الحساب والخدمة ---------- */
+function selectSvc(k) {
+  svc = k;
+  ['hub', 'd2d', 'd2b', 'b2b'].forEach(x => $('s-' + x).classList.toggle('sel', x === k));
+  updateSvcText();
+  saveLocalData();
+}
+function updateSvcText() {
+  $('hint').innerHTML = t('hint_' + svc);
+  $('brLbl').textContent = t('brLbl_' + svc);
+}
+function selectClient(k) {
+  ctype = k;
+  role = k;
+  ['guest', 'individual', 'corporate'].forEach(x => $('c-' + x).classList.toggle('sel', x === k));
+  $('b2b').classList.toggle('show', k === 'corporate');
+  if (k === 'corporate') recalcB2B();
+  else count = 1;
+  updatePill();
+  saveLocalData();
+}
+function updatePill() {
+  const n = uname || $('senderName')?.value.trim() || '';
+  const m = {
+    guest: ['bolt', t('guestPill') + (n ? ': ' + n : '')],
+    individual: ['user', t('indivPill') + (n ? ': ' + n : '')],
+    corporate: ['bldg', t('corpPill') + (n ? ': ' + n : '')]
+  }[ctype];
+  $('uPill').textContent = m[1];
+  $('uIcon').innerHTML = `<use href="#${m[0]}"/>`;
+}
+const unitB2B = n => n >= 250 ? 22 : n >= 100 ? 26 : 29;
+function setCount(v) {
+  $('cnt').value = v;
+  recalcB2B();
+  saveLocalData();
+}
+function recalcB2B() {
+  const raw = parseInt($('cnt').value, 10) || 50, n = Math.max(50, raw);
+  count = n;
+  const u = unitB2B(n), tot = n * u, save = n * 38 - tot;
+  ['50', '100', '250'].forEach(x => $('t' + x).classList.remove('sel'));
+  $('t' + (n >= 250 ? '250' : n >= 100 ? '100' : '50')).classList.add('sel');
+  $('b2bSum').innerHTML = `<span>${t('unit')}: <b>${u} ${t('sar')}</b> ${raw < 50 ? t('minNote') : ''}</span><span>${t('total', { n: num(n) })}: <b>${num(tot)} ${t('sar')}</b></span><span style="color:var(--teal-d);font-weight:700">${t('saved')} ${num(save)} ${t('sar')}</span>`;
+}
 
-function goTrack(ci){
- ship.cIdx=ci;const s=ship,c=cour[ci],legs=s.route.legs,hw=HW[s.route.hw],bn=`${t('b'+s.bi)} (${city(s.from)})`;
- let run=0;
- const items=legs.map((l,i)=>{
-  if(i===0)return `<li class="start"><span class="th">${t('hour0')}</span><b>${city(l.c)}</b><small>${bn} — ${c.dep}</small></li>`;
-  const h=Math.max(1,Math.round(l.add*c.sf*2)/2);run=Math.round((run+h)*2)/2;
-  const tag=`+${num(h)} ${t('h')} (${num(l.km)} ${t('km')}) | ${t('cum')}: ${num(run)} ${t('hrs')}`;
-  if(i===legs.length-1)return `<li class="end"><span class="th">${tag}</span><b>${city(l.c)}</b><small>${s.svc==='d2d'?t('n_endD'):t('n_endH')}</small></li>`;
-  return `<li><span class="th">${tag}</span><b>${t('stopAt')} ${city(l.c)}</b><small>${t('n_stop')}</small></li>`}).join('');
- const d=city(s.to),d2=s.svc==='d2d';
- const opts=d2?[t('hD0'),t('hD1')]:[t('hN')+' ('+d+')',t('hM')+' ('+d+')',t('hS')+' ('+d+')'];
- const cost=c.corp?`${c.unit} ${t('sar')}/${isEn()?'parcel':'طرد'} (${num(c.tot)} ${t('sar')})`:`${c.unit} ${t('sar')}`;
- window._run=run;
- $('trackBox').innerHTML=`${t('shipId')}: <b>${s.id}</b> | ${t('carrier')}: <b>${c.n[lang]}</b><br>
- ${t('appr')}: <b style="color:var(--teal-d)">${cost}</b><br>${t('hwL')}: <b>${hw.code[lang]}</b> — ${hw.name[lang]}<br>
- ${t('depL')}: <b style="color:var(--amber)">${bn} — ${c.dep}</b>
- <div class="hub"><label for="hubSel">${d2?t('hubFinal',{c:d}):t('hubPick',{c:d})}</label>
- <select id="hubSel" onchange="hubNote()">${opts.map((o,i)=>`<option value="${i}">${o}</option>`).join('')}</select>
- <div class="ok" id="hubMsg">${ic('check')} ${d2?t('hOkD',{h:num(run)}):t('hOkH',{c:d,h:num(run)})}</div></div>
- <div class="lb" style="margin-top:14px">${ic('route')} ${t('schedL')}</div><ol class="tl">${items}</ol>`;
- goStep(3)}
-function hubNote(){const sel=$('hubSel');$('hubMsg').innerHTML=ic('check')+' '+t('hConf')+sel.options[sel.selectedIndex].text}
+/* ---------- نافذة تسجيل الدخول ---------- */
+function openAuth() {
+  $('authBd').classList.add('open');
+  authTab(ctype);
+}
+function closeAuth() {
+  $('authBd').classList.remove('open');
+}
+function authTab(r) {
+  role = r;
+  ['guest', 'individual', 'corporate'].forEach(x => $('at-' + x).classList.toggle('sel', x === r));
+  $('aNameL').textContent = t(r === 'guest' ? 'aNameG' : r === 'individual' ? 'aNameI' : 'aNameC');
+  $('aExtraG').style.display = r === 'guest' ? 'none' : 'block';
+  $('aExtraL').textContent = t(r === 'corporate' ? 'aExtraC' : 'aExtraI');
+}
+function confirmAuth() {
+  const v = $('aName').value.trim();
+  uextra = $('aExtra').value.trim();
+  uname = v || (role === 'corporate' ? t('dfltCorp') : role === 'individual' ? t('dfltInd') : '');
+  if (v && !$('senderName').value.trim()) {
+    $('senderName').value = v;
+  }
+  if (uextra && role === 'individual' && !$('senderPhone').value.trim()) {
+    $('senderPhone').value = uextra;
+  }
+  selectClient(role);
+  closeAuth();
+}
 
-/* ---------- Reviews ---------- */
-function drawStars(){$('stars').innerHTML=[1,2,3,4,5].map(n=>`<button type="button" class="sb ${n<=stars?'on':''}" onclick="setStars(${n})" aria-label="${n}">${ic('star','fill')}</button>`).join('')}
-function setStars(n){stars=n;drawStars()}
-function renderReviews(){
- const all=[...userReviews,...REVIEWS];
- $('avg').textContent='4.9 / 5.0 ('+t('rvCount',{n:num(126+all.length)})+')';
- $('reviews').innerHTML=all.map(r=>{const nm=typeof r.n==='string'?r.n:r.n[lang],cm=typeof r.c==='string'?r.c:r.c[lang];
-  return `<div class="rc"><div class="rt"><span>${nm}</span><span class="s">${Array.from({length:r.s},()=>ic('star','fill')).join('')}</span></div>
-  <div class="rr">${city(r.f)} ${isEn()?'→':'←'} ${city(r.to)} (${HW[hwOf(r.f,r.to)].code[lang]})</div><div>${cm}</div></div>`}).join('')}
-function submitReview(){
- const n=$('rvName').value.trim()||uname||t('nameDef'),c=$('rvText').value.trim()||t('cmtDef');
- userReviews.unshift({n,c,s:stars,f:$('from').value,to:$('to').value});
- $('rvName').value='';$('rvText').value='';renderReviews()}
+/* ---------- تبديل اللغة ---------- */
+function applyText() {
+  document.querySelectorAll('[data-i]').forEach(e => e.textContent = t(e.dataset.i));
+  document.querySelectorAll('[data-ph]').forEach(e => e.placeholder = t(e.dataset.ph));
+  $('langTxt').textContent = isEn() ? 'العربية' : 'English';
+  document.title = isEn() ? 'Masarak Smart Logistics' : 'مسارك الذكية للشحن | Masarak';
+}
+function toggleLanguage() {
+  lang = isEn() ? 'ar' : 'en';
+  const r = $('htmlRoot');
+  r.lang = lang;
+  r.dir = isEn() ? 'ltr' : 'rtl';
+  applyText();
+  buildSelects();
+  updateSvcText();
+  updatePill();
+  authTab(role);
+  recalcB2B();
+  onRoute();
+  renderReviews();
+  if ($('step4').classList.contains('on') && ship) loadSchedule();
+  if ($('step5').classList.contains('on') && ship) goTrack(ship.cIdx);
+}
 
-/* ---------- Init ---------- */
-window.addEventListener('DOMContentLoaded',()=>{
- applyText();buildSelects();updateSvcText();updatePill();authTab('guest');drawStars();recalcB2B();onRoute();renderReviews()});
+/* ---------- التنقل بين الخطوات الـ 5 ---------- */
+function goStep(n) {
+  [1, 2, 3, 4, 5].forEach(i => {
+    $('step' + i).classList.toggle('on', i === n);
+    $('prog' + i).classList.toggle('cur', i === n);
+    $('prog' + i).classList.toggle('done', i < n);
+  });
+  updatePill();
+  saveLocalData();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function nextFromStep1() {
+  const sName = $('senderName').value.trim();
+  const sPhone = $('senderPhone').value.trim();
+  const rName = $('receiverName').value.trim();
+  const rPhone = $('receiverPhone').value.trim();
+  const errEl = $('step1Err');
+
+  if (!sName || !sPhone || !rName || !rPhone) {
+    errEl.textContent = t('errParties');
+    errEl.classList.add('show');
+    return;
+  }
+  errEl.classList.remove('show');
+  if (!uname) uname = sName;
+  goStep(2);
+}
+
+function registerShipment() {
+  const f = $('from').value, to = $('to').value;
+  count = ctype === 'corporate' ? Math.max(50, parseInt($('cnt').value, 10) || 50) : 1;
+  if (ctype === 'corporate') $('cnt').value = count;
+  ship = {
+    id: 'MSK-' + Math.floor(100000 + Math.random() * 900000),
+    ctype,
+    count,
+    svc,
+    from: f,
+    to,
+    bi: bIdx,
+    w: +$('weight').value,
+    r: +$('ready').value,
+    notes: $('notes').value.trim(),
+    senderName: $('senderName').value.trim() || t('nameDef'),
+    senderPhone: $('senderPhone').value.trim() || '-',
+    receiverName: $('receiverName').value.trim() || '-',
+    receiverPhone: $('receiverPhone').value.trim() || '-',
+    route: buildRoute(f, to),
+    cIdx: 0
+  };
+  loadSchedule();
+  goStep(4);
+}
+
+function loadSchedule() {
+  const s = ship, b = BR[s.bi], hw = HW[s.route.hw], ch = chainTxt(s.route.legs), after = Math.min(100, b.load + s.count);
+  const wait = after >= 100 ? 0.5 : b.eta, bn = `${t('b' + s.bi)} (${city(s.from)})`;
+
+  $('shipSum').innerHTML = `
+    ${t('shipId')}: <b>${s.id}</b> | ${t('qty')}: <b>${num(s.count)} ${t('parc')}</b>
+    <div class="parties-summary">
+      <div>${ic('user')} <b>${t('senderLbl')}:</b> ${s.senderName} (<span dir="ltr">${s.senderPhone}</span>)</div>
+      <div>${ic('flag')} <b>${t('receiverLbl')}:</b> ${s.receiverName} (<span dir="ltr">${s.receiverPhone}</span>)</div>
+    </div>
+    ${t('origin')}: <b style="color:var(--teal-d)">${bn}</b> (${t('occB')}: <b>${b.load}%</b> → <b>${after}%</b> ${t('after')})<br>
+    ${t('hwL')}: <b>${hw.code[lang]}</b> — ${hw.name[lang]}<br>
+    ${t('stopsL')} (${num(s.route.km)} ${t('km')}): <b>${ch}</b> | ${t('roadT')}: <b>${num(s.route.hrs)} ${t('hrs')}</b>
+  `;
+
+  const mult = s.svc === 'd2d' ? 1.25 : s.svc === 'b2b' ? 0.85 : s.svc === 'hub' ? 0.95 : 1;
+  const add = Math.min(12, Math.floor(s.route.km / 250) * 3), bu = unitB2B(s.count);
+  const base = [
+    { n: { ar: 'مسارك إكسبريس (سمسا: الخط السريع المباشر)', en: 'Masarak Express (SMSA Direct Line)' }, ip: 35, cp: bu, sf: 1.0, rt: '4.9' },
+    { n: { ar: 'درة اللوجستية (أرامكس: خط المحافظات)', en: 'Durrah Logistics (Aramex Regional Line)' }, ip: 31, cp: Math.max(20, bu - 2), sf: 1.15, rt: '4.7' },
+    { n: { ar: 'الناقل الوطني الموحد (سبل)', en: 'National Unified Carrier (SPL)' }, ip: 24, cp: Math.max(18, bu - 4), sf: 1.3, rt: '4.6' }
+  ];
+  cour = base.map(c => {
+    const corp = s.ctype === 'corporate', unit = corp ? c.cp : Math.round((c.ip + add) * mult), tot = unit * s.count;
+    const rh = Math.max(1.5, Math.round(s.route.hrs * c.sf * 2) / 2), te = Math.round((rh + wait) * 2) / 2;
+    return {
+      n: c.n, unit, tot, corp, sf: c.sf, rt: c.rt, rh, wait, te, after,
+      dep: after >= 100 ? t('full') : t('dep', { p: after, h: b.eta })
+    };
+  });
+  $('couriers').innerHTML = `<div class="lb" style="margin-bottom:10px">${t('chooseC')}</div>` + cour.map((c, i) => {
+    const cost = c.corp ? `${c.unit} ${t('sar')}/${isEn() ? 'parcel' : 'طرد'} (${num(c.tot)} ${t('sar')})` : `${c.unit} ${t('sar')}`;
+    const wt = c.wait === 0.5 ? t('immed') : `${num(c.wait)} ${t('h')} ${t('wait')}`;
+    return `<div class="cc" tabindex="0" onclick="goTrack(${i})" onkeydown="if(event.key==='Enter')goTrack(${i})">
+      <div class="ch"><b>${ic('truck')} ${c.n[lang]}</b><span class="dep">${c.dep}</span></div>
+      ${t('cost')}: <b style="color:var(--teal-d)">${cost}</b> | <span style="color:var(--amber)">${ic('star', 'fill')}</span> ${c.rt}<br>
+      ${t('totalT')}: <b>${num(c.rh)} ${t('h')} ${t('road')} + ${wt} = ${num(c.te)} ${t('hrs')} ${t('total2')}</b>
+      <div class="rp">${ch} | ${t('truckOcc')}: <b>${c.after}%</b><div class="bar" style="margin-top:6px"><i class="${c.after >= 95 ? 'f' : ''}" style="width:${c.after}%"></i></div></div>
+    </div>`;
+  }).join('');
+}
+
+function goTrack(ci) {
+  ship.cIdx = ci;
+  const s = ship, c = cour[ci], legs = s.route.legs, hw = HW[s.route.hw], bn = `${t('b' + s.bi)} (${city(s.from)})`;
+  let run = 0;
+  const items = legs.map((l, i) => {
+    if (i === 0) return `<li class="start"><span class="th">${t('hour0')}</span><b>${city(l.c)}</b><small>${bn} — ${c.dep}</small></li>`;
+    const h = Math.max(1, Math.round(l.add * c.sf * 2) / 2);
+    run = Math.round((run + h) * 2) / 2;
+    const tag = `+${num(h)} ${t('h')} (${num(l.km)} ${t('km')}) | ${t('cum')}: ${num(run)} ${t('hrs')}`;
+    if (i === legs.length - 1) return `<li class="end"><span class="th">${tag}</span><b>${city(l.c)}</b><small>${s.svc === 'd2d' ? t('n_endD') : t('n_endH')}</small></li>`;
+    return `<li><span class="th">${tag}</span><b>${t('stopAt')} ${city(l.c)}</b><small>${t('n_stop')}</small></li>`;
+  }).join('');
+  const d = city(s.to), d2 = s.svc === 'd2d';
+  const opts = d2 ? [t('hD0'), t('hD1')] : [t('hN') + ' (' + d + ')', t('hM') + ' (' + d + ')', t('hS') + ' (' + d + ')'];
+  const cost = c.corp ? `${c.unit} ${t('sar')}/${isEn() ? 'parcel' : 'طرد'} (${num(c.tot)} ${t('sar')})` : `${c.unit} ${t('sar')}`;
+
+  $('trackBox').innerHTML = `
+    ${t('shipId')}: <b>${s.id}</b> | ${t('carrier')}: <b>${c.n[lang]}</b><br>
+    ${t('appr')}: <b style="color:var(--teal-d)">${cost}</b>
+    <div class="parties-summary">
+      <div>${ic('user')} <b>${t('senderLbl')}:</b> ${s.senderName} (<span dir="ltr">${s.senderPhone}</span>)</div>
+      <div>${ic('flag')} <b>${t('receiverLbl')}:</b> ${s.receiverName} (<span dir="ltr">${s.receiverPhone}</span>)</div>
+    </div>
+    ${t('hwL')}: <b>${hw.code[lang]}</b> — ${hw.name[lang]}<br>
+    ${t('depL')}: <b style="color:var(--amber)">${bn} — ${c.dep}</b>
+    <div class="hub">
+      <label for="hubSel">${d2 ? t('hubFinal', { c: d }) : t('hubPick', { c: d })}</label>
+      <select id="hubSel" onchange="hubNote()">${opts.map((o, i) => `<option value="${i}">${o}</option>`).join('')}</select>
+      <div class="ok" id="hubMsg">${ic('check')} ${d2 ? t('hOkD', { h: num(run) }) : t('hOkH', { c: d, h: num(run) })}</div>
+    </div>
+    <div class="lb" style="margin-top:16px">${ic('route')} ${t('schedL')}</div>
+    <ol class="tl">${items}</ol>
+  `;
+  goStep(5);
+}
+function hubNote() {
+  const sel = $('hubSel');
+  $('hubMsg').innerHTML = ic('check') + ' ' + t('hConf') + sel.options[sel.selectedIndex].text;
+}
+
+/* ---------- التقييمات ---------- */
+function drawStars() {
+  $('stars').innerHTML = [1, 2, 3, 4, 5].map(n => `<button type="button" class="sb ${n <= stars ? 'on' : ''}" onclick="setStars(${n})" aria-label="${n}">${ic('star', 'fill')}</button>`).join('');
+}
+function setStars(n) { stars = n; drawStars(); }
+function renderReviews() {
+  const all = [...userReviews, ...REVIEWS];
+  $('avg').textContent = '4.9 / 5.0 (' + t('rvCount', { n: num(126 + all.length) }) + ')';
+  $('reviews').innerHTML = all.map(r => {
+    const nm = typeof r.n === 'string' ? r.n : r.n[lang], cm = typeof r.c === 'string' ? r.c : r.c[lang];
+    return `<div class="rc"><div class="rt"><span>${nm}</span><span class="s">${Array.from({ length: r.s }, () => ic('star', 'fill')).join('')}</span></div>
+      <div class="rr">${city(r.f)} ${isEn() ? '→' : '←'} ${city(r.to)} (${HW[hwOf(r.f, r.to)].code[lang]})</div><div>${cm}</div></div>`;
+  }).join('');
+}
+function submitReview() {
+  const n = $('rvName').value.trim() || uname || $('senderName').value.trim() || t('nameDef');
+  const c = $('rvText').value.trim() || t('cmtDef');
+  userReviews.unshift({ n, c, s: stars, f: $('from').value, to: $('to').value });
+  $('rvName').value = '';
+  $('rvText').value = '';
+  saveLocalData();
+  renderReviews();
+}
+
+/* ---------- التشغيل الأولي ---------- */
+window.addEventListener('DOMContentLoaded', () => {
+  applyText();
+  buildSelects();
+  loadLocalData();
+  selectClient(ctype);
+  selectSvc(svc);
+  authTab(role);
+  drawStars();
+  recalcB2B();
+  onRoute();
+  renderReviews();
+});
 </script>
 </body>
 </html>

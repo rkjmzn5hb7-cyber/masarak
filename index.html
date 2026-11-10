@@ -314,7 +314,9 @@ function draw(){
  ${U?`<span class="pill">${ic(U.role==='corporate'?'bldg':U.role==='traveler'?'car':'user')} ${esc(U.name)} — ${t('r_'+U.role)}</span><button class="pill" onclick="logout()">${t('out')}</button>`:''}</div></div>`;
  $('root').innerHTML=nav+(U?appView():authView());
 }
-draw();
+window.addEventListener('DOMContentLoaded', () => {
+    draw();
+});
 </script>
 </body>
 </html>

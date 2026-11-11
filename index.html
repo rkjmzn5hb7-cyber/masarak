@@ -68,7 +68,10 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--teal);bo
 .vb{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--green);background:var(--greenbg);padding:2px 10px;border-radius:99px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 .fade{animation:in .3s ease-out}@keyframes in{from{opacity:0;transform:translateY(8px)}}
- @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+@keyframes splashDrop { to { transform: translateY(0); } }
+@keyframes contentPop { 0% { opacity: 0; transform: translateY(20px) scale(0.9); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes pulseLogo { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
 </style>
 </head>
 <body>
@@ -430,20 +433,13 @@ function showSplash(role) {
         'guest': lang === 'en' ? 'Masarak Smart' : 'مسارك الذكية'
     };
     
-    // استخدمنا اللوجو الرسمي للمسار (route) وأعطيناه كلاس logo عشان ياخذ نفس تنسيق الشعار فوق
     const logoHtml = `<div class="logo" style="width:70px;height:70px;border-radius:18px;">${ic('route')}</div>`;
 
     const div = document.createElement('div');
     
-    // إصلاح العرض ليتناسب مع الجوال واللابتوب بشكل سليم 100%
-    div.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;background:linear-gradient(135deg, var(--ink), var(--teald));color:#fff;z-index:99999;display:flex;align-items:center;justify-content:center;opacity:1;transition:opacity 0.4s ease; transform: translateY(-100%); animation: splashDrop 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;';
+    div.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;background:linear-gradient(135deg, var(--ink), var(--teald));color:#fff;z-index:999999;display:flex;align-items:center;justify-content:center;opacity:1;transition:opacity 0.4s ease; transform: translateY(-100%); animation: splashDrop 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;';
 
     div.innerHTML = `
-        <style>
-            @keyframes splashDrop { to { transform: translateY(0); } }
-            @keyframes contentPop { 0% { opacity: 0; transform: translateY(20px) scale(0.9); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
-            @keyframes pulseLogo { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
-        </style>
         <div style="opacity:0; animation: contentPop 0.5s ease 0.5s forwards; display:flex; flex-direction:column; align-items:center; gap:18px;">
             <div style="animation:pulseLogo 1.5s infinite 1s">${logoHtml}</div>
             <div style="font-size:32px;font-weight:bold;letter-spacing:1px;">${msgs[role]||'مسارك الذكية'}</div>
@@ -470,7 +466,6 @@ function showSplash(role) {
         });
     }, 800);
 }
-
  function draw(){
  const r=$('htmlRoot');r.lang=lang;r.dir=lang==='en'?'ltr':'rtl';document.title=t('brand')+' | Masarak';
  const nav=`<div class="nav"><div class="brand"><div class="logo">${ic('route')}</div>${t('brand')}</div><div class="acts">

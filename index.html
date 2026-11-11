@@ -222,6 +222,16 @@ function logout(){U=null;DB.set('user',null);msg='';draw()}
     alert(msg2);
   }, 1200);
 }
+ function simulateTrunkAI() {
+  const msg1 = lang === 'en' ? "Accessing camera to scan trunk volume..." : "جاري فتح الكاميرا لمسح أبعاد الصندوق الخلفي للسيارة...";
+  const msg2 = lang === 'en' ? "Trunk capacity estimated: 140x90x60 cm (~80kg)" : "تم تقدير السعة الاستيعابية: 140x90x60 سم (تتحمل 80 كجم تقريباً)";
+  alert(msg1);
+  setTimeout(() => {
+    const inp = document.getElementById('aiSpace');
+    if(inp) { inp.value = "140x90x60 سم (80 كجم)"; TF.space = "140x90x60 سم (80 كجم)"; }
+    alert(msg2);
+  }, 1200);
+}
 function shipView(){
  if(stage===3)return wbView(cur);
  const km=dist(F.from,F.to),h=road(km),hw=HWN[hwIdx(F.from,F.to)][lang==='en'?1:0];
@@ -308,13 +318,31 @@ function postView(){
  const mine=trips.filter(x=>x.phone===U.phone);
  return `<div class="sb"><h3>${t('tripT')}</h3><p class="sub" style="margin-bottom:12px">${t('tripS')}</p>
  <div class="cities">${cityPick(TF,'TF','from',t('from'))}<button class="swap" aria-label="swap" onclick="const x=TF.from;TF.from=TF.to;TF.to=x;draw()">${ic('swap')}</button>${cityPick(TF,'TF','to',t('to'))}</div>
- <div class="g2"><div class="fg"><label>${t('space')}</label><select onchange="TF.space=this.value">${[10,20,30,50,100].map(k=>`<option value="${k}" ${TF.space==k?'selected':''}>${k} ${lang==='en'?'kg':'كجم'}</option>`).join('')}</select></div>
- <div class="fg"><label>${t('depIn')}</label><select onchange="TF.dep=this.value">${[[1,'in1'],[3,'in3'],[6,'in6'],[24,'in24']].map(o=>`<option value="${o[0]}" ${TF.dep==o[0]?'selected':''}>${t(o[1])}</option>`).join('')}</select></div></div>
+<div class="g2">
+  <div class="fg">
+    <label>${lang==='en'?'Available Space (AI Camera)':'مساحة الصندوق (كاميرا ذكية)'}</label>
+    <div style="display:flex;gap:8px">
+      <input type="text" id="aiSpace" placeholder="مثال: 120x90 سم" value="${TF.space||''}" oninput="TF.space=this.value" style="flex:1">
+      <button class="btn dk sm" onclick="simulateTrunkAI()" style="width:auto">📷</button>
+    </div>
+  </div>
+  <div class="fg"><label>${t('depIn')}</label><select onchange="TF.dep=this.value">${[[1,'in1'],[3,'in3'],[6,'in6'],[24,'in24']].map(o=>`<option value="${o[0]}" ${TF.dep==o[0]?'selected':''}>${t(o[1])}</option>`).join('')}</select></div>
+</div>
+<div class="fg" style="margin-bottom:14px">
+  <label>${lang==='en'?'Accepted Delivery Service':'نوع خدمة التوصيل المدعومة لرحلتك'}</label>
+  <select onchange="TF.svc=this.value">
+    <option value="hub" ${TF.svc==='hub'?'selected':''}>${t('s_hub')} (أسرع، لا يتطلب تفرغك للحواري)</option>
+    <option value="d2b" ${TF.svc==='d2b'?'selected':''}>من الباب إلى فرع الوجهة</option>
+    <option value="d2d" ${TF.svc==='d2d'?'selected':''}>${t('s_d2d')} (يتطلب وقت أطول، بعلاوة مالية مجزية)</option>
+  </select>
+</div>
  <div class="msg o ${msg?'show':''}">${msg}</div><button class="btn" onclick="postTrip()">${ic('check')} ${t('postBtn')}</button></div>
  <h3>${t('myTrips')}</h3>${mine.length?mine.map(x=>`<div class="row"><div>${ic('car')} <b>${esc(city(x.from))} ${lang==='en'?'→':'←'} ${esc(city(x.to))}</b><br><small style="color:var(--mut)">${t('dep')} ${Math.max(0,Math.round((x.ts-Date.now())/36e5))} ${t('h')} | ${t('left')}: ${x.left}/${x.space} kg</small></div><span class="vb">${ic('shield')} ${t('idv')}</span></div>`).join(''):`<div class="hint">${t('noTrips')}</div>`}`}
 function postTrip(){
  if(TF.from===TF.to)return;
- trips.push({id:'T-'+Date.now().toString().slice(-6),name:U.name,phone:U.phone,from:TF.from,to:TF.to,space:+TF.space,left:+TF.space,ts:Date.now()+(+TF.dep)*36e5,veh:U.veh||'v_sedan',rating:5.0,verified:true});
+ // استخراج الرقم من النص المكتوب عشان المطابقة، وإذا ما لقى رقم يعتبرها 50 كجم افتراضياً
+ let cap = parseInt(String(TF.space).match(/\d+/)) || 50; 
+ trips.push({id:'T-'+Date.now().toString().slice(-6),name:U.name,phone:U.phone,from:TF.from,to:TF.to,space:cap,left:cap,volText:TF.space,svc:TF.svc||'hub',ts:Date.now()+(+TF.dep)*36e5,veh:U.veh||'v_sedan',rating:5.0,verified:true});
  save();msg=t('posted');draw();msg=''}
 function boardList(){const my=trips.filter(x=>x.phone===U.phone);return parcels.filter(p=>p.status==='pending'&&my.some(x=>x.left>=p.kg&&covers(x,p.from,p.to)))}
 function boardView(){const l=boardList();return `<h3>${t('boardT')}</h3>`+(l.length?l.map(p=>`<div class="row"><div><b>${esc(city(p.from))} ${lang==='en'?'→':'←'} ${esc(city(p.to))}</b> | ${p.kg} ${lang==='en'?'kg':'كجم'}<br><small style="color:var(--mut)">${p.id} | ${esc(p.rname)}</small></div><div><span class="price">${num(Math.round(p.price*.85))} ${t('sar')}</span> <button class="btn sm ok" onclick="acceptP('${p.id}')">${t('accept')}</button></div></div>`).join(''):`<div class="hint">${t('noBoard')}</div>`)}

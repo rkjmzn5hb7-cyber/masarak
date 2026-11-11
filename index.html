@@ -72,6 +72,11 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--teal);bo
 @keyframes splashDrop { to { transform: translateY(0); } }
 @keyframes contentPop { 0% { opacity: 0; transform: translateY(20px) scale(0.9); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
 @keyframes pulseLogo { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+ /* النمط الداكن */
+body.dark { --bg: #0b1121; --sec: #151e2e; --line: #2a3b52; --ink: #f8fafc; --ink2: #cbd5e1; --mut: #94a3b8; --tealbg: #0a2428; --greenbg: #0a2416; --ambbg: #302008; }
+body.dark .card, body.dark .sb, body.dark .role, body.dark .offer, body.dark .row, body.dark .wb, body.dark input, body.dark select, body.dark textarea, body.dark .swap, body.dark .tab { background: #151e2e; color: var(--ink); border-color: var(--line); }
+body.dark input, body.dark select, body.dark textarea { background: #0b1121; }
+body.dark .nav { background: #151e2e; border: 1px solid var(--line); }
 </style>
 </head>
 <body>
@@ -417,9 +422,16 @@ function printWB(list){
  w.document.write(`<!DOCTYPE html><html lang="${lang}" dir="${lang==='en'?'ltr':'rtl'}"><head><meta charset="UTF-8"><title>Waybills</title><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet"><style>*{box-sizing:border-box}body{font-family:'IBM Plex Sans Arabic',Tahoma,sans-serif;margin:0;padding:18px;color:#0b1f3a}.wb{border:2px solid #0b1f3a;border-radius:14px;padding:16px;margin-bottom:18px;page-break-inside:avoid}.wbh{display:flex;justify-content:space-between;border-bottom:2px solid #0b1f3a;padding-bottom:8px;margin-bottom:10px}.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.bc{text-align:center;border:1.5px dashed #16355c;border-radius:10px;padding:10px;margin-top:10px}.bc svg{max-width:100%;height:54px}.bc div{font-family:monospace;font-weight:700;letter-spacing:2px}.tg,.i{display:none}</style></head><body>${list.map(p=>wbView(p,true)).join('')}<script>onload=()=>setTimeout(()=>print(),400)<\/script></body></html>`);w.document.close()}
 
 /* ---------- Shell ---------- */
- function toggleLang() { 
-  lang = lang === 'ar' ? 'en' : 'ar'; 
-  draw(); 
+function toggleLang() { 
+    lang = lang === 'ar' ? 'en' : 'ar'; 
+    draw(); 
+}
+
+let isDark = DB.get('dark', false);
+function toggleDark() { 
+    isDark = !isDark; 
+    DB.set('dark', isDark); 
+    draw(); 
 }
 function appView(){
  const tb=tabsFor(U.role),m={ship:()=>shipView(),mine:mineView,bulk:bulkView,bill:billView,post:postView,board:boardView,earn:earnView};
@@ -468,7 +480,9 @@ function showSplash(role) {
 }
  function draw(){
  const r=$('htmlRoot');r.lang=lang;r.dir=lang==='en'?'ltr':'rtl';document.title=t('brand')+' | Masarak';
+ if(isDark) document.body.classList.add('dark'); else document.body.classList.remove('dark');
  const nav=`<div class="nav"><div class="brand"><div class="logo">${ic('route')}</div>${t('brand')}</div><div class="acts">
+ <button class="pill" style="font-size:15px;padding:4px 10px" onclick="toggleDark()">${isDark?'☀️':'🌙'}</button>
  <button class="pill" onclick="toggleLang()">${ic('globe')} ${t('lg')}</button>
  ${U?`<span class="pill">${ic(U.role==='corporate'?'bldg':U.role==='traveler'?'car':'user')} ${esc(U.name)} — ${t('r_'+U.role)}</span><button class="pill" onclick="logout()">${t('out')}</button>`:''}</div></div>`;
  $('root').innerHTML=nav+(U?appView():authView());

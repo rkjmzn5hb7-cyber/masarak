@@ -233,7 +233,7 @@ function shipView(){
   <div style="font-size:13px;color:var(--mut);margin-top:6px">${t('dep')}: <b>${o.wait?num(o.wait)+' '+t('h'):t('now')}</b> | ${t('eta')}: <b>${num(o.hrs)} ${t('hr')}</b> ${o.type==='car'?'('+t('loadWait')+')':''}${o.trip?` | ${ic('star','f')} ${o.trip.rating} | ${t(o.trip.veh)}`:''}</div></div>`).join('')}
   <div class="msg e ${msg?'show':''}">${msg}</div><button class="btn sec" onclick="stage=1;msg='';draw()">${t('back')}</button></div>`;
  return `<div class="sb"><div class="cities">${cityPick(F,'F','from',t('from'))}<button class="swap" aria-label="swap" onclick="const x=F.from;F.from=F.to;F.to=x;draw()">${ic('swap')}</button>${cityPick(F,'F','to',t('to'))}</div>${dash}
- <div class="g2"><div class="fg"><label>${t('kg')}</label><input type="number" placeholder="مثال: 5" value="${F.kg||''}" oninput="F.kg=this.value"></div>
+ <div class="g2"><div class="fg"><label>${t('kg')}</label><input type="number" min="0" placeholder="مثال: 5" value="${F.kg||''}" oninput="this.value=Math.abs(this.value); F.kg=this.value"></div>
 <div class="fg">
   <label>${lang==='en'?'AI Volumetric Size':'حجم الطرد (ذكاء اصطناعي)'}</label>
   <div style="display:flex;gap:8px">

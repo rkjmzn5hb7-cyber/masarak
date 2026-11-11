@@ -199,11 +199,24 @@ function doLogin(){
 function logout(){U=null;DB.set('user',null);msg='';draw()}
 
 /* ---------- Shipper: ship flow ---------- */
+ const getNodes = (f, t2) => {
+  let r = [f, t2];
+  CORR.forEach(a => {
+    let i = a.indexOf(f), j = a.indexOf(t2);
+    if (i >= 0 && j >= 0 && i !== j) {
+      r = []; let s = i < j ? 1 : -1;
+      for (let k = i; k !== j + s; k += s) r.push(a[k]);
+    }
+  });
+  // إذا كانت المدن أكثر من 5، نختصرها بنقاط (...) عشان ما يتشوه التصميم في شاشة الجوال
+  if (r.length > 5) r = [r[0], r[1], '...', r[r.length-2], r[r.length-1]];
+  return r.map((c, idx, arr) => `<span style="font-size:11.5px;text-align:center;line-height:1.2">${esc(c === '...' ? '...' : city(c))}</span>${idx < arr.length - 1 ? '<i></i>' : ''}`).join('');
+};
 function shipView(){
  if(stage===3)return wbView(cur);
  const km=dist(F.from,F.to),h=road(km),hw=HWN[hwIdx(F.from,F.to)][lang==='en'?1:0];
  const dash=`<div class="dash"><div style="font-weight:700">${ic('truck')} ${esc(city(F.from))} ${lang==='en'?'→':'←'} ${esc(city(F.to))}</div>
- <div class="kp"><div><b>${num(km)}</b><span>${t('dist')} (${t('km')})</span></div><div><b>${num(h)}</b><span>${t('time')} (${t('hr')})</span></div><div><b><span class="hwc" style="margin:0">${hw}</span></b><span>${t('hw')}</span></div></div><div class="track"><span>${esc(city(F.from))}</span><i></i><span>${esc(city(F.to))}</span></div></div>`;
+ <div class="kp"><div><b>${num(km)}</b><span>${t('dist')} (${t('km')})</span></div><div><b>${num(h)}</b><span>${t('time')} (${t('hr')})</span></div><div><b><span class="hwc" style="margin:0">${hw}</span></b><span>${t('hw')}</span></div></div><div class="track">${getNodes(F.from, F.to)}</div></div>`;
  if(stage===2)return `<div class="sb">${dash}<h3>${t('offers')}</h3>${offers.some(o=>o.type==='trv')?'':`<div class="hint">${t('noTrip')}</div>`}
   ${offers.map((o,i)=>`<div class="offer ${o.type==='trv'?'trv':''}" tabindex="0" onclick="chooseOffer(${i})"><div class="oh"><b>${ic(o.type==='trv'?'car':'truck')} ${o.name}</b><span class="price">${num(o.price)} ${t('sar')}</span></div>
   <div>${o.type==='trv'?`<span class="tg g">${ic('shield')} ${t('trvName')}</span><span class="tg t">${t('match')}</span>`:''}${o.fast?`<span class="tg a">${t('fast')}</span>`:''}${o.cheap?`<span class="tg a">${t('cheap')}</span>`:''}</div>
@@ -216,12 +229,44 @@ function shipView(){
  <div class="msg e ${msg?'show':''}">${msg}</div><button class="btn" onclick="findOffers()">${t('find')}${ic('arrow','arr')}</button></div>`}
 function findOffers(){
  if(!F.rname.trim()||!/^05\d{8}$/.test(F.rphone.trim())){msg=t('errReq');draw();return}
- msg='';const km=dist(F.from,F.to),rh=road(km),base=Math.round(18+km*.035)*(U.role==='corporate'?.8:1),kgm=1+(+F.kg>5?.25:0);
- const sv={hub:.95,d2d:1.25,d2b:1,b2b:.85}[F.svc];
+ msg='';
+ 
+ // 1. حساب عدد المحطات البينية لمعرفة حجم التحميل والتنزيل
+ const km=dist(F.from,F.to);
+ let path = [];
+ CORR.forEach(a => {
+   let i = a.indexOf(F.from), j = a.indexOf(F.to);
+   if(i>=0 && j>=0 && i!==j) {
+     let s = i<j ? 1 : -1;
+     for(let k=i; k!==j+s; k+=s) path.push(a[k]);
+   }
+ });
+ // نحذف نقطة الانطلاق والوجهة عشان تصفى لنا المحطات اللي في النص بس
+ let stops = Math.max(0, path.length - 2); 
+ 
+ // 2. الزمن الكلي = وقت الطريق + (نصف ساعة لكل محطة يتوقف فيها للتحميل)
+ const rh = road(km) + (stops * 0.5); 
+ 
+ // 3. رفع معامل التسعير لخدمة "من الباب للباب" (d2d صارت 1.6 بدل 1.25)
+ const base=Math.round(18+km*.035)*(U.role==='corporate'?.8:1),kgm=1+(+F.kg>5?.25:0);
+ const sv={hub:.95,d2d:1.6,d2b:1.1,b2b:.85}[F.svc];
+ 
  let L=[[t('car'),1.3,1,5],[t('car2'),1.1,1.15,7],[t('car3'),.9,1.3,9]].map(c=>({type:'car',name:c[0],price:Math.round(base*c[1]*kgm*sv),wait:c[3],hrs:Math.round((rh*c[2]+c[3])*2)/2}));
  const cheapest=Math.min(...L.map(o=>o.price));
+ 
  trips.filter(x=>x.left>=+F.kg&&x.ts>Date.now()-36e5&&covers(x,F.from,F.to)).forEach(x=>{
-  const w=Math.max(0,Math.round((x.ts-Date.now())/36e5*2)/2);L.push({type:'trv',name:`${esc(x.name)}`,price:Math.max(12,Math.round(cheapest*.6)),wait:w,hrs:Math.round((km/90+w)*2)/2,trip:x})});
+  const w=Math.max(0,Math.round((x.ts-Date.now())/36e5*2)/2);
+  
+  // 4. تسعير المسافر الذكي (تطبيق فكرتك)
+  let trvPrice = Math.max(12, Math.round(cheapest*.55)); // السعر الأساسي الرخيص لنقاط الاستلام
+  
+  // إذا اختار العميل "من الباب للباب" نضيف 45 ريال فورية كعلاوة توصيل للمسافر عشان زحمة الأحياء
+  if(F.svc === 'd2d') {
+      trvPrice += 45; 
+  }
+  
+  L.push({type:'trv',name:`${esc(x.name)}`,price:trvPrice,wait:w,hrs:Math.round((km/90+w)*2)/2,trip:x})});
+  
  const mh=Math.min(...L.map(o=>o.hrs)),mp=Math.min(...L.map(o=>o.price));
  L.forEach(o=>{o.fast=o.hrs===mh;o.cheap=o.price===mp});L.sort((a,b)=>(a.type==='trv'?0:1)-(b.type==='trv'?0:1)||a.hrs-b.hrs);
  offers=L;stage=2;draw()}

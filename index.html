@@ -12,6 +12,13 @@
 *{box-sizing:border-box}
 body{margin:0;padding:18px 14px 40px;background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif;line-height:1.7;font-size:14.5px}
 body>*{max-width:900px;margin-inline:auto}
+
+/* الوضع الداكن */
+body.dark { --bg: #0b1121; --sec: #151e2e; --line: #2a3b52; --ink: #f8fafc; --ink2: #cbd5e1; --mut: #94a3b8; --tealbg: #0a2428; --greenbg: #0a2416; --ambbg: #302008; }
+body.dark .card, body.dark .sb, body.dark .role, body.dark .offer, body.dark .row, body.dark .wb, body.dark input, body.dark select, body.dark textarea, body.dark .swap, body.dark .tab { background: #151e2e; color: var(--ink); border-color: var(--line); }
+body.dark input, body.dark select, body.dark textarea { background: #0b1121; }
+body.dark .nav { background: #151e2e; border: 1px solid var(--line); }
+
 .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-3px}
 .i.f{fill:currentColor;stroke:none}[dir=rtl] .arr{transform:scaleX(-1)}
 button{font-family:inherit;cursor:pointer}:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
@@ -50,6 +57,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--teal);bo
 .offer{border:1.5px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px;cursor:pointer;background:#fff;transition:.18s}
 .offer:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:0 8px 20px rgba(14,124,134,.14)}
 .offer.trv{border-color:var(--green);background:linear-gradient(180deg,var(--greenbg),#fff 60%)}
+body.dark .offer.trv { background: linear-gradient(180deg, var(--greenbg), #151e2e 60%); }
 .oh{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:6px}
 .tg{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:99px;background:var(--bg);color:var(--mut);margin-inline-end:4px}
 .tg.g{background:var(--green);color:#fff}.tg.a{background:var(--ambbg);color:#8a5200}.tg.t{background:var(--tealbg);color:var(--teald)}.tg.r{background:#fee2e2;color:var(--red)}
@@ -68,15 +76,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--teal);bo
 .vb{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--green);background:var(--greenbg);padding:2px 10px;border-radius:99px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 .fade{animation:in .3s ease-out}@keyframes in{from{opacity:0;transform:translateY(8px)}}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
-@keyframes splashDrop { to { transform: translateY(0); } }
-@keyframes contentPop { 0% { opacity: 0; transform: translateY(20px) scale(0.9); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes splashDrop { from { transform: translateY(-100%); } to { transform: translateY(0); } }
 @keyframes pulseLogo { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
- /* النمط الداكن */
-body.dark { --bg: #0b1121; --sec: #151e2e; --line: #2a3b52; --ink: #f8fafc; --ink2: #cbd5e1; --mut: #94a3b8; --tealbg: #0a2428; --greenbg: #0a2416; --ambbg: #302008; }
-body.dark .card, body.dark .sb, body.dark .role, body.dark .offer, body.dark .row, body.dark .wb, body.dark input, body.dark select, body.dark textarea, body.dark .swap, body.dark .tab { background: #151e2e; color: var(--ink); border-color: var(--line); }
-body.dark input, body.dark select, body.dark textarea { background: #0b1121; }
-body.dark .nav { background: #151e2e; border: 1px solid var(--line); }
 </style>
 </head>
 <body>
@@ -162,7 +163,7 @@ const HWN=[['طريق 5 (الساحل)','Highway 5 (Coastal)'],['طريق 10 / 3
 function dist(a,b){const g=CM[a],h=CM[b],r=Math.PI/180,dl=(h.lat-g.lat)*r,dn=(h.lon-g.lon)*r,x=Math.sin(dl/2)**2+Math.cos(g.lat*r)*Math.cos(h.lat*r)*Math.sin(dn/2)**2;return Math.max(25,Math.round(6371*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x))*1.28))}
 const hwIdx=(f,t2)=>{const i=CORR.findIndex(a=>a.includes(f)&&a.includes(t2));return i<0?4:i};
 const road=km=>Math.max(1.5,Math.round(km/85*2)/2);
-/* matching engine: trip covers parcel segment in the same direction on a shared corridor */
+
 function covers(trip,f,t2){
  if(trip.from===f&&trip.to===t2)return true;
  return CORR.some(a=>{const i=a.indexOf(trip.from),j=a.indexOf(trip.to),p=a.indexOf(f),q=a.indexOf(t2);
@@ -230,7 +231,6 @@ function logout(){U=null;DB.set('user',null);msg='';draw()}
       for (let k = i; k !== j + s; k += s) r.push(a[k]);
     }
   });
-  // إذا كانت المدن أكثر من 5، نختصرها بنقاط (...) عشان ما يتشوه التصميم في شاشة الجوال
   if (r.length > 5) r = [r[0], r[1], '...', r[r.length-2], r[r.length-1]];
   return r.map((c, idx, arr) => `<span style="font-size:11.5px;text-align:center;line-height:1.2">${esc(c === '...' ? '...' : city(c))}</span>${idx < arr.length - 1 ? '<i></i>' : ''}`).join('');
 };
@@ -280,7 +280,6 @@ function findOffers(){
  if(!F.rname.trim()||!/^05\d{8}$/.test(F.rphone.trim())){msg=t('errReq');draw();return}
  msg='';
  
- // 1. حساب عدد المحطات البينية لمعرفة حجم التحميل والتنزيل
  const km=dist(F.from,F.to);
  let path = [];
  CORR.forEach(a => {
@@ -290,13 +289,8 @@ function findOffers(){
      for(let k=i; k!==j+s; k+=s) path.push(a[k]);
    }
  });
- // نحذف نقطة الانطلاق والوجهة عشان تصفى لنا المحطات اللي في النص بس
  let stops = Math.max(0, path.length - 2); 
- 
- // 2. الزمن الكلي = وقت الطريق + (نصف ساعة لكل محطة يتوقف فيها للتحميل)
  const rh = road(km) + (stops * 0.5); 
- 
- // 3. رفع معامل التسعير لخدمة "من الباب للباب" (d2d صارت 1.6 بدل 1.25)
  const base=Math.round(18+km*.035)*(U.role==='corporate'?.8:1),kgm=1+(+F.kg>5?.25:0);
  const sv={hub:.95,d2d:1.6,d2b:1.1,b2b:.85}[F.svc];
  
@@ -305,15 +299,8 @@ function findOffers(){
  
  trips.filter(x=>x.left>=+F.kg&&x.ts>Date.now()-36e5&&covers(x,F.from,F.to)).forEach(x=>{
   const w=Math.max(0,Math.round((x.ts-Date.now())/36e5*2)/2);
-  
-  // 4. تسعير المسافر الذكي (تطبيق فكرتك)
-  let trvPrice = Math.max(12, Math.round(cheapest*.55)); // السعر الأساسي الرخيص لنقاط الاستلام
-  
-  // إذا اختار العميل "من الباب للباب" نضيف 45 ريال فورية كعلاوة توصيل للمسافر عشان زحمة الأحياء
-  if(F.svc === 'd2d') {
-      trvPrice += 45; 
-  }
-  
+  let trvPrice = Math.max(12, Math.round(cheapest*.55));
+  if(F.svc === 'd2d') { trvPrice += 45; }
   L.push({type:'trv',name:`${esc(x.name)}`,price:trvPrice,wait:w,hrs:Math.round((km/90+w)*2)/2,trip:x})});
   
  const mh=Math.min(...L.map(o=>o.hrs)),mp=Math.min(...L.map(o=>o.price));
@@ -362,13 +349,12 @@ function postView(){
  <h3>${t('myTrips')}</h3>${mine.length?mine.map(x=>`<div class="row"><div>${ic('car')} <b>${esc(city(x.from))} ${lang==='en'?'→':'←'} ${esc(city(x.to))}</b><br><small style="color:var(--mut)">${t('dep')} ${Math.max(0,Math.round((x.ts-Date.now())/36e5))} ${t('h')} | ${t('left')}: ${x.left}/${x.space} kg</small></div><span class="vb">${ic('shield')} ${t('idv')}</span></div>`).join(''):`<div class="hint">${t('noTrips')}</div>`}`}
 function postTrip(){
  if(TF.from===TF.to)return;
- // استخراج الرقم من النص المكتوب عشان المطابقة، وإذا ما لقى رقم يعتبرها 50 كجم افتراضياً
  let cap = parseInt(String(TF.space).match(/\d+/)) || 50; 
  trips.push({id:'T-'+Date.now().toString().slice(-6),name:U.name,phone:U.phone,from:TF.from,to:TF.to,space:cap,left:cap,volText:TF.space,svc:TF.svc||'hub',ts:Date.now()+(+TF.dep)*36e5,veh:U.veh||'v_sedan',rating:5.0,verified:true});
  save();msg=t('posted');draw();msg=''}
 function boardList(){const my=trips.filter(x=>x.phone===U.phone);return parcels.filter(p=>p.status==='pending'&&my.some(x=>x.left>=p.kg&&covers(x,p.from,p.to)))}
 function boardView(){const l=boardList();return `<h3>${t('boardT')}</h3>`+(l.length?l.map(p=>`<div class="row"><div><b>${esc(city(p.from))} ${lang==='en'?'→':'←'} ${esc(city(p.to))}</b> | ${p.kg} ${lang==='en'?'kg':'كجم'}<br><small style="color:var(--mut)">${p.id} | ${esc(p.rname)}</small></div><div><span class="price">${num(Math.round(p.price*.85))} ${t('sar')}</span> <button class="btn sm ok" onclick="verifyFaceAndAccept('${p.id}')">${t('accept')}</button></div></div>`).join(''):`<div class="hint">${t('noBoard')}</div>`)}
-//محاكاة بصمه الوجة
+
  function verifyFaceAndAccept(id) {
   const msg1 = lang === 'en' ? "Initializing Face ID / Nafath verification..." : "🔒 التحقق الأمني: جاري فتح الكاميرا لمطابقة بصمة الوجه مع الهوية الوطنية (نفاذ)...";
   const msg2 = lang === 'en' ? "Face verified successfully! Parcel assigned to you." : "✅ تمت المطابقة بنجاح! تم ربط عهدة الطرد بحسابك الموثق.";
@@ -421,22 +407,7 @@ function printWB(list){
  const w=window.open('','_blank','width=840,height=900');if(!w)return window.print();
  w.document.write(`<!DOCTYPE html><html lang="${lang}" dir="${lang==='en'?'ltr':'rtl'}"><head><meta charset="UTF-8"><title>Waybills</title><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet"><style>*{box-sizing:border-box}body{font-family:'IBM Plex Sans Arabic',Tahoma,sans-serif;margin:0;padding:18px;color:#0b1f3a}.wb{border:2px solid #0b1f3a;border-radius:14px;padding:16px;margin-bottom:18px;page-break-inside:avoid}.wbh{display:flex;justify-content:space-between;border-bottom:2px solid #0b1f3a;padding-bottom:8px;margin-bottom:10px}.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.bc{text-align:center;border:1.5px dashed #16355c;border-radius:10px;padding:10px;margin-top:10px}.bc svg{max-width:100%;height:54px}.bc div{font-family:monospace;font-weight:700;letter-spacing:2px}.tg,.i{display:none}</style></head><body>${list.map(p=>wbView(p,true)).join('')}<script>onload=()=>setTimeout(()=>print(),400)<\/script></body></html>`);w.document.close()}
 
-/* ---------- Shell ---------- */
-function toggleLang() { 
-    lang = lang === 'ar' ? 'en' : 'ar'; 
-    draw(); 
-}
-
-let isDark = DB.get('dark', false);
-function toggleDark() { 
-    isDark = !isDark; 
-    DB.set('dark', isDark); 
-    draw(); 
-}
-function appView(){
- const tb=tabsFor(U.role),m={ship:()=>shipView(),mine:mineView,bulk:bulkView,bill:billView,post:postView,board:boardView,earn:earnView};
- const rb=U.role==='traveler'?`<span class="vb" style="background:rgba(255,255,255,.12);color:#7fe0c3">${ic('shield')} ${t('idv')}</span>`:'';
- return `<div class="card fade"><div class="tabs" role="tablist">${tb.map(x=>`<button class="tab ${tab===x?'on':''}" onclick="tab='${x}';stage=1;msg='';draw()">${t('t_'+x)}</button>`).join('')}</div>${m[tab]()}</div>`}
+/* ---------- Shell & Splash ---------- */
 function showSplash(role) {
     const msgs = {
         'corporate': lang === 'en' ? 'Masarak Business' : 'مسارك للأعمال',
@@ -448,24 +419,17 @@ function showSplash(role) {
     const logoHtml = `<div class="logo" style="width:70px;height:70px;border-radius:18px;">${ic('route')}</div>`;
     const div = document.createElement('div');
     
-    // السر هنا: رفعنا الشاشة فوق المتصفح بالكامل (top: -100%) واستخدمنا transition
-    div.style.cssText = 'position:fixed;top:-100%;left:0;right:0;width:100%;height:100%;background:linear-gradient(135deg, var(--ink), var(--teald));color:#fff;z-index:999999;display:flex;align-items:center;justify-content:center;opacity:1;transition: top 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease;';
+    // تم تثبيت الألوان بأكواد صريحة، وتم تفعيل max-width:none !important للابتوب
+    div.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;width:100% !important;height:100% !important;max-width:none !important;margin:0 !important;background:linear-gradient(135deg, #0b1121, #0a5f67);color:#fff;z-index:999999;display:flex;align-items:center;justify-content:center;opacity:1;transition:opacity 0.4s ease; animation: splashDrop 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;';
 
+    // تم إزالة opacity:0 عشان تظهر فوراً في الآيفون بدون ما تختفي
     div.innerHTML = `
-        <div style="opacity:0; animation: contentPop 0.5s ease 0.5s forwards; display:flex; flex-direction:column; align-items:center; gap:18px;">
-            <div style="animation:pulseLogo 1.5s infinite 1s">${logoHtml}</div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:18px;">
+            <div style="animation:pulseLogo 1.5s infinite">${logoHtml}</div>
             <div style="font-size:32px;font-weight:bold;letter-spacing:1px;">${msgs[role]||'مسارك الذكية'}</div>
         </div>
     `;
     document.body.appendChild(div);
-
-    // خدعة سفاري للآيفون: نجبر المتصفح يستوعب إننا حطينا الشاشة (Reflow)
-    div.offsetHeight;
-
-    // بعدين نأمره ينزلها فوراً لـ (top: 0) فتنزل بسلاسة
-    setTimeout(() => {
-        div.style.top = '0';
-    }, 50);
 
     let done = false;
     const remove = () => { 
@@ -476,7 +440,6 @@ function showSplash(role) {
     };
 
     let timer = setTimeout(remove, 3000);
-
     setTimeout(() => {
         ['touchstart', 'mousedown', 'wheel', 'scroll'].forEach(e => {
             window.addEventListener(e, () => { 
@@ -486,21 +449,41 @@ function showSplash(role) {
         });
     }, 800);
 }
- function draw(){
+
+let isDark = DB.get('dark', false);
+function toggleDark() { 
+    isDark = !isDark; 
+    DB.set('dark', isDark); 
+    draw(); 
+}
+
+function toggleLang() { 
+    lang = lang === 'ar' ? 'en' : 'ar'; 
+    draw(); 
+}
+
+function appView(){
+ const tb=tabsFor(U.role),m={ship:()=>shipView(),mine:mineView,bulk:bulkView,bill:billView,post:postView,board:boardView,earn:earnView};
+ const rb=U.role==='traveler'?`<span class="vb" style="background:rgba(255,255,255,.12);color:#7fe0c3">${ic('shield')} ${t('idv')}</span>`:'';
+ return `<div class="card fade"><div class="tabs" role="tablist">${tb.map(x=>`<button class="tab ${tab===x?'on':''}" onclick="tab='${x}';stage=1;msg='';draw()">${t('t_'+x)}</button>`).join('')}</div>${m[tab]()}</div>`}
+
+function draw(){
  const r=$('htmlRoot');r.lang=lang;r.dir=lang==='en'?'ltr':'rtl';document.title=t('brand')+' | Masarak';
+ 
  if(isDark) document.body.classList.add('dark'); else document.body.classList.remove('dark');
+ 
  const nav=`<div class="nav"><div class="brand"><div class="logo">${ic('route')}</div>${t('brand')}</div><div class="acts">
  <button class="pill" style="font-size:15px;padding:4px 10px" onclick="toggleDark()">${isDark?'☀️':'🌙'}</button>
  <button class="pill" onclick="toggleLang()">${ic('globe')} ${t('lg')}</button>
  ${U?`<span class="pill">${ic(U.role==='corporate'?'bldg':U.role==='traveler'?'car':'user')} ${esc(U.name)} — ${t('r_'+U.role)}</span><button class="pill" onclick="logout()">${t('out')}</button>`:''}</div></div>`;
+ 
  $('root').innerHTML=nav+(U?appView():authView());
 }
+
 window.addEventListener('DOMContentLoaded', () => {
-    // هذا السطر يجبر الشاشة الترحيبية تطلع أول ما يفتح الرابط في كل الحالات!
     showSplash(typeof U !== 'undefined' && U ? U.role : 'guest');
     draw();
 });
- 
 </script>
 </body>
 </html>

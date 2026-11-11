@@ -455,7 +455,7 @@ function showSplash(role) {
     });
 }
  function draw(){
- if(typeof U !== 'undefined' && U && !window.hasSplashed) { showSplash(U.role); window.hasSplashed = true; }
+if(!window.hasSplashed) { showSplash(U ? U.role : 'guest'); window.hasSplashed = true; }
  const r=$('htmlRoot');r.lang=lang;r.dir=lang==='en'?'ltr':'rtl';document.title=t('brand')+' | Masarak';
  const nav=`<div class="nav"><div class="brand"><div class="logo">${ic('route')}</div>${t('brand')}</div><div class="acts">
  <button class="pill" onclick="toggleLang()">${ic('globe')} ${t('lg')}</button>

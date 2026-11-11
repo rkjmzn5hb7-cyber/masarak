@@ -468,6 +468,10 @@ function appView(){
  return `<div class="card fade"><div class="tabs" role="tablist">${tb.map(x=>`<button class="tab ${tab===x?'on':''}" onclick="tab='${x}';stage=1;msg='';draw()">${t('t_'+x)}</button>`).join('')}</div>${m[tab]()}</div>`}
 
 function draw(){
+ // هذا السطر السحري يحل مشكلة الشاشة البيضاء
+ if(U && U.role === 'user') { U.role = 'individual'; DB.set('user', U); }
+ if(U && !tab) { tab = tabsFor(U.role)[0]; }
+ 
  const r=$('htmlRoot');r.lang=lang;r.dir=lang==='en'?'ltr':'rtl';document.title=t('brand')+' | Masarak';
  
  if(isDark) document.body.classList.add('dark'); else document.body.classList.remove('dark');

@@ -427,14 +427,29 @@ function showSplash(role) {
         'corporate': lang === 'en' ? 'Masarak Business' : 'مسارك للأعمال',
         'traveler': lang === 'en' ? 'Masarak Traveler' : 'شريك مسارك',
         'individual': lang === 'en' ? 'Masarak Individuals' : 'مسارك للأفراد',
-        'guest': lang === 'en' ? 'Welcome to Masarak' : 'مرحباً بك في مسارك ✨'
+        'guest': lang === 'en' ? 'Masarak Smart' : 'مسارك الذكية ✨'
     };
     const icons = { 'corporate':'🏢', 'traveler':'🚘', 'individual':'📦', 'guest': '✨' };
-    
+
     const div = document.createElement('div');
-    div.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;max-width:none;background:linear-gradient(135deg, var(--ink), var(--teald));color:#fff;z-index:99999;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:bold;opacity:1;transition:opacity 0.4s ease;flex-direction:column;gap:15px;';
-    document.body.appendChild(div);
     
+    // 1. تم إضافة !important لحل مشكلة اللابتوب (كسر حاجز الـ 900 بكسل)
+    // 2. تم إضافة حركة نزول الألوان (splashDrop)
+    div.style.cssText = 'position:fixed;top:0;left:0;width:100% !important;height:100% !important;max-width:none !important;margin:0 !important;background:linear-gradient(135deg, var(--ink), var(--teald));color:#fff;z-index:99999;display:flex;align-items:center;justify-content:center;opacity:1;transition:opacity 0.4s ease; transform: translateY(-100%); animation: splashDrop 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;';
+
+    // 3. ترتيب الأنيميشن: تنزل الألوان أولاً، ثم تنبثق النصوص
+    div.innerHTML = `
+        <style>
+            @keyframes splashDrop { to { transform: translateY(0); } }
+            @keyframes contentPop { 0% { opacity: 0; transform: translateY(20px) scale(0.9); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        </style>
+        <div style="opacity:0; animation: contentPop 0.5s ease 0.5s forwards; display:flex; flex-direction:column; align-items:center; gap:15px;">
+            <div style="font-size:60px;animation:pulse 1.5s infinite 1s">${icons[role]||'✨'}</div>
+            <div style="font-size:32px;font-weight:bold;">${msgs[role]||'مسارك الذكية'}</div>
+        </div>
+    `;
+    document.body.appendChild(div);
+
     let done = false;
     const remove = () => { 
         if(done) return; 
@@ -442,10 +457,11 @@ function showSplash(role) {
         div.style.opacity = '0';
         setTimeout(() => div.remove(), 400); 
     };
-    
+
+    // الشاشة تختفي بعد 3 ثواني
     let timer = setTimeout(remove, 3000);
-    
-    // تأخير التفعيل جزء من الثانية عشان ما تختفي الشاشة فوراً
+
+    // منعنا اختفاء الشاشة باللمس إلا بعد مرور 800 جزء من الثانية (عشان المستخدم يلحق يشوف الأنيميشن الفخم قبل لا يفك)
     setTimeout(() => {
         ['touchstart', 'mousedown', 'wheel', 'scroll'].forEach(e => {
             window.addEventListener(e, () => { 
@@ -453,7 +469,7 @@ function showSplash(role) {
                 remove(); 
             }, {once:true});
         });
-    }, 100);
+    }, 800);
 }
 
  function draw(){

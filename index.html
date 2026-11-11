@@ -182,7 +182,20 @@ function authView(){
  const r=A.role,rl=['individual','corporate','traveler'],ri={individual:'user',corporate:'bldg',traveler:'car'};
  let extra='';
  if(r==='corporate')extra=`<div class="g3">${inp('company',A,t('company'))}${inp('cr',A,t('cr'))}${inp('vat',A,t('vat'))}</div>`;
- if(r==='traveler')extra=`<div class="g2"><div class="fg"><label>${t('veh')}</label><select onchange="A.veh=this.value">${['v_sedan','v_suv','v_van','v_pick'].map(v=>`<option value="${v}" ${A.veh===v?'selected':''}>${t(v)}</option>`).join('')}</select></div>${inp('plate',A,t('plate'))}</div><div class="g2">${inp('nid',A,t('nid'))}${inp('iban',A,t('iban'),'SA00 0000 0000 0000 0000 0000')}</div>`;
+if(r==='traveler')extra=`
+<div class="g2">
+  <div class="fg"><label>${t('veh')}</label><select onchange="A.veh=this.value">${['v_sedan','v_suv','v_van','v_pick'].map(v=>`<option value="${v}" ${A.veh===v?'selected':''}>${t(v)}</option>`).join('')}</select></div>
+  <div style="display:grid;grid-template-columns:1fr 1.5fr;gap:8px">
+    ${inp('plateL',A,lang==='en'?'Letters':'حروف اللوحة','أ ب ح')}
+    ${inp('plate',A,lang==='en'?'Numbers':'رقم اللوحة','1234')}
+  </div>
+</div>
+<div class="g2">${inp('nid',A,t('nid'))}${inp('iban',A,t('iban'),'SA00 0000 0000 0000')}</div>
+<div class="g3" style="margin-top:10px">
+  <div class="up" style="padding:10px 4px;font-size:11px;cursor:pointer" onclick="alert('جاري فتح الاستديو لرفع صورة الهوية...')">${ic('up')}<br>${lang==='en'?'ID Photo':'صورة الهوية'}</div>
+  <div class="up" style="padding:10px 4px;font-size:11px;cursor:pointer" onclick="alert('جاري فتح الاستديو لرفع صورة الاستمارة...')">${ic('up')}<br>${lang==='en'?'Registration':'صورة الاستمارة'}</div>
+  <div class="up" style="padding:10px 4px;font-size:11px;cursor:pointer" onclick="alert('جاري فتح الكاميرا لتصوير المركبة...')">${ic('up')}<br>${lang==='en'?'Vehicle Photo':'صورة المركبة'}</div>
+</div>`;
  return `<div class="card fade"><h2>${t('wTitle')}</h2><p class="sub">${t('wSub')}</p>
  <div class="roles">${rl.map(x=>`<div class="role ${r===x?'on':''}" tabindex="0" onclick="A.role='${x}';draw()">${ic(ri[x])}<b>${t('r_'+x)}</b><small>${t('rd_'+x)}</small></div>`).join('')}</div>
  <div class="sb"><div class="g2">${inp('name',A,t('name'))}${inp('phone',A,t('phone'),'05XXXXXXXX','tel')}</div>${extra}</div>
@@ -345,8 +358,19 @@ function postTrip(){
  trips.push({id:'T-'+Date.now().toString().slice(-6),name:U.name,phone:U.phone,from:TF.from,to:TF.to,space:cap,left:cap,volText:TF.space,svc:TF.svc||'hub',ts:Date.now()+(+TF.dep)*36e5,veh:U.veh||'v_sedan',rating:5.0,verified:true});
  save();msg=t('posted');draw();msg=''}
 function boardList(){const my=trips.filter(x=>x.phone===U.phone);return parcels.filter(p=>p.status==='pending'&&my.some(x=>x.left>=p.kg&&covers(x,p.from,p.to)))}
-function boardView(){const l=boardList();return `<h3>${t('boardT')}</h3>`+(l.length?l.map(p=>`<div class="row"><div><b>${esc(city(p.from))} ${lang==='en'?'→':'←'} ${esc(city(p.to))}</b> | ${p.kg} ${lang==='en'?'kg':'كجم'}<br><small style="color:var(--mut)">${p.id} | ${esc(p.rname)}</small></div><div><span class="price">${num(Math.round(p.price*.85))} ${t('sar')}</span> <button class="btn sm ok" onclick="acceptP('${p.id}')">${t('accept')}</button></div></div>`).join(''):`<div class="hint">${t('noBoard')}</div>`)}
-function acceptP(id){const p=parcels.find(x=>x.id===id),tr=trips.filter(x=>x.phone===U.phone&&x.left>=p.kg&&covers(x,p.from,p.to))[0];if(!tr)return;tr.left-=p.kg;p.status='accepted';p.by=U.phone;p.tripId=tr.id;save();draw()}
+function boardView(){const l=boardList();return `<h3>${t('boardT')}</h3>`+(l.length?l.map(p=>`<div class="row"><div><b>${esc(city(p.from))} ${lang==='en'?'→':'←'} ${esc(city(p.to))}</b> | ${p.kg} ${lang==='en'?'kg':'كجم'}<br><small style="color:var(--mut)">${p.id} | ${esc(p.rname)}</small></div><div><span class="price">${num(Math.round(p.price*.85))} ${t('sar')}</span> <button class="btn sm ok" onclick="verifyFaceAndAccept('${p.id}')">${t('accept')}</button></div></div>`).join(''):`<div class="hint">${t('noBoard')}</div>`)}
+//محاكاة بصمه الوجة
+ function verifyFaceAndAccept(id) {
+  const msg1 = lang === 'en' ? "Initializing Face ID / Nafath verification..." : "🔒 التحقق الأمني: جاري فتح الكاميرا لمطابقة بصمة الوجه مع الهوية الوطنية (نفاذ)...";
+  const msg2 = lang === 'en' ? "Face verified successfully! Parcel assigned to you." : "✅ تمت المطابقة بنجاح! تم ربط عهدة الطرد بحسابك الموثق.";
+  alert(msg1);
+  setTimeout(() => {
+    alert(msg2);
+    acceptP(id);
+  }, 1500);
+}
+ 
+ function acceptP(id){const p=parcels.find(x=>x.id===id),tr=trips.filter(x=>x.phone===U.phone&&x.left>=p.kg&&covers(x,p.from,p.to))[0];if(!tr)return;tr.left-=p.kg;p.status='accepted';p.by=U.phone;p.tripId=tr.id;save();draw()}
 function deliverP(id){const p=parcels.find(x=>x.id===id);p.status='delivered';save();draw()}
 function earnView(){const l=parcels.filter(p=>p.by===U.phone),sum=s=>l.filter(p=>p.status===s).reduce((a,p)=>a+Math.round(p.price*.85),0);
  return `<div class="stat"><div><b>${num(sum('delivered'))}</b><span>${t('eTot')} (${t('sar')})</span></div><div><b>${num(sum('accepted'))}</b><span>${t('ePen')} (${t('sar')})</span></div><div><b>${l.filter(p=>p.status==='delivered').length}</b><span>${t('eCnt')}</span></div><div><b><span class="vb">${ic('shield')}</span></b><span>${t('idv')}</span></div></div>

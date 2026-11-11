@@ -212,6 +212,16 @@ function logout(){U=null;DB.set('user',null);msg='';draw()}
   if (r.length > 5) r = [r[0], r[1], '...', r[r.length-2], r[r.length-1]];
   return r.map((c, idx, arr) => `<span style="font-size:11.5px;text-align:center;line-height:1.2">${esc(c === '...' ? '...' : city(c))}</span>${idx < arr.length - 1 ? '<i></i>' : ''}`).join('');
 };
+ function simulateAI() {
+  const msg1 = lang === 'en' ? "Requesting camera access to estimate dimensions..." : "جاري فتح الكاميرا وتحليل أبعاد الطرد بالذكاء الاصطناعي...";
+  const msg2 = lang === 'en' ? "Estimated dimensions: 45x30x20 cm" : "تم تقدير الأبعاد بنجاح: 45x30x20 سم";
+  alert(msg1);
+  setTimeout(() => {
+    const inp = document.getElementById('aiDim');
+    if(inp) { inp.value = "45x30x20"; F.vol = "45x30x20"; }
+    alert(msg2);
+  }, 1200);
+}
 function shipView(){
  if(stage===3)return wbView(cur);
  const km=dist(F.from,F.to),h=road(km),hw=HWN[hwIdx(F.from,F.to)][lang==='en'?1:0];
@@ -223,7 +233,14 @@ function shipView(){
   <div style="font-size:13px;color:var(--mut);margin-top:6px">${t('dep')}: <b>${o.wait?num(o.wait)+' '+t('h'):t('now')}</b> | ${t('eta')}: <b>${num(o.hrs)} ${t('hr')}</b> ${o.type==='car'?'('+t('loadWait')+')':''}${o.trip?` | ${ic('star','f')} ${o.trip.rating} | ${t(o.trip.veh)}`:''}</div></div>`).join('')}
   <div class="msg e ${msg?'show':''}">${msg}</div><button class="btn sec" onclick="stage=1;msg='';draw()">${t('back')}</button></div>`;
  return `<div class="sb"><div class="cities">${cityPick(F,'F','from',t('from'))}<button class="swap" aria-label="swap" onclick="const x=F.from;F.from=F.to;F.to=x;draw()">${ic('swap')}</button>${cityPick(F,'F','to',t('to'))}</div>${dash}
- <div class="g2"><div class="fg"><label>${t('kg')}</label><select onchange="F.kg=this.value">${[1,5,15,25].map(k=>`<option value="${k}" ${F.kg==k?'selected':''}>${k} ${lang==='en'?'kg':'كجم'}</option>`).join('')}</select></div>
+ <div class="g2"><div class="fg"><label>${t('kg')}</label><input type="number" placeholder="مثال: 5" value="${F.kg||''}" oninput="F.kg=this.value"></div>
+<div class="fg">
+  <label>${lang==='en'?'AI Volumetric Size':'حجم الطرد (ذكاء اصطناعي)'}</label>
+  <div style="display:flex;gap:8px">
+    <input type="text" id="aiDim" placeholder="مثال: 40x30x20 سم" value="${F.vol||''}" oninput="F.vol=this.value" style="flex:1">
+    <button class="btn dk sm" onclick="simulateAI()" style="width:auto">📷</button>
+  </div>
+</div>
  <div class="fg"><label>${t('svc')}</label><select onchange="F.svc=this.value">${['hub','d2d','d2b','b2b'].map(s=>`<option value="${s}" ${F.svc===s?'selected':''}>${t('s_'+s)}</option>`).join('')}</select></div></div>
  <div class="g2">${inp('rname',F,t('rname'))}${inp('rphone',F,t('rphone'),'05XXXXXXXX','tel')}</div>${inp('notes',F,t('notes'))}
  <div class="msg e ${msg?'show':''}">${msg}</div><button class="btn" onclick="findOffers()">${t('find')}${ic('arrow','arr')}</button></div>`}

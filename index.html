@@ -455,7 +455,6 @@ function showSplash(role) {
     });
 }
  function draw(){
-if(!window.hasSplashed) { showSplash(U ? U.role : 'guest'); window.hasSplashed = true; }
  const r=$('htmlRoot');r.lang=lang;r.dir=lang==='en'?'ltr':'rtl';document.title=t('brand')+' | Masarak';
  const nav=`<div class="nav"><div class="brand"><div class="logo">${ic('route')}</div>${t('brand')}</div><div class="acts">
  <button class="pill" onclick="toggleLang()">${ic('globe')} ${t('lg')}</button>
@@ -463,7 +462,10 @@ if(!window.hasSplashed) { showSplash(U ? U.role : 'guest'); window.hasSplashed =
  $('root').innerHTML=nav+(U?appView():authView());
 }
 window.addEventListener('DOMContentLoaded', () => {
+    // هذا السطر يجبر الشاشة الترحيبية تطلع أول ما يفتح الرابط في كل الحالات!
+    showSplash(typeof U !== 'undefined' && U ? U.role : 'guest');
     draw();
+});
 });
 </script>
 </body>
